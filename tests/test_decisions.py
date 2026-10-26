@@ -2,7 +2,7 @@ import pytest
 
 from tests.conftest import make_opportunity, make_student
 from tools.decisions import (appeal_decision, approve_decision, get_decision,
-                             log_decision, make_decision)
+                             list_decisions, log_decision, make_decision)
 
 
 @pytest.fixture
@@ -27,6 +27,13 @@ def test_log_and_get_round_trip(students, opportunities, path):
     loaded = get_decision("D0001", path)
     assert loaded == saved
     assert log_decision(make_decision("O2", "hybrid", students, opportunities), path).id == "D0002"
+
+
+def test_list_decisions(students, opportunities, path):
+    assert list_decisions(path) == []
+    log_decision(make_decision("O1", "hybrid", students, opportunities), path)
+    log_decision(make_decision("O2", "hybrid", students, opportunities), path)
+    assert [r.id for r in list_decisions(path)] == ["D0001", "D0002"]
 
 
 def test_get_missing_raises(path):

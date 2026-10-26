@@ -34,6 +34,8 @@ def test_derive_skills_unknown_title():
 def test_parsers():
     assert parse_duration_weeks("3 Months") == 12
     assert parse_duration_weeks("6 Weeks") == 6
+    assert parse_duration_weeks("13 Apr - 13 May' 24") == 8      # a date, not a duration
+    assert parse_duration_weeks("Starts immediately") == 8
     assert parse_stipend("₹ 10,000 /month") == 10000
     assert parse_stipend("Unpaid") == 0
 
@@ -50,6 +52,15 @@ def test_dataframe_filter_dedupe_and_area():
     assert [o.title for o in opps] == ["ML Intern", "Web Developer"]   # Mumbai + duplicate dropped
     assert opps[1].area == "Koramangala"                               # area read from text
     assert all(o.source == "kaggle" for o in opps)
+
+
+def test_domain_cap_keeps_scarce_tech_listings():
+    titles = [f"Sales {i}" for i in range(10)] + ["Machine Learning"]
+    df = pd.DataFrame({"Title": titles, "Company Name": [f"C{i}" for i in range(11)],
+                       "Location": ["[['Bangalore']]"] * 11})
+    opps = opportunities_from_dataframe(df, limit=5, max_per_domain=3)
+    domains = [o.domain for o in opps]
+    assert domains.count("Other") == 3 and "ML" in domains
 
 
 def test_synthetic_opportunities_deterministic_and_has_koramangala_ml():

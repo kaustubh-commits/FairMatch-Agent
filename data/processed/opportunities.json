@@ -1,946 +1,773 @@
 [
   {
     "id": "O001",
-    "title": "Computer Vision Intern",
-    "company": "Kaveri Labs",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "ML",
+    "title": "Digital Marketing/Sales",
+    "company": "Colortext Digital Solutions Private Limited",
+    "area": "MG Road",
+    "lat": 12.9756,
+    "lon": 77.6066,
+    "domain": "Other",
     "required_skills": [
-      "ML"
+      "Communication"
     ],
     "preferred_skills": [
-      "Python",
-      "Data analysis"
+      "Leadership"
     ],
-    "duration_weeks": 4,
-    "stipend": 25000,
-    "slots": 2,
-    "source": "synthetic"
+    "duration_weeks": 8,
+    "stipend": 5000,
+    "slots": 1,
+    "source": "kaggle"
   },
   {
     "id": "O002",
-    "title": "Machine Learning Intern",
-    "company": "Lalbagh Software",
+    "title": "Videography",
+    "company": "SuperTails",
     "area": "Koramangala",
     "lat": 12.9352,
     "lon": 77.6245,
-    "domain": "ML",
+    "domain": "Other",
     "required_skills": [
-      "ML"
+      "Communication"
     ],
     "preferred_skills": [
-      "Python",
-      "Data analysis"
+      "Leadership"
     ],
     "duration_weeks": 8,
-    "stipend": 25000,
-    "slots": 1,
-    "source": "synthetic"
+    "stipend": 15000,
+    "slots": 3,
+    "source": "kaggle"
   },
   {
     "id": "O003",
-    "title": "Computer Vision Intern",
-    "company": "Tulsi Design Studio",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "ML",
+    "title": "Operations",
+    "company": "SuperTails",
+    "area": "Electronic City",
+    "lat": 12.8452,
+    "lon": 77.6602,
+    "domain": "Other",
     "required_skills": [
-      "ML"
+      "Leadership"
     ],
     "preferred_skills": [
-      "Python",
-      "Data analysis"
+      "Communication"
     ],
-    "duration_weeks": 4,
-    "stipend": 20000,
-    "slots": 2,
-    "source": "synthetic"
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 1,
+    "source": "kaggle"
   },
   {
     "id": "O004",
-    "title": "Data Science Intern",
-    "company": "Kaveri Labs",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "Data",
+    "title": "Architecture",
+    "company": "Squareball Interior Concepts",
+    "area": "Whitefield",
+    "lat": 12.9698,
+    "lon": 77.75,
+    "domain": "Other",
     "required_skills": [
-      "Data analysis"
+      "Communication"
     ],
     "preferred_skills": [
-      "Python",
-      "Communication"
+      "Leadership"
     ],
     "duration_weeks": 8,
     "stipend": 5000,
-    "slots": 3,
-    "source": "synthetic"
+    "slots": 1,
+    "source": "kaggle"
   },
   {
     "id": "O005",
-    "title": "Deep Learning Intern",
-    "company": "Namma Fintech",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "ML",
-    "required_skills": [
-      "ML"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Data analysis"
-    ],
-    "duration_weeks": 8,
-    "stipend": 25000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O006",
-    "title": "Marketing Intern",
-    "company": "Lalbagh Software",
-    "area": "Bellandur",
-    "lat": 12.9304,
-    "lon": 77.6784,
-    "domain": "Other",
-    "required_skills": [
-      "Communication"
-    ],
-    "preferred_skills": [
-      "Leadership"
-    ],
-    "duration_weeks": 24,
-    "stipend": 20000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O007",
-    "title": "Machine Learning Intern",
-    "company": "Banyan Robotics",
-    "area": "Hebbal",
-    "lat": 13.0358,
-    "lon": 77.597,
-    "domain": "ML",
-    "required_skills": [
-      "ML"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Data analysis"
-    ],
-    "duration_weeks": 24,
-    "stipend": 10000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O008",
-    "title": "Frontend Developer Intern (React)",
-    "company": "Cubbon AI",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Web",
-    "required_skills": [
-      "Web dev"
-    ],
-    "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
-    ],
-    "duration_weeks": 4,
-    "stipend": 0,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O009",
-    "title": "Web Development Intern",
-    "company": "Cubbon AI",
-    "area": "Marathahalli",
-    "lat": 12.9591,
-    "lon": 77.6974,
-    "domain": "Web",
-    "required_skills": [
-      "Web dev"
-    ],
-    "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
-    ],
-    "duration_weeks": 12,
-    "stipend": 0,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O010",
-    "title": "Full Stack Developer Intern",
-    "company": "Kaveri Labs",
-    "area": "JP Nagar",
-    "lat": 12.9063,
-    "lon": 77.5857,
-    "domain": "Web",
-    "required_skills": [
-      "Web dev"
-    ],
-    "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
-    ],
-    "duration_weeks": 24,
-    "stipend": 0,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O011",
-    "title": "UI/UX Design Intern",
-    "company": "Vidhana Data",
-    "area": "Yelahanka",
-    "lat": 13.1007,
-    "lon": 77.5963,
-    "domain": "Design",
-    "required_skills": [
-      "Design"
-    ],
-    "preferred_skills": [
-      "Communication",
-      "Web dev"
-    ],
-    "duration_weeks": 12,
-    "stipend": 20000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O012",
-    "title": "Data Analyst Intern",
-    "company": "Vidhana Data",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
-    ],
-    "duration_weeks": 8,
-    "stipend": 10000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O013",
-    "title": "Flutter App Developer Intern",
-    "company": "Kaveri Labs",
-    "area": "Yelahanka",
-    "lat": 13.1007,
-    "lon": 77.5963,
-    "domain": "App",
-    "required_skills": [
-      "App dev"
-    ],
-    "preferred_skills": [
-      "Java",
-      "Design"
-    ],
-    "duration_weeks": 24,
-    "stipend": 10000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O014",
-    "title": "NLP Research Intern",
-    "company": "Cubbon AI",
-    "area": "Indiranagar",
-    "lat": 12.9719,
-    "lon": 77.6412,
-    "domain": "ML",
-    "required_skills": [
-      "ML"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Data analysis"
-    ],
-    "duration_weeks": 12,
-    "stipend": 5000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O015",
-    "title": "Cloud / DevOps Intern (AWS)",
-    "company": "Vidhana Data",
+    "title": "Brand Partnership",
+    "company": "Go Alpha Kids",
     "area": "Malleshwaram",
     "lat": 13.0031,
     "lon": 77.5643,
-    "domain": "Cloud",
+    "domain": "Other",
     "required_skills": [
-      "Cloud/DevOps"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Java"
-    ],
-    "duration_weeks": 4,
-    "stipend": 20000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O016",
-    "title": "Backend Developer Intern (Java)",
-    "company": "Tulsi Design Studio",
-    "area": "JP Nagar",
-    "lat": 12.9063,
-    "lon": 77.5857,
-    "domain": "Web",
-    "required_skills": [
-      "Java",
-      "Web dev"
-    ],
-    "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
-    ],
-    "duration_weeks": 8,
-    "stipend": 5000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O017",
-    "title": "Computer Vision Intern",
-    "company": "Vidhana Data",
-    "area": "Electronic City",
-    "lat": 12.8452,
-    "lon": 77.6602,
-    "domain": "ML",
-    "required_skills": [
-      "ML"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Data analysis"
-    ],
-    "duration_weeks": 8,
-    "stipend": 25000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O018",
-    "title": "Data Science Intern",
-    "company": "Nimbus Analytics",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
       "Communication"
     ],
-    "duration_weeks": 12,
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 3000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O006",
+    "title": "Partner Management",
+    "company": "Goodera",
+    "area": "MG Road",
+    "lat": 12.9756,
+    "lon": 77.6066,
+    "domain": "Other",
+    "required_skills": [
+      "Leadership"
+    ],
+    "preferred_skills": [
+      "Communication"
+    ],
+    "duration_weeks": 8,
     "stipend": 15000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O019",
-    "title": "Data Analyst Intern",
-    "company": "Garden City Games",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
-    ],
-    "duration_weeks": 12,
-    "stipend": 5000,
     "slots": 3,
-    "source": "synthetic"
+    "source": "kaggle"
   },
   {
-    "id": "O020",
-    "title": "Business Analyst Intern",
-    "company": "Vidhana Data",
-    "area": "Bellandur",
-    "lat": 12.9304,
-    "lon": 77.6784,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
-    ],
-    "duration_weeks": 24,
-    "stipend": 5000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O021",
-    "title": "Frontend Developer Intern (React)",
-    "company": "Tulsi Design Studio",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Web",
-    "required_skills": [
-      "Web dev"
-    ],
-    "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
-    ],
-    "duration_weeks": 12,
-    "stipend": 25000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O022",
-    "title": "Python Developer Intern",
-    "company": "Garden City Games",
+    "id": "O007",
+    "title": "Business Development (Sales)",
+    "company": "BoxUp Luxury Gifting",
     "area": "Sarjapur Road",
     "lat": 12.91,
     "lon": 77.687,
-    "domain": "Data",
+    "domain": "Other",
     "required_skills": [
-      "Python"
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O008",
+    "title": "Graphic Design",
+    "company": "SmartQ",
+    "area": "HSR Layout",
+    "lat": 12.9116,
+    "lon": 77.6474,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 5000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O009",
+    "title": "Client Experience",
+    "company": "Goodera",
+    "area": "Bellandur",
+    "lat": 12.9304,
+    "lon": 77.6784,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O010",
+    "title": "Product Consulting (Business Development)",
+    "company": "Early Steps Academy",
+    "area": "Koramangala",
+    "lat": 12.9352,
+    "lon": 77.6245,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 20000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O011",
+    "title": "Supply Chain Management (SCM)",
+    "company": "Kkonnect.io",
+    "area": "Whitefield",
+    "lat": 12.9698,
+    "lon": 77.75,
+    "domain": "Other",
+    "required_skills": [
+      "Leadership"
     ],
     "preferred_skills": [
       "Communication"
     ],
-    "duration_weeks": 24,
+    "duration_weeks": 8,
     "stipend": 10000,
     "slots": 1,
-    "source": "synthetic"
+    "source": "kaggle"
+  },
+  {
+    "id": "O012",
+    "title": "Mechanical Engineering",
+    "company": "Elecnovo Private Limited",
+    "area": "JP Nagar",
+    "lat": 12.9063,
+    "lon": 77.5857,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 8000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O013",
+    "title": "Photography",
+    "company": "Sanwa Diamond Tools",
+    "area": "Koramangala",
+    "lat": 12.9352,
+    "lon": 77.6245,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 7500,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O014",
+    "title": "Digital Marketing",
+    "company": "Wizrdom",
+    "area": "Whitefield",
+    "lat": 12.9698,
+    "lon": 77.75,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 8000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O015",
+    "title": "HR Consulting",
+    "company": "ICS Consultancy Services",
+    "area": "MG Road",
+    "lat": 12.9756,
+    "lon": 77.6066,
+    "domain": "Other",
+    "required_skills": [
+      "Leadership"
+    ],
+    "preferred_skills": [
+      "Communication"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O016",
+    "title": "Talent Acquisition",
+    "company": "Jodo",
+    "area": "JP Nagar",
+    "lat": 12.9063,
+    "lon": 77.5857,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O017",
+    "title": "Human Resources (HR)",
+    "company": "B B Advisory",
+    "area": "Whitefield",
+    "lat": 12.9698,
+    "lon": 77.75,
+    "domain": "Other",
+    "required_skills": [
+      "Leadership"
+    ],
+    "preferred_skills": [
+      "Communication"
+    ],
+    "duration_weeks": 8,
+    "stipend": 5000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O018",
+    "title": "Social Media Marketing",
+    "company": "LeadStrategus",
+    "area": "Jayanagar",
+    "lat": 12.925,
+    "lon": 77.5938,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 20000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O019",
+    "title": "Campus Ambassador",
+    "company": "Pawzz",
+    "area": "Hebbal",
+    "lat": 13.0358,
+    "lon": 77.597,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 0,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O020",
+    "title": "Finance & Accounting",
+    "company": "Able Jobs",
+    "area": "Hebbal",
+    "lat": 13.0358,
+    "lon": 77.597,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O021",
+    "title": "Full Stack Content Creation And Development",
+    "company": "DevTown",
+    "area": "Malleshwaram",
+    "lat": 13.0031,
+    "lon": 77.5643,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev",
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 20000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O022",
+    "title": "Video Editing/Making",
+    "company": "ChangeJar Technologies Private Limited",
+    "area": "Marathahalli",
+    "lat": 12.9591,
+    "lon": 77.6974,
+    "domain": "Other",
+    "required_skills": [
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Leadership"
+    ],
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 2,
+    "source": "kaggle"
   },
   {
     "id": "O023",
-    "title": "Frontend Developer Intern (React)",
-    "company": "Ragi Health Tech",
-    "area": "JP Nagar",
-    "lat": 12.9063,
-    "lon": 77.5857,
-    "domain": "Web",
+    "title": "Graphic Design",
+    "company": "Li-Ning Studio",
+    "area": "Indiranagar",
+    "lat": 12.9719,
+    "lon": 77.6412,
+    "domain": "Design",
     "required_skills": [
-      "Web dev"
+      "Design"
     ],
     "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
+      "Communication",
+      "Web dev"
     ],
-    "duration_weeks": 4,
-    "stipend": 0,
+    "duration_weeks": 8,
+    "stipend": 10000,
     "slots": 1,
-    "source": "synthetic"
+    "source": "kaggle"
   },
   {
     "id": "O024",
-    "title": "Frontend Developer Intern (React)",
-    "company": "Banyan Robotics",
-    "area": "MG Road",
-    "lat": 12.9756,
-    "lon": 77.6066,
-    "domain": "Web",
+    "title": "Graphic Design",
+    "company": "Sirma Business Consulting (India) Private Limited",
+    "area": "Hebbal",
+    "lat": 13.0358,
+    "lon": 77.597,
+    "domain": "Design",
     "required_skills": [
-      "Web dev"
+      "Design"
     ],
     "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
+      "Communication",
+      "Web dev"
     ],
-    "duration_weeks": 24,
-    "stipend": 20000,
-    "slots": 1,
-    "source": "synthetic"
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 2,
+    "source": "kaggle"
   },
   {
     "id": "O025",
-    "title": "Computer Vision Intern",
-    "company": "Garden City Games",
-    "area": "Bellandur",
-    "lat": 12.9304,
-    "lon": 77.6784,
-    "domain": "ML",
+    "title": "Graphic Design",
+    "company": "Leap Media",
+    "area": "HSR Layout",
+    "lat": 12.9116,
+    "lon": 77.6474,
+    "domain": "Design",
     "required_skills": [
-      "ML"
+      "Design"
     ],
     "preferred_skills": [
-      "Python",
-      "Data analysis"
+      "Communication",
+      "Web dev"
     ],
-    "duration_weeks": 24,
-    "stipend": 20000,
-    "slots": 2,
-    "source": "synthetic"
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 1,
+    "source": "kaggle"
   },
   {
     "id": "O026",
-    "title": "Marketing Intern",
-    "company": "Nimbus Analytics",
-    "area": "Yelahanka",
-    "lat": 13.1007,
-    "lon": 77.5963,
-    "domain": "Other",
+    "title": "Product Design - Mechanical Engineering",
+    "company": "Greendzine Technologies",
+    "area": "Bellandur",
+    "lat": 12.9304,
+    "lon": 77.6784,
+    "domain": "Design",
     "required_skills": [
-      "Communication"
+      "Design"
     ],
     "preferred_skills": [
-      "Leadership"
+      "Communication",
+      "Web dev"
     ],
-    "duration_weeks": 4,
-    "stipend": 25000,
-    "slots": 3,
-    "source": "synthetic"
+    "duration_weeks": 8,
+    "stipend": 18000,
+    "slots": 1,
+    "source": "kaggle"
   },
   {
     "id": "O027",
-    "title": "Cloud / DevOps Intern (AWS)",
-    "company": "Vidhana Data",
-    "area": "Hebbal",
-    "lat": 13.0358,
-    "lon": 77.597,
-    "domain": "Cloud",
+    "title": "AI Automation Testing",
+    "company": "Digite Infotech Private Limited",
+    "area": "Marathahalli",
+    "lat": 12.9591,
+    "lon": 77.6974,
+    "domain": "ML",
     "required_skills": [
-      "Cloud/DevOps"
+      "ML"
     ],
     "preferred_skills": [
       "Python",
-      "Java"
+      "Data analysis"
     ],
-    "duration_weeks": 12,
-    "stipend": 0,
+    "duration_weeks": 8,
+    "stipend": 17000,
     "slots": 2,
-    "source": "synthetic"
+    "source": "kaggle"
   },
   {
     "id": "O028",
-    "title": "Python Developer Intern",
-    "company": "Ragi Health Tech",
-    "area": "Indiranagar",
-    "lat": 12.9719,
-    "lon": 77.6412,
-    "domain": "Data",
+    "title": "Graphic Design",
+    "company": "Pereyan LLP",
+    "area": "Jayanagar",
+    "lat": 12.925,
+    "lon": 77.5938,
+    "domain": "Design",
     "required_skills": [
-      "Python"
+      "Design"
     ],
     "preferred_skills": [
-      "Communication"
+      "Communication",
+      "Web dev"
     ],
-    "duration_weeks": 4,
-    "stipend": 25000,
-    "slots": 3,
-    "source": "synthetic"
+    "duration_weeks": 8,
+    "stipend": 12000,
+    "slots": 2,
+    "source": "kaggle"
   },
   {
     "id": "O029",
-    "title": "Cloud / DevOps Intern (AWS)",
-    "company": "Banyan Robotics",
-    "area": "JP Nagar",
-    "lat": 12.9063,
-    "lon": 77.5857,
-    "domain": "Cloud",
-    "required_skills": [
-      "Cloud/DevOps"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Java"
-    ],
-    "duration_weeks": 4,
-    "stipend": 25000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O030",
-    "title": "Content Writing Intern",
-    "company": "Lalbagh Software",
-    "area": "Jayanagar",
-    "lat": 12.925,
-    "lon": 77.5938,
-    "domain": "Other",
-    "required_skills": [
-      "Communication"
-    ],
-    "preferred_skills": [
-      "Leadership"
-    ],
-    "duration_weeks": 8,
-    "stipend": 10000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O031",
-    "title": "Marketing Intern",
-    "company": "Namma Fintech",
+    "title": "Product Design - Industrial Design (ID)",
+    "company": "Greendzine Technologies",
     "area": "Hebbal",
     "lat": 13.0358,
     "lon": 77.597,
-    "domain": "Other",
+    "domain": "Design",
     "required_skills": [
-      "Communication"
+      "Design"
     ],
     "preferred_skills": [
-      "Leadership"
-    ],
-    "duration_weeks": 4,
-    "stipend": 20000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O032",
-    "title": "Business Analyst Intern",
-    "company": "Kaveri Labs",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
-    ],
-    "duration_weeks": 12,
-    "stipend": 10000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O033",
-    "title": "Data Science Intern",
-    "company": "Garden City Games",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
-    ],
-    "duration_weeks": 4,
-    "stipend": 0,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O034",
-    "title": "Business Analyst Intern",
-    "company": "Kaveri Labs",
-    "area": "Yelahanka",
-    "lat": 13.1007,
-    "lon": 77.5963,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
+      "Communication",
+      "Web dev"
     ],
     "duration_weeks": 8,
-    "stipend": 5000,
-    "slots": 3,
-    "source": "synthetic"
+    "stipend": 18000,
+    "slots": 1,
+    "source": "kaggle"
   },
   {
-    "id": "O035",
-    "title": "Business Analyst Intern",
-    "company": "Banyan Robotics",
+    "id": "O030",
+    "title": "Graphic Design",
+    "company": "Material Depot",
+    "area": "Malleshwaram",
+    "lat": 13.0031,
+    "lon": 77.5643,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O031",
+    "title": "Visual Design",
+    "company": "SuperHuman Race Private Limited",
     "area": "JP Nagar",
     "lat": 12.9063,
     "lon": 77.5857,
-    "domain": "Data",
+    "domain": "Design",
     "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
-    ],
-    "duration_weeks": 12,
-    "stipend": 20000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O036",
-    "title": "Python Developer Intern",
-    "company": "Namma Fintech",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Data",
-    "required_skills": [
-      "Python"
-    ],
-    "preferred_skills": [
-      "Communication"
-    ],
-    "duration_weeks": 8,
-    "stipend": 25000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O037",
-    "title": "Computer Vision Intern",
-    "company": "Vidhana Data",
-    "area": "MG Road",
-    "lat": 12.9756,
-    "lon": 77.6066,
-    "domain": "ML",
-    "required_skills": [
-      "ML"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Data analysis"
-    ],
-    "duration_weeks": 12,
-    "stipend": 15000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O038",
-    "title": "Full Stack Developer Intern",
-    "company": "Lalbagh Software",
-    "area": "HSR Layout",
-    "lat": 12.9116,
-    "lon": 77.6474,
-    "domain": "Web",
-    "required_skills": [
-      "Web dev"
-    ],
-    "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
-    ],
-    "duration_weeks": 8,
-    "stipend": 0,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O039",
-    "title": "Machine Learning Intern",
-    "company": "Namma Fintech",
-    "area": "Jayanagar",
-    "lat": 12.925,
-    "lon": 77.5938,
-    "domain": "ML",
-    "required_skills": [
-      "ML"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Data analysis"
-    ],
-    "duration_weeks": 8,
-    "stipend": 20000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O040",
-    "title": "Machine Learning Intern",
-    "company": "Tulsi Design Studio",
-    "area": "HSR Layout",
-    "lat": 12.9116,
-    "lon": 77.6474,
-    "domain": "ML",
-    "required_skills": [
-      "ML"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Data analysis"
-    ],
-    "duration_weeks": 4,
-    "stipend": 5000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O041",
-    "title": "Data Science Intern",
-    "company": "Cubbon AI",
-    "area": "Yelahanka",
-    "lat": 13.1007,
-    "lon": 77.5963,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
-    ],
-    "duration_weeks": 4,
-    "stipend": 20000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O042",
-    "title": "Cloud / DevOps Intern (AWS)",
-    "company": "Ragi Health Tech",
-    "area": "MG Road",
-    "lat": 12.9756,
-    "lon": 77.6066,
-    "domain": "Cloud",
-    "required_skills": [
-      "Cloud/DevOps"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Java"
-    ],
-    "duration_weeks": 8,
-    "stipend": 20000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O043",
-    "title": "Operations Intern",
-    "company": "Ragi Health Tech",
-    "area": "Jayanagar",
-    "lat": 12.925,
-    "lon": 77.5938,
-    "domain": "Other",
-    "required_skills": [
-      "Leadership"
-    ],
-    "preferred_skills": [
-      "Communication"
-    ],
-    "duration_weeks": 8,
-    "stipend": 15000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O044",
-    "title": "Android App Development Intern",
-    "company": "Kaveri Labs",
-    "area": "HSR Layout",
-    "lat": 12.9116,
-    "lon": 77.6474,
-    "domain": "App",
-    "required_skills": [
-      "App dev"
-    ],
-    "preferred_skills": [
-      "Java",
       "Design"
     ],
-    "duration_weeks": 24,
-    "stipend": 10000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O045",
-    "title": "Python Developer Intern",
-    "company": "Tulsi Design Studio",
-    "area": "BTM Layout",
-    "lat": 12.9166,
-    "lon": 77.6101,
-    "domain": "Data",
-    "required_skills": [
-      "Python"
-    ],
     "preferred_skills": [
-      "Communication"
-    ],
-    "duration_weeks": 4,
-    "stipend": 25000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O046",
-    "title": "Web Development Intern",
-    "company": "Indigo Cloudworks",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "Web",
-    "required_skills": [
+      "Communication",
       "Web dev"
     ],
-    "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
-    ],
-    "duration_weeks": 12,
-    "stipend": 0,
+    "duration_weeks": 8,
+    "stipend": 9000,
     "slots": 1,
-    "source": "synthetic"
+    "source": "kaggle"
   },
   {
-    "id": "O047",
-    "title": "Android App Development Intern",
-    "company": "Namma Fintech",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "App",
+    "id": "O032",
+    "title": "Graphic Design",
+    "company": "Innovate Networks E-Services Private Limited",
+    "area": "Sarjapur Road",
+    "lat": 12.91,
+    "lon": 77.687,
+    "domain": "Design",
     "required_skills": [
-      "App dev"
-    ],
-    "preferred_skills": [
-      "Java",
       "Design"
     ],
-    "duration_weeks": 24,
-    "stipend": 5000,
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 6000,
     "slots": 2,
-    "source": "synthetic"
+    "source": "kaggle"
   },
   {
-    "id": "O048",
-    "title": "Backend Developer Intern (Java)",
-    "company": "Ragi Health Tech",
+    "id": "O033",
+    "title": "Industrial Design",
+    "company": "Pereyan LLP",
+    "area": "HSR Layout",
+    "lat": 12.9116,
+    "lon": 77.6474,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 12000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O034",
+    "title": "Industrial Design",
+    "company": "Ayati Devices Private Limited",
     "area": "Electronic City",
     "lat": 12.8452,
     "lon": 77.6602,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 12500,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O035",
+    "title": "Fashion Design",
+    "company": "Kamises",
+    "area": "Jayanagar",
+    "lat": 12.925,
+    "lon": 77.5938,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 8000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O036",
+    "title": "Graphic Design",
+    "company": "1729 Digital",
+    "area": "Jayanagar",
+    "lat": 12.925,
+    "lon": 77.5938,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O037",
+    "title": "Visual Design",
+    "company": "Bon Tech Solutions",
+    "area": "Malleshwaram",
+    "lat": 13.0031,
+    "lon": 77.5643,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O038",
+    "title": "Python Development",
+    "company": "Karkhana.io",
+    "area": "Koramangala",
+    "lat": 12.9352,
+    "lon": 77.6245,
+    "domain": "Data",
+    "required_skills": [
+      "Python"
+    ],
+    "preferred_skills": [
+      "Communication"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O039",
+    "title": "Graphic Designer",
+    "company": "Krayonnz",
+    "area": "Whitefield",
+    "lat": 12.9698,
+    "lon": 77.75,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O040",
+    "title": "Front End Development",
+    "company": "Karkhana.io",
+    "area": "HSR Layout",
+    "lat": 12.9116,
+    "lon": 77.6474,
     "domain": "Web",
     "required_skills": [
-      "Java",
       "Web dev"
     ],
     "preferred_skills": [
@@ -948,54 +775,213 @@
       "Cloud/DevOps"
     ],
     "duration_weeks": 8,
-    "stipend": 0,
-    "slots": 2,
-    "source": "synthetic"
+    "stipend": 10000,
+    "slots": 1,
+    "source": "kaggle"
   },
   {
-    "id": "O049",
-    "title": "Marketing Intern",
-    "company": "Nimbus Analytics",
-    "area": "HSR Layout",
-    "lat": 12.9116,
-    "lon": 77.6474,
-    "domain": "Other",
+    "id": "O041",
+    "title": "Product Design",
+    "company": "Autoyos Private Limited",
+    "area": "Yelahanka",
+    "lat": 13.1007,
+    "lon": 77.5963,
+    "domain": "Design",
     "required_skills": [
-      "Communication"
+      "Design"
     ],
     "preferred_skills": [
-      "Leadership"
+      "Communication",
+      "Web dev"
     ],
-    "duration_weeks": 4,
-    "stipend": 0,
+    "duration_weeks": 8,
+    "stipend": 4000,
     "slots": 1,
-    "source": "synthetic"
+    "source": "kaggle"
   },
   {
-    "id": "O050",
-    "title": "Backend Developer Intern (Java)",
-    "company": "Ragi Health Tech",
+    "id": "O042",
+    "title": "Web Development",
+    "company": "BNV Software",
     "area": "Bellandur",
     "lat": 12.9304,
     "lon": 77.6784,
     "domain": "Web",
     "required_skills": [
-      "Java",
       "Web dev"
     ],
     "preferred_skills": [
       "Design",
       "Cloud/DevOps"
     ],
-    "duration_weeks": 24,
-    "stipend": 5000,
+    "duration_weeks": 8,
+    "stipend": 10000,
     "slots": 2,
-    "source": "synthetic"
+    "source": "kaggle"
+  },
+  {
+    "id": "O043",
+    "title": "Python Scripting",
+    "company": "Impact Analytics",
+    "area": "BTM Layout",
+    "lat": 12.9166,
+    "lon": 77.6101,
+    "domain": "Data",
+    "required_skills": [
+      "Python"
+    ],
+    "preferred_skills": [
+      "Communication"
+    ],
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O044",
+    "title": "Mobile App Development",
+    "company": "Buddha Education Association Incorporation",
+    "area": "Yelahanka",
+    "lat": 13.1007,
+    "lon": 77.5963,
+    "domain": "App",
+    "required_skills": [
+      "App dev"
+    ],
+    "preferred_skills": [
+      "Java",
+      "Design"
+    ],
+    "duration_weeks": 8,
+    "stipend": 30000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O045",
+    "title": "Python Development",
+    "company": "Webknot Technologies Private Limited",
+    "area": "Indiranagar",
+    "lat": 12.9719,
+    "lon": 77.6412,
+    "domain": "Data",
+    "required_skills": [
+      "Python"
+    ],
+    "preferred_skills": [
+      "Communication"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O046",
+    "title": "UX/UI Design",
+    "company": "TRAVEL TITLI",
+    "area": "Marathahalli",
+    "lat": 12.9591,
+    "lon": 77.6974,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 5000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O047",
+    "title": "UX Researcher",
+    "company": "MentorBoxx",
+    "area": "MG Road",
+    "lat": 12.9756,
+    "lon": 77.6066,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 20000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O048",
+    "title": "Graphic Design",
+    "company": "AdamsCreation",
+    "area": "Malleshwaram",
+    "lat": 13.0031,
+    "lon": 77.5643,
+    "domain": "Design",
+    "required_skills": [
+      "Design"
+    ],
+    "preferred_skills": [
+      "Communication",
+      "Web dev"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O049",
+    "title": "Mobile App Development (AI-Based)",
+    "company": "Greendzine Technologies",
+    "area": "MG Road",
+    "lat": 12.9756,
+    "lon": 77.6066,
+    "domain": "ML",
+    "required_skills": [
+      "ML",
+      "App dev"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Data analysis"
+    ],
+    "duration_weeks": 8,
+    "stipend": 18000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O050",
+    "title": "Web App Development",
+    "company": "Greendzine Technologies",
+    "area": "Jayanagar",
+    "lat": 12.925,
+    "lon": 77.5938,
+    "domain": "App",
+    "required_skills": [
+      "App dev"
+    ],
+    "preferred_skills": [
+      "Java",
+      "Design"
+    ],
+    "duration_weeks": 8,
+    "stipend": 18000,
+    "slots": 3,
+    "source": "kaggle"
   },
   {
     "id": "O051",
-    "title": "Data Science Intern",
-    "company": "Indigo Cloudworks",
+    "title": "Data Analytics",
+    "company": "SunTrop Solar Private Limited",
     "area": "Indiranagar",
     "lat": 12.9719,
     "lon": 77.6412,
@@ -1007,15 +993,355 @@
       "Python",
       "Communication"
     ],
-    "duration_weeks": 4,
-    "stipend": 15000,
-    "slots": 2,
-    "source": "synthetic"
+    "duration_weeks": 8,
+    "stipend": 7000,
+    "slots": 3,
+    "source": "kaggle"
   },
   {
     "id": "O052",
-    "title": "Full Stack Developer Intern",
-    "company": "Indigo Cloudworks",
+    "title": "Backend Development",
+    "company": "Peoplebox",
+    "area": "Malleshwaram",
+    "lat": 13.0031,
+    "lon": 77.5643,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 12000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O053",
+    "title": "Business Analytics",
+    "company": "MentorBoxx",
+    "area": "Indiranagar",
+    "lat": 12.9719,
+    "lon": 77.6412,
+    "domain": "Data",
+    "required_skills": [
+      "Data analysis"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Communication"
+    ],
+    "duration_weeks": 8,
+    "stipend": 18000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O054",
+    "title": "Node.js Development",
+    "company": "Antino Labs Private Limited",
+    "area": "Bellandur",
+    "lat": 12.9304,
+    "lon": 77.6784,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O055",
+    "title": "Flutter Development",
+    "company": "Alignbox",
+    "area": "Sarjapur Road",
+    "lat": 12.91,
+    "lon": 77.687,
+    "domain": "App",
+    "required_skills": [
+      "App dev"
+    ],
+    "preferred_skills": [
+      "Java",
+      "Design"
+    ],
+    "duration_weeks": 8,
+    "stipend": 12000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O056",
+    "title": "Full Stack Development",
+    "company": "Digite Infotech Private Limited",
+    "area": "Malleshwaram",
+    "lat": 13.0031,
+    "lon": 77.5643,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 17000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O057",
+    "title": "Full Stack Development",
+    "company": "Rugas Technologies Private Limited",
+    "area": "Whitefield",
+    "lat": 12.9698,
+    "lon": 77.75,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 15000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O058",
+    "title": "Mobile App Development",
+    "company": "Avaari",
+    "area": "Marathahalli",
+    "lat": 12.9591,
+    "lon": 77.6974,
+    "domain": "App",
+    "required_skills": [
+      "App dev"
+    ],
+    "preferred_skills": [
+      "Java",
+      "Design"
+    ],
+    "duration_weeks": 8,
+    "stipend": 25000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O059",
+    "title": "Artificial Intelligence (AI)",
+    "company": "Avaari",
+    "area": "Whitefield",
+    "lat": 12.9698,
+    "lon": 77.75,
+    "domain": "ML",
+    "required_skills": [
+      "ML"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Data analysis"
+    ],
+    "duration_weeks": 8,
+    "stipend": 25000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O060",
+    "title": "Web Development",
+    "company": "Avaari",
+    "area": "Hebbal",
+    "lat": 13.0358,
+    "lon": 77.597,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 20000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O061",
+    "title": "Machine Learning",
+    "company": "Avaari",
+    "area": "Bellandur",
+    "lat": 12.9304,
+    "lon": 77.6784,
+    "domain": "ML",
+    "required_skills": [
+      "ML"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Data analysis"
+    ],
+    "duration_weeks": 8,
+    "stipend": 25000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O062",
+    "title": "React Native",
+    "company": "Webknot Technologies Private Limited",
+    "area": "HSR Layout",
+    "lat": 12.9116,
+    "lon": 77.6474,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 10000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O063",
+    "title": "Artificial Intelligence (AI)",
+    "company": "Shubh International",
+    "area": "Sarjapur Road",
+    "lat": 12.91,
+    "lon": 77.687,
+    "domain": "ML",
+    "required_skills": [
+      "ML"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Data analysis"
+    ],
+    "duration_weeks": 8,
+    "stipend": 8000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O064",
+    "title": "Web Development",
+    "company": "Shubh International",
+    "area": "Sarjapur Road",
+    "lat": 12.91,
+    "lon": 77.687,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 16000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O065",
+    "title": "Computer Vision",
+    "company": "Startup In Stealth Mode",
+    "area": "Marathahalli",
+    "lat": 12.9591,
+    "lon": 77.6974,
+    "domain": "ML",
+    "required_skills": [
+      "ML"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Data analysis"
+    ],
+    "duration_weeks": 8,
+    "stipend": 16000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O066",
+    "title": "Machine Learning",
+    "company": "Buddha Education Association Incorporation",
+    "area": "MG Road",
+    "lat": 12.9756,
+    "lon": 77.6066,
+    "domain": "ML",
+    "required_skills": [
+      "ML"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Data analysis"
+    ],
+    "duration_weeks": 8,
+    "stipend": 25000,
+    "slots": 2,
+    "source": "kaggle"
+  },
+  {
+    "id": "O067",
+    "title": "Artificial Intelligence (AI)",
+    "company": "Buddha Education Association Incorporation",
+    "area": "Bellandur",
+    "lat": 12.9304,
+    "lon": 77.6784,
+    "domain": "ML",
+    "required_skills": [
+      "ML"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Data analysis"
+    ],
+    "duration_weeks": 8,
+    "stipend": 25000,
+    "slots": 3,
+    "source": "kaggle"
+  },
+  {
+    "id": "O068",
+    "title": "Front End Development",
+    "company": "Siddharth Deswal",
+    "area": "BTM Layout",
+    "lat": 12.9166,
+    "lon": 77.6101,
+    "domain": "Web",
+    "required_skills": [
+      "Web dev"
+    ],
+    "preferred_skills": [
+      "Design",
+      "Cloud/DevOps"
+    ],
+    "duration_weeks": 8,
+    "stipend": 20000,
+    "slots": 1,
+    "source": "kaggle"
+  },
+  {
+    "id": "O069",
+    "title": "Full Stack Development",
+    "company": "Nectworks",
     "area": "Electronic City",
     "lat": 12.8452,
     "lon": 77.6602,
@@ -1027,168 +1353,9 @@
       "Design",
       "Cloud/DevOps"
     ],
-    "duration_weeks": 24,
-    "stipend": 5000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O053",
-    "title": "UI/UX Design Intern",
-    "company": "Nimbus Analytics",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Design",
-    "required_skills": [
-      "Design"
-    ],
-    "preferred_skills": [
-      "Communication",
-      "Web dev"
-    ],
-    "duration_weeks": 4,
-    "stipend": 25000,
-    "slots": 2,
-    "source": "synthetic"
-  },
-  {
-    "id": "O054",
-    "title": "Data Science Intern",
-    "company": "Garden City Games",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "Data",
-    "required_skills": [
-      "Data analysis"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Communication"
-    ],
-    "duration_weeks": 24,
-    "stipend": 20000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O055",
-    "title": "Backend Developer Intern (Java)",
-    "company": "Namma Fintech",
-    "area": "Koramangala",
-    "lat": 12.9352,
-    "lon": 77.6245,
-    "domain": "Web",
-    "required_skills": [
-      "Java",
-      "Web dev"
-    ],
-    "preferred_skills": [
-      "Design",
-      "Cloud/DevOps"
-    ],
-    "duration_weeks": 4,
-    "stipend": 5000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O056",
-    "title": "Deep Learning Intern",
-    "company": "Vidhana Data",
-    "area": "HSR Layout",
-    "lat": 12.9116,
-    "lon": 77.6474,
-    "domain": "ML",
-    "required_skills": [
-      "ML"
-    ],
-    "preferred_skills": [
-      "Python",
-      "Data analysis"
-    ],
     "duration_weeks": 8,
-    "stipend": 15000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O057",
-    "title": "Operations Intern",
-    "company": "Garden City Games",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Other",
-    "required_skills": [
-      "Leadership"
-    ],
-    "preferred_skills": [
-      "Communication"
-    ],
-    "duration_weeks": 4,
-    "stipend": 20000,
-    "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O058",
-    "title": "Python Developer Intern",
-    "company": "Garden City Games",
-    "area": "MG Road",
-    "lat": 12.9756,
-    "lon": 77.6066,
-    "domain": "Data",
-    "required_skills": [
-      "Python"
-    ],
-    "preferred_skills": [
-      "Communication"
-    ],
-    "duration_weeks": 12,
     "stipend": 10000,
     "slots": 1,
-    "source": "synthetic"
-  },
-  {
-    "id": "O059",
-    "title": "Graphic Design Intern",
-    "company": "Silkboard Systems",
-    "area": "Whitefield",
-    "lat": 12.9698,
-    "lon": 77.75,
-    "domain": "Design",
-    "required_skills": [
-      "Design"
-    ],
-    "preferred_skills": [
-      "Communication",
-      "Web dev"
-    ],
-    "duration_weeks": 24,
-    "stipend": 5000,
-    "slots": 3,
-    "source": "synthetic"
-  },
-  {
-    "id": "O060",
-    "title": "UI/UX Design Intern",
-    "company": "Cubbon AI",
-    "area": "BTM Layout",
-    "lat": 12.9166,
-    "lon": 77.6101,
-    "domain": "Design",
-    "required_skills": [
-      "Design"
-    ],
-    "preferred_skills": [
-      "Communication",
-      "Web dev"
-    ],
-    "duration_weeks": 4,
-    "stipend": 0,
-    "slots": 2,
-    "source": "synthetic"
+    "source": "kaggle"
   }
 ]

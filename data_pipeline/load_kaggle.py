@@ -9,7 +9,7 @@ Steps (PLAN.md 3a):
   4. derive required/preferred skills and a domain from the title
   5. give each listing an area + lat/lon (from the location text if it names
      an area, otherwise a seeded random area)
-  6. keep at most MAX_OPPORTUNITIES rows
+  6. keep at most MAX_PER_DOMAIN rows per domain and MAX_OPPORTUNITIES overall
 
 Everything is seeded, so running it twice gives identical output.
 """
@@ -30,6 +30,9 @@ from data_pipeline.constants import (
 from data_pipeline.schemas import Opportunity
 
 MAX_OPPORTUNITIES = 80
+# Real Bangalore listings are mostly sales/HR/marketing. Capping each domain
+# keeps every scarce tech listing (ML, Data, Web, App, ...) in the sample.
+MAX_PER_DOMAIN = 20
 SEED = 42
 
 # Different versions of the dataset name their columns differently, so for
@@ -96,13 +99,17 @@ def derive_skills(title: str, extra_text: str = "") -> tuple[list[str], list[str
 
 
 def parse_duration_weeks(text: str) -> int:
-    """'3 Months' -> 12, '6 Weeks' -> 6. Unknown -> 8."""
-    text = str(text).lower()
-    number = re.search(r"\d+", text)
-    if not number:
+    """
+    '3 Months' -> 12, '6 Weeks' -> 6. Anything else -> 8.
+
+    A number only counts if a unit follows it. Some scrapes put start dates
+    like "13 Apr - 13 May' 24" in this column, and that 13 is not a duration.
+    """
+    match = re.search(r"(\d+)\s*(week|month)", str(text).lower())
+    if not match:
         return 8
-    n = int(number.group())
-    return n if "week" in text else n * 4
+    n = int(match.group(1))
+    return n if match.group(2) == "week" else n * 4
 
 
 def parse_stipend(text: str) -> int:
@@ -130,7 +137,8 @@ def load_kaggle_opportunities(csv_path: Path, seed: int = SEED,
 
 
 def opportunities_from_dataframe(df: pd.DataFrame, seed: int = SEED,
-                                 limit: int = MAX_OPPORTUNITIES) -> list[Opportunity]:
+                                 limit: int = MAX_OPPORTUNITIES,
+                                 max_per_domain: int = MAX_PER_DOMAIN) -> list[Opportunity]:
     """The real work of the loader, split out so tests can pass a tiny DataFrame."""
     cols = {field: _pick_column(df, field) for field in COLUMN_CANDIDATES}
     if cols["title"] is None or cols["location"] is None:
@@ -141,7 +149,17 @@ def opportunities_from_dataframe(df: pd.DataFrame, seed: int = SEED,
 
     # 2. Deduplicate on title + company.
     dedupe_on = [c for c in (cols["title"], cols["company"]) if c]
-    df = df.drop_duplicates(subset=dedupe_on).head(limit)
+    df = df.drop_duplicates(subset=dedupe_on)
+
+    # 3. Balance domains: keep the first `max_per_domain` rows of each domain.
+    def row_domain(row) -> str:
+        skills_text = str(row[cols["skills"]]) if cols["skills"] else ""
+        return derive_skills(str(row[cols["title"]]), skills_text)[2]
+
+    if len(df):
+        domains = df.apply(row_domain, axis=1)
+        df = df[domains.groupby(domains).cumcount() < max_per_domain]
+    df = df.head(limit)
 
     rng = random.Random(seed)
     opportunities = []

@@ -113,6 +113,11 @@ def get_decision(decision_id: str, path: Path = DEFAULT_PATH) -> DecisionRecord:
     raise KeyError(f"Unknown decision id: {decision_id}")
 
 
+def list_decisions(path: Path = DEFAULT_PATH) -> list[DecisionRecord]:
+    """All logged decisions, oldest first."""
+    return [DecisionRecord.from_dict(r) for r in _load_all(path)]
+
+
 def approve_decision(decision_id: str, path: Path = DEFAULT_PATH) -> DecisionRecord:
     """A human approves the decision (status -> approved)."""
     record = get_decision(decision_id, path)

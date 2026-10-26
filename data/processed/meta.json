@@ -1,5 +1,5 @@
 {
-  "opportunity_source": "synthetic",
-  "n_opportunities": 60,
+  "opportunity_source": "kaggle",
+  "n_opportunities": 69,
   "n_students": 150
 }

@@ -11,13 +11,13 @@ hand-made lists instead.
 
 from tools.allocation import POLICIES, allocate
 from tools.decisions import (appeal_decision, approve_decision, get_decision,
-                             log_decision, make_decision)
+                             list_decisions, log_decision, make_decision)
 from tools.fairness import fairness_metrics, gini
 from tools.scoring import rank_candidates, score_match
 from tools.search import find_opportunities_near, search_opportunities, search_students
 
 __all__ = [
     "POLICIES", "allocate", "appeal_decision", "approve_decision", "get_decision",
-    "log_decision", "make_decision", "fairness_metrics", "gini", "rank_candidates",
+    "list_decisions", "log_decision", "make_decision", "fairness_metrics", "gini", "rank_candidates",
     "score_match", "find_opportunities_near", "search_opportunities", "search_students",
 ]

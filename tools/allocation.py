@@ -28,6 +28,16 @@ MAX_PER_STUDENT = 2
 ACCESS_PENALTY = 0.5
 
 
+# Plain-English statement of each priority rule below (used in explanations).
+POLICY_RULES = {
+    "skill_first": "candidates are ranked purely by skill fit; past opportunities play no role",
+    "equal_access": "eligible candidates with the fewest past opportunities go first; "
+                    "skill fit only breaks ties",
+    "hybrid": f"candidates are ranked by skill fit divided by (1 + {ACCESS_PENALTY} x past "
+              f"opportunities), so a long history lowers priority",
+}
+
+
 def priority(policy: str, score: float, past: int) -> tuple:
     """Sort key for a candidate under a policy. Bigger = picked earlier."""
     if policy == "skill_first":
