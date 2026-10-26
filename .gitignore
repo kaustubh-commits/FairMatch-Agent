@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Virtual environment
+.venv/
+venv/
+
+# Secrets
+.env
+
+# Raw data (downloaded manually from Kaggle, not committed)
+data/raw/
+
+# Generated decision log (runtime state)
+data/processed/decisions.json
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

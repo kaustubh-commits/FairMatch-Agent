@@ -1,0 +1,4200 @@
+[
+  {
+    "id": "S001",
+    "branch": "CSE",
+    "year": 2,
+    "home_area": "MG Road",
+    "lat": 12.96653,
+    "lon": 77.61377,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 2,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Cloud",
+      "ML",
+      "Other"
+    ],
+    "goal": "internship",
+    "hours_per_week": 5,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S002",
+    "branch": "EEE",
+    "year": 3,
+    "home_area": "Jayanagar",
+    "lat": 12.92431,
+    "lon": 77.60227,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "App"
+    ],
+    "goal": "internship",
+    "hours_per_week": 7,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S003",
+    "branch": "EEE",
+    "year": 4,
+    "home_area": "JP Nagar",
+    "lat": 12.89708,
+    "lon": 77.58906,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 3,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data",
+      "Web"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 18,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S004",
+    "branch": "EEE",
+    "year": 3,
+    "home_area": "Electronic City",
+    "lat": 12.83856,
+    "lon": 77.65254,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 3,
+      "Cloud/DevOps": 1,
+      "Design": 3,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "App",
+      "Design",
+      "Web"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 12,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S005",
+    "branch": "AIML",
+    "year": 3,
+    "home_area": "Sarjapur Road",
+    "lat": 12.91413,
+    "lon": 77.69673,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 3
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "research",
+    "hours_per_week": 12,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S006",
+    "branch": "ECE",
+    "year": 3,
+    "home_area": "Electronic City",
+    "lat": 12.85426,
+    "lon": 77.66401,
+    "skills": {
+      "Python": 1,
+      "Java": 1,
+      "ML": 1,
+      "Data analysis": 3,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data"
+    ],
+    "goal": "internship",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S007",
+    "branch": "CSE",
+    "year": 1,
+    "home_area": "BTM Layout",
+    "lat": 12.9066,
+    "lon": 77.60313,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "ML"
+    ],
+    "goal": "internship",
+    "hours_per_week": 7,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S008",
+    "branch": "CSE",
+    "year": 2,
+    "home_area": "Yelahanka",
+    "lat": 13.09274,
+    "lon": 77.59315,
+    "skills": {
+      "Python": 0,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 2,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "App",
+      "Other"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 20,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S009",
+    "branch": "AIML",
+    "year": 3,
+    "home_area": "Marathahalli",
+    "lat": 12.96183,
+    "lon": 77.69966,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S010",
+    "branch": "CSE",
+    "year": 2,
+    "home_area": "Malleshwaram",
+    "lat": 12.99514,
+    "lon": 77.5637,
+    "skills": {
+      "Python": 0,
+      "Java": 3,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 3,
+      "Leadership": 3
+    },
+    "interests": [
+      "Web",
+      "App",
+      "Other"
+    ],
+    "goal": "research",
+    "hours_per_week": 17,
+    "past_opportunities": 5,
+    "source": "synthetic"
+  },
+  {
+    "id": "S011",
+    "branch": "Mechanical",
+    "year": 1,
+    "home_area": "Hebbal",
+    "lat": 13.0403,
+    "lon": 77.5904,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 2,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "ML",
+      "App"
+    ],
+    "goal": "internship",
+    "hours_per_week": 20,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S012",
+    "branch": "ISE",
+    "year": 2,
+    "home_area": "Malleshwaram",
+    "lat": 12.99366,
+    "lon": 77.55856,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 20,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S013",
+    "branch": "Civil",
+    "year": 2,
+    "home_area": "JP Nagar",
+    "lat": 12.90847,
+    "lon": 77.59122,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "research",
+    "hours_per_week": 12,
+    "past_opportunities": 6,
+    "source": "synthetic"
+  },
+  {
+    "id": "S014",
+    "branch": "CSE",
+    "year": 1,
+    "home_area": "Koramangala",
+    "lat": 12.93406,
+    "lon": 77.62675,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Cloud"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 18,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S015",
+    "branch": "EEE",
+    "year": 1,
+    "home_area": "Marathahalli",
+    "lat": 12.95335,
+    "lon": 77.69346,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 3,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Design"
+    ],
+    "goal": "research",
+    "hours_per_week": 11,
+    "past_opportunities": 4,
+    "source": "synthetic"
+  },
+  {
+    "id": "S016",
+    "branch": "EEE",
+    "year": 2,
+    "home_area": "Indiranagar",
+    "lat": 12.96903,
+    "lon": 77.63304,
+    "skills": {
+      "Python": 3,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 2,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 3,
+      "Leadership": 2
+    },
+    "interests": [
+      "App",
+      "Cloud",
+      "Other"
+    ],
+    "goal": "research",
+    "hours_per_week": 7,
+    "past_opportunities": 5,
+    "source": "synthetic"
+  },
+  {
+    "id": "S017",
+    "branch": "ISE",
+    "year": 3,
+    "home_area": "HSR Layout",
+    "lat": 12.91672,
+    "lon": 77.6538,
+    "skills": {
+      "Python": 2,
+      "Java": 3,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Web",
+      "ML"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S018",
+    "branch": "CSE",
+    "year": 2,
+    "home_area": "MG Road",
+    "lat": 12.96693,
+    "lon": 77.61386,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 3
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "internship",
+    "hours_per_week": 9,
+    "past_opportunities": 5,
+    "source": "synthetic"
+  },
+  {
+    "id": "S019",
+    "branch": "ECE",
+    "year": 4,
+    "home_area": "Whitefield",
+    "lat": 12.9698,
+    "lon": 77.74356,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 3,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Design",
+      "Web"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 19,
+    "past_opportunities": 4,
+    "source": "synthetic"
+  },
+  {
+    "id": "S020",
+    "branch": "ISE",
+    "year": 3,
+    "home_area": "JP Nagar",
+    "lat": 12.90027,
+    "lon": 77.59334,
+    "skills": {
+      "Python": 2,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "Web"
+    ],
+    "goal": "internship",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S021",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "Yelahanka",
+    "lat": 13.09989,
+    "lon": 77.58945,
+    "skills": {
+      "Python": 3,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "Web",
+      "Cloud"
+    ],
+    "goal": "research",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S022",
+    "branch": "Mechanical",
+    "year": 2,
+    "home_area": "Marathahalli",
+    "lat": 12.95406,
+    "lon": 77.70292,
+    "skills": {
+      "Python": 1,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 2,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "ML",
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 6,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S023",
+    "branch": "Civil",
+    "year": 3,
+    "home_area": "Jayanagar",
+    "lat": 12.92941,
+    "lon": 77.59368,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Other",
+      "Data",
+      "Cloud"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 7,
+    "past_opportunities": 6,
+    "source": "synthetic"
+  },
+  {
+    "id": "S024",
+    "branch": "Mechanical",
+    "year": 2,
+    "home_area": "Bellandur",
+    "lat": 12.93019,
+    "lon": 77.66847,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "ML"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 19,
+    "past_opportunities": 3,
+    "source": "synthetic"
+  },
+  {
+    "id": "S025",
+    "branch": "Civil",
+    "year": 1,
+    "home_area": "Yelahanka",
+    "lat": 13.10304,
+    "lon": 77.59916,
+    "skills": {
+      "Python": 2,
+      "Java": 3,
+      "ML": 3,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "ML",
+      "App"
+    ],
+    "goal": "internship",
+    "hours_per_week": 10,
+    "past_opportunities": 5,
+    "source": "synthetic"
+  },
+  {
+    "id": "S026",
+    "branch": "EEE",
+    "year": 4,
+    "home_area": "MG Road",
+    "lat": 12.97493,
+    "lon": 77.59897,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Design"
+    ],
+    "goal": "research",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S027",
+    "branch": "ECE",
+    "year": 2,
+    "home_area": "HSR Layout",
+    "lat": 12.91367,
+    "lon": 77.65003,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 2,
+      "Data analysis": 2,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "ML",
+      "Data",
+      "Cloud"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S028",
+    "branch": "CSE",
+    "year": 3,
+    "home_area": "Electronic City",
+    "lat": 12.83523,
+    "lon": 77.66521,
+    "skills": {
+      "Python": 3,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 2,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Data",
+      "App",
+      "Web"
+    ],
+    "goal": "internship",
+    "hours_per_week": 15,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S029",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "Sarjapur Road",
+    "lat": 12.90103,
+    "lon": 77.69024,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 3
+    },
+    "interests": [
+      "Other",
+      "Web"
+    ],
+    "goal": "research",
+    "hours_per_week": 6,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S030",
+    "branch": "Mechanical",
+    "year": 3,
+    "home_area": "Koramangala",
+    "lat": 12.93491,
+    "lon": 77.63274,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 2,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 3
+    },
+    "interests": [
+      "App",
+      "Other",
+      "Cloud"
+    ],
+    "goal": "research",
+    "hours_per_week": 13,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S031",
+    "branch": "ISE",
+    "year": 1,
+    "home_area": "BTM Layout",
+    "lat": 12.91076,
+    "lon": 77.61822,
+    "skills": {
+      "Python": 3,
+      "Java": 2,
+      "ML": 3,
+      "Data analysis": 2,
+      "Web dev": 1,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "App",
+      "ML"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 6,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S032",
+    "branch": "Civil",
+    "year": 2,
+    "home_area": "Marathahalli",
+    "lat": 12.96685,
+    "lon": 77.70239,
+    "skills": {
+      "Python": 1,
+      "Java": 3,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 8,
+    "past_opportunities": 5,
+    "source": "synthetic"
+  },
+  {
+    "id": "S033",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "MG Road",
+    "lat": 12.9736,
+    "lon": 77.60552,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 3,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Cloud",
+      "Design",
+      "Data"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 18,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S034",
+    "branch": "AIML",
+    "year": 1,
+    "home_area": "Whitefield",
+    "lat": 12.97863,
+    "lon": 77.75443,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 7,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S035",
+    "branch": "AIML",
+    "year": 2,
+    "home_area": "HSR Layout",
+    "lat": 12.90936,
+    "lon": 77.64187,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 13,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S036",
+    "branch": "Mechanical",
+    "year": 4,
+    "home_area": "Koramangala",
+    "lat": 12.92682,
+    "lon": 77.61906,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 20,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S037",
+    "branch": "ECE",
+    "year": 2,
+    "home_area": "HSR Layout",
+    "lat": 12.90622,
+    "lon": 77.64183,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 3,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S038",
+    "branch": "CSE",
+    "year": 2,
+    "home_area": "Jayanagar",
+    "lat": 12.92287,
+    "lon": 77.60176,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 2,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "App"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 15,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S039",
+    "branch": "CSE",
+    "year": 3,
+    "home_area": "Marathahalli",
+    "lat": 12.95072,
+    "lon": 77.6958,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 3,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data",
+      "ML"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 10,
+    "past_opportunities": 3,
+    "source": "synthetic"
+  },
+  {
+    "id": "S040",
+    "branch": "EEE",
+    "year": 2,
+    "home_area": "Marathahalli",
+    "lat": 12.96534,
+    "lon": 77.70273,
+    "skills": {
+      "Python": 0,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "App"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 14,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S041",
+    "branch": "Mechanical",
+    "year": 3,
+    "home_area": "Jayanagar",
+    "lat": 12.93348,
+    "lon": 77.58975,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 1,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S042",
+    "branch": "ECE",
+    "year": 3,
+    "home_area": "Koramangala",
+    "lat": 12.93442,
+    "lon": 77.63018,
+    "skills": {
+      "Python": 1,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 2,
+      "Web dev": 2,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Design",
+      "Data"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 7,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S043",
+    "branch": "EEE",
+    "year": 4,
+    "home_area": "HSR Layout",
+    "lat": 12.92137,
+    "lon": 77.65684,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "ML"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 15,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S044",
+    "branch": "ISE",
+    "year": 2,
+    "home_area": "Electronic City",
+    "lat": 12.83827,
+    "lon": 77.66788,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 2,
+      "App dev": 2,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Data",
+      "App"
+    ],
+    "goal": "internship",
+    "hours_per_week": 19,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S045",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "Sarjapur Road",
+    "lat": 12.91754,
+    "lon": 77.68166,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S046",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "Koramangala",
+    "lat": 12.93719,
+    "lon": 77.62753,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Data"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 6,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S047",
+    "branch": "AIML",
+    "year": 2,
+    "home_area": "Bellandur",
+    "lat": 12.93318,
+    "lon": 77.67022,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S048",
+    "branch": "EEE",
+    "year": 2,
+    "home_area": "Yelahanka",
+    "lat": 13.10954,
+    "lon": 77.59498,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "Data"
+    ],
+    "goal": "research",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S049",
+    "branch": "ECE",
+    "year": 3,
+    "home_area": "HSR Layout",
+    "lat": 12.90484,
+    "lon": 77.64084,
+    "skills": {
+      "Python": 1,
+      "Java": 1,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 3,
+      "Leadership": 2
+    },
+    "interests": [
+      "Cloud",
+      "Web",
+      "Other"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 6,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S050",
+    "branch": "Civil",
+    "year": 2,
+    "home_area": "Sarjapur Road",
+    "lat": 12.91242,
+    "lon": 77.68929,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 2,
+      "Design": 3,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "Design",
+      "Data"
+    ],
+    "goal": "research",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S051",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "Koramangala",
+    "lat": 12.933,
+    "lon": 77.62361,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 2,
+      "Data analysis": 2,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 3,
+      "Communication": 3,
+      "Leadership": 2
+    },
+    "interests": [
+      "Other",
+      "Design",
+      "ML"
+    ],
+    "goal": "internship",
+    "hours_per_week": 19,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S052",
+    "branch": "Civil",
+    "year": 4,
+    "home_area": "BTM Layout",
+    "lat": 12.92333,
+    "lon": 77.61631,
+    "skills": {
+      "Python": 1,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 6,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S053",
+    "branch": "Civil",
+    "year": 4,
+    "home_area": "Sarjapur Road",
+    "lat": 12.91305,
+    "lon": 77.69268,
+    "skills": {
+      "Python": 1,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 1,
+      "Cloud/DevOps": 2,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Design",
+      "Cloud"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 9,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S054",
+    "branch": "EEE",
+    "year": 2,
+    "home_area": "Marathahalli",
+    "lat": 12.96094,
+    "lon": 77.69972,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 2,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "App",
+      "Data"
+    ],
+    "goal": "research",
+    "hours_per_week": 12,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S055",
+    "branch": "AIML",
+    "year": 1,
+    "home_area": "HSR Layout",
+    "lat": 12.90664,
+    "lon": 77.64811,
+    "skills": {
+      "Python": 3,
+      "Java": 3,
+      "ML": 3,
+      "Data analysis": 3,
+      "Web dev": 3,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 3,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "ML",
+      "Design",
+      "Web"
+    ],
+    "goal": "research",
+    "hours_per_week": 5,
+    "past_opportunities": 6,
+    "source": "synthetic"
+  },
+  {
+    "id": "S056",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "Electronic City",
+    "lat": 12.85014,
+    "lon": 77.65463,
+    "skills": {
+      "Python": 2,
+      "Java": 3,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Web",
+      "Other",
+      "Cloud"
+    ],
+    "goal": "internship",
+    "hours_per_week": 15,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S057",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "Electronic City",
+    "lat": 12.84687,
+    "lon": 77.66198,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud"
+    ],
+    "goal": "research",
+    "hours_per_week": 12,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S058",
+    "branch": "AIML",
+    "year": 4,
+    "home_area": "Bellandur",
+    "lat": 12.93244,
+    "lon": 77.67875,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 3,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 3,
+      "Leadership": 3
+    },
+    "interests": [
+      "ML",
+      "Other"
+    ],
+    "goal": "internship",
+    "hours_per_week": 7,
+    "past_opportunities": 5,
+    "source": "synthetic"
+  },
+  {
+    "id": "S059",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "Koramangala",
+    "lat": 12.94147,
+    "lon": 77.61799,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 3,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "Design",
+      "Data"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 9,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S060",
+    "branch": "CSE",
+    "year": 1,
+    "home_area": "Whitefield",
+    "lat": 12.96651,
+    "lon": 77.75499,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "research",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S061",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "Indiranagar",
+    "lat": 12.98005,
+    "lon": 77.64381,
+    "skills": {
+      "Python": 3,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 3,
+      "App dev": 2,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Data",
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 8,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S062",
+    "branch": "AIML",
+    "year": 2,
+    "home_area": "Koramangala",
+    "lat": 12.9321,
+    "lon": 77.61734,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "ML"
+    ],
+    "goal": "internship",
+    "hours_per_week": 16,
+    "past_opportunities": 3,
+    "source": "synthetic"
+  },
+  {
+    "id": "S063",
+    "branch": "CSE",
+    "year": 1,
+    "home_area": "HSR Layout",
+    "lat": 12.92059,
+    "lon": 77.65562,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S064",
+    "branch": "ECE",
+    "year": 3,
+    "home_area": "Marathahalli",
+    "lat": 12.96448,
+    "lon": 77.69944,
+    "skills": {
+      "Python": 3,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 3,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "ML"
+    ],
+    "goal": "research",
+    "hours_per_week": 6,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S065",
+    "branch": "ISE",
+    "year": 3,
+    "home_area": "Jayanagar",
+    "lat": 12.93024,
+    "lon": 77.60336,
+    "skills": {
+      "Python": 1,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 2,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data",
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 11,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S066",
+    "branch": "Civil",
+    "year": 1,
+    "home_area": "BTM Layout",
+    "lat": 12.91641,
+    "lon": 77.61992,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 2,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "ML"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 12,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S067",
+    "branch": "Mechanical",
+    "year": 2,
+    "home_area": "Bellandur",
+    "lat": 12.93928,
+    "lon": 77.67094,
+    "skills": {
+      "Python": 1,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 2,
+      "Web dev": 1,
+      "App dev": 2,
+      "Cloud/DevOps": 2,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "Data",
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 8,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S068",
+    "branch": "ISE",
+    "year": 3,
+    "home_area": "Marathahalli",
+    "lat": 12.95513,
+    "lon": 77.70146,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 2,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Design",
+      "Other"
+    ],
+    "goal": "internship",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S069",
+    "branch": "ISE",
+    "year": 3,
+    "home_area": "MG Road",
+    "lat": 12.98027,
+    "lon": 77.6053,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Data"
+    ],
+    "goal": "research",
+    "hours_per_week": 20,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S070",
+    "branch": "AIML",
+    "year": 4,
+    "home_area": "MG Road",
+    "lat": 12.96571,
+    "lon": 77.60145,
+    "skills": {
+      "Python": 3,
+      "Java": 3,
+      "ML": 2,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 1,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "App",
+      "ML"
+    ],
+    "goal": "internship",
+    "hours_per_week": 17,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S071",
+    "branch": "ECE",
+    "year": 4,
+    "home_area": "Whitefield",
+    "lat": 12.96945,
+    "lon": 77.74039,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Design",
+      "Other"
+    ],
+    "goal": "research",
+    "hours_per_week": 20,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S072",
+    "branch": "AIML",
+    "year": 2,
+    "home_area": "Marathahalli",
+    "lat": 12.96345,
+    "lon": 77.69764,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S073",
+    "branch": "EEE",
+    "year": 3,
+    "home_area": "Bellandur",
+    "lat": 12.932,
+    "lon": 77.67059,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "ML"
+    ],
+    "goal": "research",
+    "hours_per_week": 8,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S074",
+    "branch": "Civil",
+    "year": 2,
+    "home_area": "Marathahalli",
+    "lat": 12.9647,
+    "lon": 77.69679,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 2,
+      "Cloud/DevOps": 1,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Design",
+      "App",
+      "Other"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 14,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S075",
+    "branch": "Mechanical",
+    "year": 3,
+    "home_area": "BTM Layout",
+    "lat": 12.90966,
+    "lon": 77.60616,
+    "skills": {
+      "Python": 3,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 2,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "App",
+      "Cloud"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 12,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S076",
+    "branch": "ISE",
+    "year": 2,
+    "home_area": "Jayanagar",
+    "lat": 12.93053,
+    "lon": 77.59073,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 7,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S077",
+    "branch": "Civil",
+    "year": 2,
+    "home_area": "JP Nagar",
+    "lat": 12.90576,
+    "lon": 77.58684,
+    "skills": {
+      "Python": 1,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 13,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S078",
+    "branch": "Mechanical",
+    "year": 1,
+    "home_area": "Yelahanka",
+    "lat": 13.09431,
+    "lon": 77.59351,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 3,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "App"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 8,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S079",
+    "branch": "ECE",
+    "year": 4,
+    "home_area": "Marathahalli",
+    "lat": 12.96467,
+    "lon": 77.69848,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 14,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S080",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "JP Nagar",
+    "lat": 12.91214,
+    "lon": 77.58232,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 3,
+      "Leadership": 2
+    },
+    "interests": [
+      "Other",
+      "Cloud"
+    ],
+    "goal": "internship",
+    "hours_per_week": 5,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S081",
+    "branch": "AIML",
+    "year": 4,
+    "home_area": "Whitefield",
+    "lat": 12.97213,
+    "lon": 77.75254,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "Design"
+    ],
+    "goal": "internship",
+    "hours_per_week": 15,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S082",
+    "branch": "Mechanical",
+    "year": 3,
+    "home_area": "Yelahanka",
+    "lat": 13.10795,
+    "lon": 77.59,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 3,
+      "Leadership": 3
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "internship",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S083",
+    "branch": "EEE",
+    "year": 4,
+    "home_area": "MG Road",
+    "lat": 12.97658,
+    "lon": 77.59826,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 3
+    },
+    "interests": [
+      "Cloud",
+      "Other"
+    ],
+    "goal": "research",
+    "hours_per_week": 19,
+    "past_opportunities": 4,
+    "source": "synthetic"
+  },
+  {
+    "id": "S084",
+    "branch": "Mechanical",
+    "year": 2,
+    "home_area": "Koramangala",
+    "lat": 12.94366,
+    "lon": 77.62182,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "Cloud"
+    ],
+    "goal": "internship",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S085",
+    "branch": "Civil",
+    "year": 4,
+    "home_area": "Electronic City",
+    "lat": 12.84738,
+    "lon": 77.65653,
+    "skills": {
+      "Python": 3,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 3,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Design",
+      "Cloud"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 14,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S086",
+    "branch": "Mechanical",
+    "year": 3,
+    "home_area": "Electronic City",
+    "lat": 12.85259,
+    "lon": 77.66471,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 3,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "ML",
+      "Cloud"
+    ],
+    "goal": "internship",
+    "hours_per_week": 14,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S087",
+    "branch": "Civil",
+    "year": 1,
+    "home_area": "Electronic City",
+    "lat": 12.84097,
+    "lon": 77.65301,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 3,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "App",
+      "Data"
+    ],
+    "goal": "internship",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S088",
+    "branch": "Civil",
+    "year": 4,
+    "home_area": "BTM Layout",
+    "lat": 12.91579,
+    "lon": 77.60185,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data",
+      "Web",
+      "Cloud"
+    ],
+    "goal": "internship",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S089",
+    "branch": "EEE",
+    "year": 2,
+    "home_area": "Hebbal",
+    "lat": 13.03073,
+    "lon": 77.60545,
+    "skills": {
+      "Python": 3,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 2
+    },
+    "interests": [
+      "Web",
+      "Other",
+      "Cloud"
+    ],
+    "goal": "internship",
+    "hours_per_week": 7,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S090",
+    "branch": "EEE",
+    "year": 2,
+    "home_area": "Koramangala",
+    "lat": 12.93043,
+    "lon": 77.63008,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 3
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "internship",
+    "hours_per_week": 5,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S091",
+    "branch": "Civil",
+    "year": 1,
+    "home_area": "Koramangala",
+    "lat": 12.94246,
+    "lon": 77.6273,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 1,
+      "Cloud/DevOps": 1,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Design",
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 11,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S092",
+    "branch": "CSE",
+    "year": 1,
+    "home_area": "Indiranagar",
+    "lat": 12.97864,
+    "lon": 77.63214,
+    "skills": {
+      "Python": 1,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 15,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S093",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "Electronic City",
+    "lat": 12.83997,
+    "lon": 77.65306,
+    "skills": {
+      "Python": 1,
+      "Java": 3,
+      "ML": 2,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "ML",
+      "Web"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S094",
+    "branch": "ECE",
+    "year": 2,
+    "home_area": "MG Road",
+    "lat": 12.97515,
+    "lon": 77.60916,
+    "skills": {
+      "Python": 0,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "App"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 11,
+    "past_opportunities": 5,
+    "source": "synthetic"
+  },
+  {
+    "id": "S095",
+    "branch": "ECE",
+    "year": 3,
+    "home_area": "Indiranagar",
+    "lat": 12.97798,
+    "lon": 77.63641,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S096",
+    "branch": "CSE",
+    "year": 4,
+    "home_area": "Marathahalli",
+    "lat": 12.95489,
+    "lon": 77.70532,
+    "skills": {
+      "Python": 1,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 3,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Data"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 17,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S097",
+    "branch": "ISE",
+    "year": 2,
+    "home_area": "Koramangala",
+    "lat": 12.93563,
+    "lon": 77.61911,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 3,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data",
+      "Web"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S098",
+    "branch": "EEE",
+    "year": 1,
+    "home_area": "Koramangala",
+    "lat": 12.93557,
+    "lon": 77.62145,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 2,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 5,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S099",
+    "branch": "ECE",
+    "year": 4,
+    "home_area": "Indiranagar",
+    "lat": 12.98127,
+    "lon": 77.63263,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 3,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "Cloud",
+      "Design"
+    ],
+    "goal": "research",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S100",
+    "branch": "ISE",
+    "year": 1,
+    "home_area": "Whitefield",
+    "lat": 12.96604,
+    "lon": 77.75111,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data"
+    ],
+    "goal": "internship",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S101",
+    "branch": "AIML",
+    "year": 3,
+    "home_area": "Koramangala",
+    "lat": 12.9274,
+    "lon": 77.61693,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 2,
+      "Data analysis": 2,
+      "Web dev": 1,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "ML",
+      "App"
+    ],
+    "goal": "internship",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S102",
+    "branch": "Civil",
+    "year": 3,
+    "home_area": "Koramangala",
+    "lat": 12.93951,
+    "lon": 77.63136,
+    "skills": {
+      "Python": 0,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "App"
+    ],
+    "goal": "research",
+    "hours_per_week": 6,
+    "past_opportunities": 4,
+    "source": "synthetic"
+  },
+  {
+    "id": "S103",
+    "branch": "ISE",
+    "year": 2,
+    "home_area": "Marathahalli",
+    "lat": 12.95751,
+    "lon": 77.69534,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data",
+      "Cloud"
+    ],
+    "goal": "internship",
+    "hours_per_week": 17,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S104",
+    "branch": "ECE",
+    "year": 2,
+    "home_area": "Whitefield",
+    "lat": 12.96221,
+    "lon": 77.75189,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "research",
+    "hours_per_week": 6,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S105",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "Malleshwaram",
+    "lat": 12.99712,
+    "lon": 77.56851,
+    "skills": {
+      "Python": 3,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 2,
+      "App dev": 1,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web",
+      "App",
+      "Cloud"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S106",
+    "branch": "ECE",
+    "year": 4,
+    "home_area": "Koramangala",
+    "lat": 12.9306,
+    "lon": 77.63207,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 3
+    },
+    "interests": [
+      "Data",
+      "Other"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 7,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S107",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "JP Nagar",
+    "lat": 12.90304,
+    "lon": 77.58275,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Design"
+    ],
+    "goal": "internship",
+    "hours_per_week": 19,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S108",
+    "branch": "EEE",
+    "year": 4,
+    "home_area": "Bellandur",
+    "lat": 12.93425,
+    "lon": 77.67416,
+    "skills": {
+      "Python": 3,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 3,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Data",
+      "App",
+      "Web"
+    ],
+    "goal": "research",
+    "hours_per_week": 13,
+    "past_opportunities": 3,
+    "source": "synthetic"
+  },
+  {
+    "id": "S109",
+    "branch": "AIML",
+    "year": 2,
+    "home_area": "Hebbal",
+    "lat": 13.02756,
+    "lon": 77.6054,
+    "skills": {
+      "Python": 0,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 2,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "App"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 17,
+    "past_opportunities": 6,
+    "source": "synthetic"
+  },
+  {
+    "id": "S110",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "JP Nagar",
+    "lat": 12.90819,
+    "lon": 77.58272,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 2,
+      "Cloud/DevOps": 1,
+      "Design": 2,
+      "Communication": 2,
+      "Leadership": 3
+    },
+    "interests": [
+      "Design",
+      "Other",
+      "App"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 18,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S111",
+    "branch": "CSE",
+    "year": 2,
+    "home_area": "Hebbal",
+    "lat": 13.03305,
+    "lon": 77.59433,
+    "skills": {
+      "Python": 1,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Cloud",
+      "Web",
+      "Other"
+    ],
+    "goal": "research",
+    "hours_per_week": 17,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S112",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "Indiranagar",
+    "lat": 12.97573,
+    "lon": 77.63141,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 20,
+    "past_opportunities": 3,
+    "source": "synthetic"
+  },
+  {
+    "id": "S113",
+    "branch": "ISE",
+    "year": 1,
+    "home_area": "Indiranagar",
+    "lat": 12.96248,
+    "lon": 77.63272,
+    "skills": {
+      "Python": 3,
+      "Java": 3,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 2,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data",
+      "App",
+      "Cloud"
+    ],
+    "goal": "internship",
+    "hours_per_week": 12,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S114",
+    "branch": "AIML",
+    "year": 1,
+    "home_area": "MG Road",
+    "lat": 12.97258,
+    "lon": 77.6056,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "internship",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S115",
+    "branch": "Civil",
+    "year": 4,
+    "home_area": "Sarjapur Road",
+    "lat": 12.90607,
+    "lon": 77.68905,
+    "skills": {
+      "Python": 3,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 2,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 3,
+      "Leadership": 1
+    },
+    "interests": [
+      "Other",
+      "Data",
+      "Web"
+    ],
+    "goal": "internship",
+    "hours_per_week": 9,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S116",
+    "branch": "ECE",
+    "year": 4,
+    "home_area": "Indiranagar",
+    "lat": 12.97313,
+    "lon": 77.6335,
+    "skills": {
+      "Python": 3,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "App",
+      "Data"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 15,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S117",
+    "branch": "ECE",
+    "year": 2,
+    "home_area": "Whitefield",
+    "lat": 12.96464,
+    "lon": 77.7426,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 3,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "ML",
+      "Web"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 16,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S118",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "MG Road",
+    "lat": 12.97911,
+    "lon": 77.61544,
+    "skills": {
+      "Python": 2,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 2,
+      "Web dev": 3,
+      "App dev": 2,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data",
+      "Web",
+      "App"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 4,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S119",
+    "branch": "Mechanical",
+    "year": 1,
+    "home_area": "MG Road",
+    "lat": 12.97949,
+    "lon": 77.61212,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "Data",
+      "Web"
+    ],
+    "goal": "research",
+    "hours_per_week": 13,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S120",
+    "branch": "EEE",
+    "year": 2,
+    "home_area": "Indiranagar",
+    "lat": 12.98063,
+    "lon": 77.63473,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 2,
+      "Cloud/DevOps": 1,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "App",
+      "Web",
+      "Design"
+    ],
+    "goal": "internship",
+    "hours_per_week": 12,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S121",
+    "branch": "AIML",
+    "year": 2,
+    "home_area": "Sarjapur Road",
+    "lat": 12.90861,
+    "lon": 77.69214,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 1,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "Data",
+      "ML"
+    ],
+    "goal": "internship",
+    "hours_per_week": 13,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S122",
+    "branch": "Mechanical",
+    "year": 1,
+    "home_area": "Sarjapur Road",
+    "lat": 12.91948,
+    "lon": 77.69062,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Other"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 18,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S123",
+    "branch": "Civil",
+    "year": 4,
+    "home_area": "Sarjapur Road",
+    "lat": 12.91017,
+    "lon": 77.69053,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 2,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "Cloud"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 11,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S124",
+    "branch": "CSE",
+    "year": 2,
+    "home_area": "Koramangala",
+    "lat": 12.93793,
+    "lon": 77.61724,
+    "skills": {
+      "Python": 1,
+      "Java": 3,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "research",
+    "hours_per_week": 11,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S125",
+    "branch": "ISE",
+    "year": 2,
+    "home_area": "Marathahalli",
+    "lat": 12.96107,
+    "lon": 77.69662,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Other",
+      "ML",
+      "Cloud"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S126",
+    "branch": "EEE",
+    "year": 4,
+    "home_area": "HSR Layout",
+    "lat": 12.91298,
+    "lon": 77.64319,
+    "skills": {
+      "Python": 1,
+      "Java": 1,
+      "ML": 1,
+      "Data analysis": 3,
+      "Web dev": 3,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Web",
+      "App",
+      "ML"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 10,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S127",
+    "branch": "Mechanical",
+    "year": 3,
+    "home_area": "Hebbal",
+    "lat": 13.03835,
+    "lon": 77.6057,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 1,
+      "Data analysis": 2,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Web",
+      "ML",
+      "Other"
+    ],
+    "goal": "research",
+    "hours_per_week": 7,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S128",
+    "branch": "ISE",
+    "year": 3,
+    "home_area": "Hebbal",
+    "lat": 13.0322,
+    "lon": 77.59437,
+    "skills": {
+      "Python": 2,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 3
+    },
+    "interests": [
+      "Other",
+      "Web",
+      "Cloud"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S129",
+    "branch": "ISE",
+    "year": 2,
+    "home_area": "Electronic City",
+    "lat": 12.83797,
+    "lon": 77.66294,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 3,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 2,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "Design",
+      "ML"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 8,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S130",
+    "branch": "AIML",
+    "year": 4,
+    "home_area": "Electronic City",
+    "lat": 12.85301,
+    "lon": 77.65145,
+    "skills": {
+      "Python": 0,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 3,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Design"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 20,
+    "past_opportunities": 3,
+    "source": "synthetic"
+  },
+  {
+    "id": "S131",
+    "branch": "EEE",
+    "year": 1,
+    "home_area": "BTM Layout",
+    "lat": 12.92282,
+    "lon": 77.6013,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud",
+      "Design"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 6,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S132",
+    "branch": "EEE",
+    "year": 3,
+    "home_area": "Indiranagar",
+    "lat": 12.9725,
+    "lon": 77.6425,
+    "skills": {
+      "Python": 3,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Cloud",
+      "Web",
+      "Other"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 19,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S133",
+    "branch": "CSE",
+    "year": 1,
+    "home_area": "Whitefield",
+    "lat": 12.97683,
+    "lon": 77.75359,
+    "skills": {
+      "Python": 3,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 1,
+      "App dev": 3,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "App",
+      "Data",
+      "Cloud"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 5,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S134",
+    "branch": "CSE",
+    "year": 2,
+    "home_area": "Bellandur",
+    "lat": 12.92959,
+    "lon": 77.67081,
+    "skills": {
+      "Python": 2,
+      "Java": 1,
+      "ML": 1,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "ML"
+    ],
+    "goal": "internship",
+    "hours_per_week": 11,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S135",
+    "branch": "CSE",
+    "year": 3,
+    "home_area": "Marathahalli",
+    "lat": 12.95109,
+    "lon": 77.69838,
+    "skills": {
+      "Python": 1,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 1,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "Cloud",
+      "Web"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 7,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S136",
+    "branch": "ECE",
+    "year": 4,
+    "home_area": "HSR Layout",
+    "lat": 12.91832,
+    "lon": 77.64917,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 3,
+      "Leadership": 1
+    },
+    "interests": [
+      "Data",
+      "Other"
+    ],
+    "goal": "internship",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S137",
+    "branch": "ISE",
+    "year": 4,
+    "home_area": "Jayanagar",
+    "lat": 12.92287,
+    "lon": 77.60126,
+    "skills": {
+      "Python": 1,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 2,
+      "Cloud/DevOps": 1,
+      "Design": 2,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "Cloud",
+      "App"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 14,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S138",
+    "branch": "CSE",
+    "year": 3,
+    "home_area": "Jayanagar",
+    "lat": 12.92658,
+    "lon": 77.59048,
+    "skills": {
+      "Python": 0,
+      "Java": 3,
+      "ML": 1,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 3,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "App",
+      "Web"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 15,
+    "past_opportunities": 5,
+    "source": "synthetic"
+  },
+  {
+    "id": "S139",
+    "branch": "CSE",
+    "year": 1,
+    "home_area": "Jayanagar",
+    "lat": 12.93245,
+    "lon": 77.59929,
+    "skills": {
+      "Python": 1,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 2
+    },
+    "interests": [
+      "Cloud",
+      "Other",
+      "Data"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 14,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S140",
+    "branch": "Civil",
+    "year": 4,
+    "home_area": "Koramangala",
+    "lat": 12.93527,
+    "lon": 77.63238,
+    "skills": {
+      "Python": 0,
+      "Java": 2,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 2,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 3,
+      "Communication": 3,
+      "Leadership": 3
+    },
+    "interests": [
+      "Web",
+      "Design",
+      "Other"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S141",
+    "branch": "ECE",
+    "year": 3,
+    "home_area": "Jayanagar",
+    "lat": 12.92953,
+    "lon": 77.59483,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 1,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Data"
+    ],
+    "goal": "internship",
+    "hours_per_week": 19,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S142",
+    "branch": "AIML",
+    "year": 1,
+    "home_area": "Marathahalli",
+    "lat": 12.96427,
+    "lon": 77.69993,
+    "skills": {
+      "Python": 0,
+      "Java": 1,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 3,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Web"
+    ],
+    "goal": "internship",
+    "hours_per_week": 8,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S143",
+    "branch": "Civil",
+    "year": 3,
+    "home_area": "Jayanagar",
+    "lat": 12.92938,
+    "lon": 77.5839,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 2,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "ML"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 9,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S144",
+    "branch": "AIML",
+    "year": 3,
+    "home_area": "Koramangala",
+    "lat": 12.94072,
+    "lon": 77.63426,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 3,
+      "Data analysis": 1,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 3,
+      "Leadership": 2
+    },
+    "interests": [
+      "Other",
+      "ML"
+    ],
+    "goal": "internship",
+    "hours_per_week": 4,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S145",
+    "branch": "Civil",
+    "year": 1,
+    "home_area": "Indiranagar",
+    "lat": 12.96906,
+    "lon": 77.63843,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 2,
+      "Web dev": 0,
+      "App dev": 1,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Data"
+    ],
+    "goal": "hackathons",
+    "hours_per_week": 8,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S146",
+    "branch": "Mechanical",
+    "year": 3,
+    "home_area": "Electronic City",
+    "lat": 12.83821,
+    "lon": 77.66278,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 2,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 0
+    },
+    "interests": [
+      "Cloud"
+    ],
+    "goal": "research",
+    "hours_per_week": 9,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S147",
+    "branch": "Civil",
+    "year": 2,
+    "home_area": "Yelahanka",
+    "lat": 13.09953,
+    "lon": 77.6035,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 1,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 0,
+      "Communication": 2,
+      "Leadership": 1
+    },
+    "interests": [
+      "Other",
+      "Data",
+      "Cloud"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 15,
+    "past_opportunities": 1,
+    "source": "synthetic"
+  },
+  {
+    "id": "S148",
+    "branch": "EEE",
+    "year": 2,
+    "home_area": "Koramangala",
+    "lat": 12.92581,
+    "lon": 77.61492,
+    "skills": {
+      "Python": 3,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 0,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 3,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 1
+    },
+    "interests": [
+      "Cloud"
+    ],
+    "goal": "research",
+    "hours_per_week": 19,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S149",
+    "branch": "ECE",
+    "year": 1,
+    "home_area": "Yelahanka",
+    "lat": 13.09733,
+    "lon": 77.59601,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 0,
+      "Data analysis": 3,
+      "Web dev": 0,
+      "App dev": 0,
+      "Cloud/DevOps": 0,
+      "Design": 0,
+      "Communication": 1,
+      "Leadership": 3
+    },
+    "interests": [
+      "Other",
+      "Data"
+    ],
+    "goal": "leadership",
+    "hours_per_week": 8,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  },
+  {
+    "id": "S150",
+    "branch": "ISE",
+    "year": 1,
+    "home_area": "Sarjapur Road",
+    "lat": 12.90267,
+    "lon": 77.68305,
+    "skills": {
+      "Python": 2,
+      "Java": 0,
+      "ML": 2,
+      "Data analysis": 3,
+      "Web dev": 1,
+      "App dev": 0,
+      "Cloud/DevOps": 1,
+      "Design": 2,
+      "Communication": 1,
+      "Leadership": 0
+    },
+    "interests": [
+      "Design",
+      "ML"
+    ],
+    "goal": "research",
+    "hours_per_week": 10,
+    "past_opportunities": 0,
+    "source": "synthetic"
+  }
+]
