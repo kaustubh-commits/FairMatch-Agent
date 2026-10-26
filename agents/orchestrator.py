@@ -6,7 +6,8 @@ Two ways to use it:
     # 1. Callback: on_event(event) is called the moment each step finishes.
     result = run("Find the best 3 ML candidates in Koramangala", on_event=print)
 
-    # 2. Generator: iterate over events live; the last item is the AgentResult.
+    # 2. Generator: iterate live. Yields StepStarted when a step begins,
+    #    TraceEvent when it ends, and finally the AgentResult.
     for item in stream("Compare the policies"):
         ...
 
@@ -27,7 +28,7 @@ from typing import Callable, Iterator, Optional, Union
 
 from agents import auditor, equity, explainer, matcher, planner
 from agents.context import RunContext
-from agents.trace import Trace, TraceEvent
+from agents.trace import StepStarted, Trace, TraceEvent
 from llm import LLMClient, make_client
 from tools.decisions import DEFAULT_PATH
 from tools.store import get_opportunity
@@ -50,13 +51,14 @@ class AgentResult:
 def run(request: str, provider: Optional[str] = None,
         on_event: Optional[Callable[[TraceEvent], None]] = None,
         decisions_path: Path = DEFAULT_PATH,
-        client=_UNSET) -> AgentResult:
+        client=_UNSET,
+        on_start: Optional[Callable[[StepStarted], None]] = None) -> AgentResult:
     """
     Handle one request end to end.
       provider        gemini | ollama | demo-safe (default: LLM_PROVIDER or gemini)
       client          pass an LLMClient (or None) directly; used by tests
     """
-    trace = Trace(on_event)
+    trace = Trace(on_event, on_start)
     if client is _UNSET:
         client, note = make_client(provider)
     else:
@@ -79,10 +81,10 @@ def run(request: str, provider: Optional[str] = None,
 
 def stream(request: str, provider: Optional[str] = None,
            decisions_path: Path = DEFAULT_PATH,
-           client=_UNSET) -> Iterator[Union[TraceEvent, AgentResult]]:
+           client=_UNSET) -> Iterator[Union[StepStarted, TraceEvent, AgentResult]]:
     """
-    Generator version of run(): yields each TraceEvent as it happens, then
-    the AgentResult last. The work runs in a background thread so events
+    Generator version of run(): yields a StepStarted when each step begins,
+    its TraceEvent when it ends, and the AgentResult last. The work runs in a background thread so events
     arrive while it is still going.
     """
     events: queue.Queue = queue.Queue()
@@ -92,7 +94,8 @@ def stream(request: str, provider: Optional[str] = None,
     def worker():
         try:
             outcome["result"] = run(request, provider, on_event=events.put,
-                                    decisions_path=decisions_path, client=client)
+                                    decisions_path=decisions_path, client=client,
+                                    on_start=events.put)
         except Exception as e:      # re-raised in the caller's thread below
             outcome["error"] = e
         events.put(done)
@@ -116,7 +119,7 @@ def _rank(plan, ctx, path):
     check = equity.check_proposals(match, ctx)
     logged = auditor.verify_and_log(match["proposals"], path, ctx)
 
-    lines = []
+    lines, summaries = [], {}
     if found["note"]:
         lines.append(f"Note: {found['note']}")
     for record in logged:
@@ -127,12 +130,14 @@ def _rank(plan, ctx, path):
             skills = ", ".join(f"{s} {b['level']}/3 ({b['kind'][:3]})" for s, b in m["breakdown"].items())
             lines.append(f"  {i}. {m['student_id']}  fit {m['score']:.2f}  "
                          f"past {m['past_opportunities']}  | {skills}")
-        lines.append(explainer.explain(record, ctx))
+        summaries[record.id], text = explainer.explain(record, ctx)
+        lines.append(text)
     lines.append("\n" + check["message"])
 
     data = {"found_note": found["note"], "area_used": found["area_used"],
             "rankings": match["rankings"], "equity": {k: v for k, v in check.items() if k != "alternatives"},
-            "alternatives": {k: v.selected for k, v in check["alternatives"].items()}}
+            "alternatives": {k: v.selected for k, v in check["alternatives"].items()},
+            "summaries": summaries}
     return "\n".join(lines).strip(), data, [r.id for r in logged]
 
 
@@ -161,7 +166,8 @@ def _explain(plan, ctx, path):
     if record is None:
         return ("No such decision. Run a ranking request first, or name a decision like D0001.",
                 {}, [])
-    return explainer.explain(record, ctx), {"record": record.to_dict()}, [record.id]
+    summary, text = explainer.explain(record, ctx)
+    return text, {"record": record.to_dict(), "summary": summary}, [record.id]
 
 
 def _appeal(plan, ctx, path):
@@ -169,4 +175,5 @@ def _appeal(plan, ctx, path):
     if record is None:
         return ("No such decision to appeal. Run a ranking request first, or name a decision like D0001.",
                 {}, [])
-    return explainer.explain(record, ctx), {"record": record.to_dict()}, [record.id]
+    summary, text = explainer.explain(record, ctx)
+    return text, {"record": record.to_dict(), "summary": summary}, [record.id]

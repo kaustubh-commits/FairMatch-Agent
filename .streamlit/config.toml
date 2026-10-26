@@ -1,0 +1,21 @@
+# FairMatch theme: dark, clean, one accent colour (teal).
+[theme]
+base = "dark"
+primaryColor = "#2dd4bf"
+backgroundColor = "#0b0f19"
+secondaryBackgroundColor = "#131a2a"
+textColor = "#e6e8ef"
+font = "sans serif"
+baseRadius = "0.6rem"
+borderColor = "#232b3f"
+showWidgetBorder = true
+
+[theme.sidebar]
+backgroundColor = "#0f1422"
+secondaryBackgroundColor = "#161d2f"
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

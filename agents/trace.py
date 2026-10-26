@@ -8,6 +8,8 @@ becomes a TraceEvent:
 
 Events are handed to an `on_event` callback the moment they happen, so a UI
 can draw them step by step while the run is still going (PLAN.md section 5).
+An optional `on_start` callback also receives a StepStarted when a step
+BEGINS, so a UI can show "Matcher is thinking..." during slow steps.
 """
 
 from __future__ import annotations
@@ -17,15 +19,22 @@ from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
 from typing import Callable, Optional
 
-# One colour per agent, used by the CLI now and the Streamlit UI in Phase 3.
+# One colour and icon per agent, used by the CLI and the Streamlit UI.
+# Colours are bright enough to read on a dark background.
 AGENT_COLORS = {
-    "System": "#6b7280",          # grey
-    "Planner": "#7c3aed",         # violet
-    "Matcher": "#2563eb",         # blue
-    "Equity Analyst": "#d97706",  # amber
-    "Auditor": "#059669",         # green
-    "Explainer": "#db2777",       # pink
+    "System": "#9ca3af",          # grey
+    "Planner": "#a78bfa",         # violet
+    "Matcher": "#60a5fa",         # blue
+    "Equity Analyst": "#fbbf24",  # amber
+    "Auditor": "#34d399",         # green
+    "Explainer": "#f472b6",       # pink
 }
+AGENT_ICONS = {
+    "System": "⚙️", "Planner": "🧭", "Matcher": "🎯",
+    "Equity Analyst": "⚖️", "Auditor": "🛡️", "Explainer": "💬",
+}
+# The agents in pipeline order (System is not an agent).
+PIPELINE = ["Planner", "Matcher", "Equity Analyst", "Auditor", "Explainer"]
 
 
 @dataclass
@@ -41,12 +50,22 @@ class TraceEvent:
         return asdict(self)
 
 
+@dataclass
+class StepStarted:
+    """Sent when a step begins (its TraceEvent follows when it ends)."""
+    agent: str
+    action: str
+    tool: Optional[str] = None
+
+
 class Trace:
     """Collects events and forwards each one to `on_event` immediately."""
 
-    def __init__(self, on_event: Optional[Callable[[TraceEvent], None]] = None):
+    def __init__(self, on_event: Optional[Callable[[TraceEvent], None]] = None,
+                 on_start: Optional[Callable[[StepStarted], None]] = None):
         self.events: list[TraceEvent] = []
         self.on_event = on_event
+        self.on_start = on_start
 
     def emit(self, event: TraceEvent) -> None:
         self.events.append(event)
@@ -67,6 +86,8 @@ class Trace:
                 ev.result_summary = "top: S025 (0.94)"
         """
         event = TraceEvent(agent=agent, action=action, tool=tool, args=args)
+        if self.on_start:
+            self.on_start(StepStarted(agent, action, tool))
         start = time.perf_counter()
         try:
             yield event

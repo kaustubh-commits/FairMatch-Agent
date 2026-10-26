@@ -60,8 +60,8 @@ def load_env(path: Path = ROOT / ".env") -> None:
         os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
 
 
-# "Busy, try again" errors (rate limit, overloaded) get a couple of retries.
-RETRY_STATUSES = {429, 500, 503}
+# "Busy, try again" errors (server overloaded) get a couple of retries.
+RETRY_STATUSES = {500, 503}   # 429 = quota used up: retrying only burns more quota
 RETRY_WAITS = [2, 5]   # seconds to wait before retry 1 and retry 2
 
 

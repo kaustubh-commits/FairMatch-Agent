@@ -70,8 +70,8 @@ def template_summary(record: DecisionRecord) -> str:
     return text
 
 
-def explain(record: DecisionRecord, ctx: RunContext) -> str:
-    """Full explanation text for one decision."""
+def explain(record: DecisionRecord, ctx: RunContext) -> tuple[str, str]:
+    """Returns (summary, full explanation text) for one decision."""
     with ctx.trace.step(NAME, f"explain {record.id}", tool="DecisionRecord",
                         decision_id=record.id) as ev:
         lines = [f"Decision {record.id} | opportunity {record.opportunity_id} | "
@@ -97,4 +97,4 @@ def explain(record: DecisionRecord, ctx: RunContext) -> str:
         else:
             summary, source = " ".join(text.split()), "llm"
     ctx.trace.note(NAME, f"summary ({source})", summary[:200])
-    return f"Summary: {summary}\n" + "\n".join(lines)
+    return summary, f"Summary: {summary}\n" + "\n".join(lines)

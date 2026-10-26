@@ -86,7 +86,8 @@ def parse_rules(request: str) -> Plan:
 
     if _has_word(text, "appeal") or _has_word(text, "contest"):
         intent = "appeal"
-    elif decision or any(_has_word(text, w) for w in ("explain decision", "why was")):
+    elif (decision or _has_word(text, "why was")
+          or (_has_word(text, "explain") and _has_word(text, "decision"))):
         intent = "explain"
     elif (any(_has_word(text, w) for w in ("compare", "policy", "policies", "policy lab"))
           and not any(_has_word(text, w) for w in ("candidate", "candidates"))):
@@ -142,8 +143,15 @@ Return exactly one JSON object with these keys:
 Request: {request}"""
 
 
-def _validate_llm(raw: dict, fallback: Plan) -> Plan:
-    """Keep each LLM field only if it is valid; otherwise use the rule-based value."""
+def _validate_llm(raw: dict, fallback: Plan, request: str = "") -> Plan:
+    """
+    Keep each LLM field only if it is valid; otherwise use the rule-based value.
+    Ids (D0001, S011) must also appear word for word in the request: an LLM once
+    "filled in" D0001 for "explain the most recent decision", which is a made-up id.
+    """
+    def in_request(value) -> bool:
+        return str(value).lower() in request.lower()
+
     def pick(key, ok):
         value = raw.get(key)
         return value if value is not None and ok(value) else getattr(fallback, key)
@@ -158,8 +166,10 @@ def _validate_llm(raw: dict, fallback: Plan) -> Plan:
         area=area or fallback.area,
         k=pick("k", lambda v: isinstance(v, int) and 1 <= v <= MAX_K),
         policy=pick("policy", lambda v: v in POLICIES),
-        decision_id=pick("decision_id", lambda v: re.fullmatch(r"D\d{4}", str(v)) is not None),
-        student_id=pick("student_id", lambda v: re.fullmatch(r"S\d{3}|F-[\w-]+", str(v)) is not None),
+        decision_id=pick("decision_id", lambda v: re.fullmatch(r"D\d{4}", str(v)) is not None
+                         and in_request(v)),
+        student_id=pick("student_id", lambda v: re.fullmatch(r"S\d{3}|F-[\w-]+", str(v)) is not None
+                        and in_request(v)),
         appeal_reason=pick("appeal_reason", lambda v: isinstance(v, str) and v.strip() != ""),
         source="llm",
     )
@@ -177,7 +187,11 @@ def plan(request: str, ctx: RunContext) -> Plan:
         intents=list(INTENTS), domains=DOMAINS, areas=list(BANGALORE_AREAS),
         policies=list(POLICIES), max_k=MAX_K, k=DEFAULT_K, request=request), json_mode=True)
     if isinstance(raw, dict):
-        result = _validate_llm(raw, rules)
+        result = _validate_llm(raw, rules, request)
+        for key in ("decision_id", "student_id"):
+            if raw.get(key) and raw[key] != getattr(result, key):
+                ctx.trace.note(NAME, "LLM value ignored",
+                               f"{key}={raw[key]} is not in the request; not using it.")
     elif raw is not None:
         ctx.trace.note(NAME, "LLM output ignored", "LLM did not return a JSON object; using rules.")
 

@@ -48,6 +48,8 @@ def test_rules_rank_demo_query():
     ("Compare the allocation policies", "compare"),
     ("Which policy is fairest?", "compare"),
     ("Explain decision D0002", "explain"),
+    ("Explain the most recent decision", "explain"),
+    ("Appeal the latest decision for the runner-up: no internships yet", "appeal"),
     ("Appeal D0001 for S011: I have more experience", "appeal"),
     ("Best 5 web candidates using the hybrid policy", "rank"),
 ])
@@ -73,6 +75,20 @@ def test_llm_plan_invalid_fields_fall_back_to_rules():
     plan = _validate_llm(raw, rules)
     assert plan.intent == "rank" and plan.domain == "ML" and plan.k == 3
     assert plan.area == "Koramangala" and plan.policy is None and plan.decision_id is None
+
+
+def test_llm_plan_cannot_invent_ids():
+    request = "Explain the most recent decision."
+    plan = _validate_llm({"intent": "explain", "decision_id": "D0001", "student_id": "S011"},
+                         parse_rules(request), request)
+    assert plan.intent == "explain" and plan.decision_id is None and plan.student_id is None
+
+
+def test_llm_plan_keeps_ids_from_the_request():
+    request = "Appeal D0002 for S011: no internships yet"
+    plan = _validate_llm({"intent": "appeal", "decision_id": "D0002", "student_id": "S011"},
+                         parse_rules(request), request)
+    assert (plan.decision_id, plan.student_id) == ("D0002", "S011")
 
 
 # ---- Grounding -------------------------------------------------------------
@@ -150,6 +166,14 @@ def test_llm_invented_numbers_are_rejected(path):
     result = run(DEMO_QUERY, client=llm, decisions_path=path)
     assert "0.99" not in result.answer
     assert any(e.action == "LLM summary rejected" for e in result.events)
+
+
+def test_invented_id_is_ignored_and_traced(path):
+    run(DEMO_QUERY, client=None, decisions_path=path)          # logs D0001, D0002
+    llm = FakeLLM([json.dumps({"intent": "explain", "decision_id": "D0001"}), "Decision D0002."])
+    result = run("Explain the most recent decision.", client=llm, decisions_path=path)
+    assert result.decision_ids == ["D0002"]
+    assert any(e.action == "LLM value ignored" for e in result.events)
 
 
 def test_llm_grounded_summary_is_used(path):
