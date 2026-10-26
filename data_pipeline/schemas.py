@@ -28,6 +28,12 @@ class Student:
     hours_per_week: int
     past_opportunities: int         # internships/projects received so far
     source: str = "synthetic"       # synthetic | form
+    name: str = ""                  # display name, e.g. "Ananya R." (synthetic students only)
+
+    @property
+    def label(self) -> str:
+        """How people see a student: "Ananya R. (S025)", or just the id if there's no name."""
+        return f"{self.name} ({self.id})" if self.name else self.id
 
     def to_dict(self) -> dict:
         return asdict(self)

@@ -9,7 +9,8 @@ import pytest
 
 from agents.grounding import ungrounded
 from agents.orchestrator import AgentResult, run, stream
-from agents.planner import Plan, _validate_llm, parse_rules, parse_skills
+from agents.trace import StepStarted, TraceEvent, shorten
+from agents.planner import _validate_llm, parse_rules, parse_skills
 from llm import LLMClient, LLMError, make_client
 from llm.client import ChainClient, describe, headline
 
@@ -166,11 +167,12 @@ def test_llm_failure_mid_run_falls_back_to_demo_safe(path):
 
 def test_llm_invented_numbers_are_rejected(path):
     plan_json = json.dumps({"intent": "rank", "domain": "ML", "area": "Koramangala", "k": 3})
-    lies = "S025 won with a perfect 0.99 score."
-    llm = FakeLLM([plan_json] + [lies] * 5)
+    lies = json.dumps({"D0001": "S025 won with a perfect 0.99 score.",
+                       "D0002": "S025 won with a perfect 0.99 score."})
+    llm = FakeLLM([plan_json, lies])
     result = run(DEMO_QUERY, client=llm, decisions_path=path)
     assert "0.99" not in result.answer
-    assert any(e.action == "LLM summary rejected" for e in result.events)
+    assert any(e.action == "LLM text rejected" for e in result.events)
 
 
 def test_invented_id_is_ignored_and_traced(path):
@@ -185,9 +187,11 @@ def test_llm_grounded_summary_is_used(path):
     run(DEMO_QUERY, client=None, decisions_path=path)
     plan_json = json.dumps({"intent": "explain", "decision_id": "D0001"})
     # A summary containing only the decision id: always grounded.
-    llm = FakeLLM([plan_json, "Decision D0001 went to the strongest candidate."])
+    llm = FakeLLM([plan_json, json.dumps({"D0001": "Decision D0001 went to the strongest candidate."})])
     result = run("Explain decision D0001", client=llm, decisions_path=path)
     assert "Summary: Decision D0001 went to the strongest candidate." in result.answer
+    # Merged trace: no separate "summary (llm)" event duplicating the LLM step.
+    assert not any("summary" in e.action and e.agent == "Explainer" and e.kind == "note" for e in result.events)
 
 
 def test_stream_yields_events_then_result(path):
@@ -301,3 +305,65 @@ def test_total_failure_shows_friendly_line_and_details(path):
     fallback = next(e for e in result.events if e.action == "fallback to demo-safe")
     assert fallback.result_summary == "Gemini quota reached, continuing rule-based (demo-safe)."
     assert result.decision_ids                              # the run still finished
+
+
+# ---- One Explainer call, partial results, plain-language trace -------------------
+
+def test_explainer_makes_one_llm_call_for_all_decisions(path):
+    plan_json = json.dumps({"intent": "rank", "domain": "ML", "area": "Koramangala", "k": 3})
+    llm = FakeLLM([plan_json, json.dumps({"D0001": "Decision D0001.", "D0002": "Decision D0002."})])
+    result = run(DEMO_QUERY, client=llm, decisions_path=path)
+    assert len(result.decision_ids) == 2
+    assert len(llm.prompts) == 2                      # Planner + ONE Explainer call
+    assert result.data["summaries"] == {"D0001": "Decision D0001.", "D0002": "Decision D0002."}
+
+
+def test_stream_yields_partial_result_before_the_explainer(path):
+    items = list(stream(DEMO_QUERY, client=None, decisions_path=path))
+    kinds = [type(i).__name__ for i in items]
+    partial_at = kinds.index("PartialResult")
+    explainer_at = next(i for i, it in enumerate(items)
+                        if isinstance(it, (TraceEvent, StepStarted)) and it.agent == "Explainer")
+    assert partial_at < explainer_at
+    partial = items[partial_at]
+    assert partial.intent == "rank" and partial.decision_ids and partial.data["rankings"]
+
+
+@pytest.mark.parametrize("request_text", [DEMO_QUERY, "Compare the allocation policies",
+                                          "I know python and sql, what can I do?"])
+def test_each_agent_writes_exactly_one_headline(path, request_text):
+    result = run(request_text, client=None, decisions_path=path)
+    headlines = [e for e in result.events if e.kind == "headline"]
+    agents = [e.agent for e in headlines]
+    assert len(agents) == len(set(agents))            # one per agent
+    assert {e.agent for e in result.events if e.agent != "System"} == set(agents)
+    assert all(h.result_summary.endswith((".", "…")) for h in headlines)
+
+
+def test_shorten_never_cuts_mid_word():
+    text = "Ananya R. was selected because her machine learning skills were the strongest"
+    out = shorten(text, 40)
+    assert out.endswith("…") and len(out) <= 41
+    assert text.startswith(out[:-1]) and text[len(out) - 1] == " "
+    assert shorten("short text", 40) == "short text"
+
+
+def test_planner_parses_commute_limit(path):
+    assert parse_rules("Find the best 3 candidates for ML internships within 10 km of Koramangala").max_km == 10
+    result = run("Compare the allocation policies with a 10 km commute limit", client=None, decisions_path=path)
+    assert result.data["max_km"] == 10
+    assert all(m["avg_commute_km"] <= 10 for m in result.data["metrics"].values())
+
+
+def test_compare_reports_commute_and_outskirts(path):
+    result = run("Compare the allocation policies", client=None, decisions_path=path)
+    m = result.data["metrics"]["skill_first"]
+    assert m["avg_commute_km"] is not None and "outskirts_gap_pts" in m
+    assert "MG Road" in result.data["outskirts"]
+
+
+def test_equity_flags_outskirts_gap_above_threshold(path):
+    # With a 10 km limit, skill-first's outskirts gap on the real data exceeds 10 points.
+    result = run("Compare the allocation policies within 10 km", client=None, decisions_path=path)
+    assert "skill_first" in result.data["outskirts_flags"]
+    assert result.data["outskirts"].startswith("Outskirts flag")

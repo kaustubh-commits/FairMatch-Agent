@@ -15,7 +15,7 @@ from data_pipeline.constants import BANGALORE_AREAS
 from tools.store import data_source, load_opportunities, load_students
 from ui.common import DOMAIN_COLORS, esc, page_header
 
-page_header("Opportunity map",
+page_header("Map",
             "Where the internships are, coloured by domain, and where students live.")
 
 

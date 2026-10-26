@@ -4,7 +4,7 @@
 
 UN Sustainable Development Goals: **SDG 8** (decent work) · **SDG 10** (reduced inequality) · **SDG 16** (transparent, accountable institutions).
 
-![Ask page with live agent trace](docs/screenshots/ask_rank.png)
+![Home page with the student and coordinator paths](docs/screenshots/home.png)
 
 This README is written for a student learning agentic AI. It explains *what* the system does, *how* the agents work together, and, most importantly, *why the LLM is never allowed to make a decision*.
 
@@ -24,21 +24,26 @@ FairMatch is a **decision-support tool** for whoever allocates opportunities to 
 
 ## 2. What you can do in the app
 
-| Page | What it shows | SDG |
-|---|---|---|
-| **Ask** | Chat with the agents. A live trace on the right shows every agent and tool call as it happens. | 8 |
-| **For Students** | Pick your skills (or a student ID): your top 5 real listings with a per-skill breakdown, plus the skills that would make you eligible for the most extra listings. | 8 |
-| **Map** | Opportunities pinned across Bangalore, coloured by domain, with students' home areas as a heat layer. | 8 · 10 |
-| **Policy Lab** | All opportunities allocated under 3 policies, compared on skill fit, Gini, unique recipients and repeat selection; then a 4-round simulation of what each policy does over time. | 10 |
-| **Decision Log** | Every proposal with its reasons, including anyone skipped and why. Approve it, or appeal it and watch the Auditor re-evaluate. | 16 |
+The app opens on a **Home** page with two paths: *I'm a student* and *I'm a coordinator*. The navigation is grouped the same way.
+
+| Page | For | What it shows | SDG |
+|---|---|---|---|
+| **Find internships** | Students | Pick your skills (or a student), interests and home area. You get your top 5 real listings with a per-skill breakdown and the commute, plus the skills that would make you eligible for the most extra listings *in your interests* ("also opens" lists the rest). | 8 |
+| **Ask the agents** | Coordinators | Chat with the agents. The results tables appear as soon as they're ready, and the checked explanation follows. On the right, each agent reports in one plain sentence; *Developer details* shows every tool call. | 8 |
+| **Policy Lab** | Coordinators | All listings allocated under 3 policies (optionally with a commute limit), compared on skill fit, Gini, students reached, repeat selection, average commute and the outskirts selection gap. Then a 4-round simulation. | 10 |
+| **Decision Log** | Coordinators | Every proposal with its reasons, including anyone skipped and why. Approve it, or appeal it and watch the Auditor re-evaluate. | 16 |
+| **Map** | Coordinators | Listings pinned across Bangalore, coloured by domain, with students' home areas as a heat layer. | 8 · 10 |
 
 (The SDG column is for this README; the app itself just describes what each page does.)
 
 | | |
 |---|---|
-| ![For students](docs/screenshots/students.png) | ![Policy Lab](docs/screenshots/policy_lab.png) |
+| ![Ask: results and the plain-language trace](docs/screenshots/ask_rank.png) | ![Find internships](docs/screenshots/students.png) |
+| ![Policy Lab](docs/screenshots/policy_lab.png) | ![Policy Lab with a 10 km commute limit](docs/screenshots/policy_lab_10km.png) |
 | ![Multi-round simulation](docs/screenshots/policy_lab_rounds.png) | ![Map](docs/screenshots/map.png) |
 | ![Decision log with a skipped student](docs/screenshots/decision_skipped.png) | ![Appeal](docs/screenshots/decision_appeal.png) |
+
+The UI pass (a critique of every page, what was removed, and the light motion) is written up in [`docs/ui-critique.md`](docs/ui-critique.md).
 
 ## 3. Architecture
 
@@ -87,8 +92,9 @@ data_pipeline/   load_kaggle.py, generate_students.py, import_form.py, build.py,
 tools/           search, scoring, allocation, fairness, decisions, recommend, simulation  (no LLM, unit-tested)
 agents/          planner, matcher, equity, auditor, explainer, orchestrator, trace, grounding, cli
 llm/             client.py: Gemini / Ollama / demo-safe wrapper (standard library only)
-ui/              app.py + views/ (ask, students, map, policy_lab, decision_log) + common.py
-tests/           103 unit tests (pytest)
+ui/              app.py + views/ (home, students, ask, policy_lab, decision_log, map) + common.py
+tests/           125 unit tests (pytest)
+docs/            screenshots/ and ui-critique.md
 ```
 
 ## 4. How the agents work together
@@ -108,13 +114,14 @@ sequenceDiagram
     P->>P: intent=rank, domain=ML, area=Koramangala, k=3 (LLM or rules, then validated)
     P->>M: plan
     M->>M: find_opportunities_near("ML", "Koramangala")<br/>no ML there, so nearest area MG Road (4.9 km)
-    M->>M: rank_candidates + make_decision (draft)
+    M->>M: rank_candidates + make_decision (match = skill fit + closeness to home)
     M->>E: proposals
     E->>E: fairness_metrics: 100% of picks already had an opportunity vs 33% of students → FLAG<br/>shows who the hybrid policy would pick instead
     E->>A: proposals + flag
     A->>A: re-check eligibility, slots, per-student cap → log_decision (status "proposed")
+    A-->>U: tables shown now (PartialResult)
     A->>X: DecisionRecords
-    X->>U: explanation written only from the record
+    X->>U: ONE LLM call explains every decision, shown only after the number check
 ```
 
 | Agent | Job | Tools it calls | Uses the LLM? |
@@ -138,25 +145,46 @@ sequenceDiagram
 
 The For Students form is already structured, so it hands the Planner a ready profile (`plan (form)` in the trace). No parsing or LLM call is needed for that step.
 
-**The live trace.** Every step emits `{agent, action, tool, args, result_summary, duration_ms}`. The orchestrator offers it two ways: an `on_event` callback, and a `stream()` generator that also yields a `StepStarted` when a step *begins*. The UI uses the generator, which is how it can show "Planner is thinking…" while an LLM call is still in flight.
+**The live trace.** Every step emits `{agent, action, tool, args, result_summary, duration_ms, kind}`. When an agent finishes, it also writes **one plain-language headline**, e.g. *"Matcher ranked the eligible students (72, 42) for 2 ML listings in MG Road…"*. The UI shows only these headlines by default. The *Developer details* toggle (or `--verbose` on the CLI) shows every tool call, timing and raw LLM output. Text is never cut off mid-word.
+
+The orchestrator offers the trace two ways: an `on_event` callback, and a `stream()` generator. The generator also yields a `StepStarted` when a step *begins* (so the UI can show "Matcher is working…") and a `PartialResult` as soon as the tables exist. That lets the UI draw results before the Explainer has written anything.
+
+**One Explainer call per request.** The Explainer explains *all* decisions in a single LLM call (`{decision_id: summary}`), and checks each summary separately. A rank request uses 2 LLM calls in total (Planner and Explainer) instead of 3 or more, which cut a typical Gemini request from about 15 s to about 8 s. Explanations are revealed only **after** they pass the number check, so nothing unverified is ever on screen.
 
 **Fallback.** In Gemini mode the wrapper tries `gemini-3.5-flash`, then `gemini-3.5-flash-lite` (each model has its own free-tier quota), then a local Ollama model. A model that hits its quota is not called again for the rest of the run. If everything fails, the run switches to **demo-safe** mode and continues with the keyword planner and template text. The trace shows a friendly line ("Gemini quota reached, continuing rule-based") and keeps the raw API error under *Technical details*. Scores, rankings and decisions are identical in every mode, because the LLM never produced them.
 
-![Friendly fallback line with technical details](docs/screenshots/ask_gemini_fallback.png)
+![Developer details: the friendly fallback line and the raw error](docs/screenshots/ask_gemini_developer_details.png)
 
 ## 5. The three allocation policies
 
-| Policy | Rule | Trade-off |
-|---|---|---|
-| `skill_first` | Best skill fit wins. | Highest fit, but chances concentrate on students with strong (often already-polished) profiles. |
-| `equal_access` | Fewest past opportunities first; fit only breaks ties. | Most equal, lowest fit. |
-| `hybrid` | fit ÷ (1 + 0.5 × past opportunities) | Keeps most of the fit while sharply cutting repeat selection. |
+**Match score.** Skill fit is transparent on purpose. Required skills are worth 2 points and preferred skills 1 point; a student earns `level/3` of each, and skill fit = points earned ÷ points possible. The **match score** then blends in how close the listing is to home:
 
-On the real data: skill-first gives **40.9%** of slots to students who already had an opportunity (Gini 0.599). Hybrid cuts that to **14.4%** (Gini 0.468) for a 0.060 drop in average fit.
+`match = (1 − w) × skill fit + w × closeness`, where `closeness = 1 − commute_km / 25` and `commute_km` is the straight-line (haversine) distance from home to the listing.
+
+A student is eligible with at least half the required skills and at least 8 hours a week. Optionally, a request can also set a commute limit ("within 10 km").
+
+| Policy | Commute weight `w` | Rule | Trade-off |
+|---|---|---|---|
+| `skill_first` | 0.2 | Best match score wins. | Highest fit, but chances concentrate on students with strong (often already-polished) profiles. |
+| `equal_access` | 0 | Fewest past opportunities first; skill fit only breaks ties. | Most equal, lowest fit. |
+| `hybrid` | 0.1 | match score ÷ (1 + 0.5 × past opportunities) | Keeps most of the fit while sharply cutting repeat selection. |
+
+**Why the commute weight differs per policy.** Shorter commutes make an internship more practical, but penalising distance pushes out students who live on the city's outskirts, which is itself an equity issue. So each policy sets its own weight. The Equity Analyst also measures the **outskirts selection gap**: how many percentage points less often students living more than 12 km from MG Road are selected than everyone else. It flags any gap above 10 points.
+
+On the real data:
+
+| | Skill fit | Gini | Repeat selection | Avg commute | Outskirts gap |
+|---|---|---|---|---|---|
+| Skill-first | 0.685 | 0.604 | 42.4% | 5.5 km | 6.8 pts |
+| Equal access | 0.579 | 0.431 | 0% | 10.0 km | −0.6 pts |
+| Hybrid | 0.614 | 0.450 | 8.3% | 7.3 km | 1.9 pts |
+
+With a **10 km commute limit**, the outskirts gap rises to **13.4 points for skill-first** and **10.9 for hybrid**, and both are flagged. Equal access stays at 3.6. That's the trade-off made visible.
 
 **Rules shared by every policy**
 - **Ties** go to the student with *fewer* past opportunities, then the lower id. (Earlier, ties broke by id alone, so S010 with 5 past opportunities beat S140 with 0 at an identical fit.)
-- **At most 2 opportunities per student per request/round.** If the best candidate is already at the cap, they are **skipped**, the next candidate takes the slot, and the record says so: *"S140 skipped: fit 0.92, but already selected for 2 other opportunities in this request (max 2 per student)."* (Earlier the Auditor removed such a student silently and nobody was promoted, which produced a decision with "Selected: Nobody" next to a perfect runner-up.)
+- **At most 2 opportunities per student per request/round.** If the best candidate is already at the cap, they are **skipped**, the next candidate takes the slot, and the record says so: *"Harsh M. (S140) skipped: match 0.84 (skill fit 0.92, commute 11.8 km), but already selected for 2 other opportunities in this request (max 2 per student)."* (Earlier the Auditor removed such a student silently and nobody was promoted, which produced a decision with "Selected: Nobody" next to a perfect runner-up.)
+- **Appeals.** An appeal wins if the appellant's match score is within 0.05 of the weakest selected student's **and** they've had fewer past opportunities. The displaced student becomes the runner-up.
 
 ### What happens over time (multi-round simulation)
 
@@ -164,13 +192,11 @@ On the real data: skill-first gives **40.9%** of slots to students who already h
 
 | After 4 rounds | Gini | Slots won by the previous round's winners | Students reached at least once |
 |---|---|---|---|
-| Skill-first | 0.544 | **100%** | 73 |
+| Skill-first | 0.555 | **100%** | 71 |
 | Equal access | 0.255 | 44% | 104 |
-| Hybrid | 0.343 | 43% | 109 |
+| Hybrid | 0.329 | 51% | 109 |
 
-Skill-first locks in the same ~70 students every round; hybrid reaches 36 more people. "Repeat selection" here means *won the previous round too* (round 1: had any real past opportunity). The usual definition, *ever had an opportunity*, hits 100% for every policy after one or two rounds, because 132 slots go to 150 students, so it would hide the difference.
-
-**Skill fit** is transparent on purpose. Required skills are worth 2 points and preferred skills 1 point. A student earns `level/3` of each, and the score is points earned ÷ points possible. A student is eligible with at least half the required skills and at least 8 hours a week.
+Skill-first locks in the same ~70 students every round; hybrid reaches 38 more people. "Repeat selection" here means *won the previous round too* (round 1: had any real past opportunity). The usual definition, *ever had an opportunity*, hits 100% for every policy after one or two rounds, because 132 slots go to 150 students, so it would hide the difference.
 
 ## 6. Why the LLM never decides
 
@@ -202,8 +228,10 @@ The lesson for agentic systems: **put the LLM where being wrong is cheap and che
 | Data | Source | Limits |
 |---|---|---|
 | **Opportunities** | Kaggle *Internshala Dataset* (`aayush9119/internshala-dataset`), filtered to Bangalore: **69 listings** | Listings only say "Bangalore", so **neighbourhoods are simulated** (seeded random choice among 15 tech areas). The scrape's *duration* column holds start dates, so every listing is set to 8 weeks. Most Bangalore listings are sales/HR/marketing; we keep at most 20 per domain so the 8 ML / 5 Data / 12 Web / 4 App listings survive. Skills come from job titles via a fixed keyword map. Slot counts are seeded. |
-| **Students** | **Synthetic**, seeded generator (150 students, colleges "A–H", no real people) | History is **deliberately skewed**: about 15% "well-connected" students hold most past opportunities, so the fairness problem is visible. Real students would behave differently. |
+| **Students** | **Synthetic**, seeded generator (150 students, colleges "A–H", no real people) | **Names are synthetic too.** "Ananya R. (S025)" is a common Indian first name plus a random initial, generated (with its own seed) only to make the UI easier to follow; it is not a real person. History is **deliberately skewed**: about 15% "well-connected" students hold most past opportunities, so the fairness problem is visible. Real students would behave differently. |
 | **Google Form** (optional) | Drop a CSV export with "form" in its name into `data/raw/` | Rows without consent are dropped; the form collects no names, phones or emails. |
+
+**Commute distances are illustrative.** Listing neighbourhoods are simulated and student homes are synthetic, and the distance is a straight line, not travel time. The commute and outskirts features show the *mechanism*; they are not real travel data.
 
 If the Kaggle CSV is missing, a bundled synthetic opportunity set is used so the app always runs.
 
@@ -232,7 +260,8 @@ python -m tools.demo                                                # Phase 1: t
 python -m agents.cli "Find the best 3 candidates for ML internships in Koramangala"
 python -m agents.cli --mode demo-safe "Compare the allocation policies"
 python -m agents.cli "I know python and sql, what can I do?"
-pytest -q                                                           # 103 tests
+python -m agents.cli --verbose "Compare the allocation policies within 10 km"   # developer view
+pytest -q                                                           # 125 tests
 ```
 
 **About the Gemini free tier.** It allows about **20 requests per model per day**, and one "rank" request uses 3 calls. When `gemini-3.5-flash` runs out, `gemini-3.5-flash-lite` takes over (set `GEMINI_FALLBACK_MODEL` to change it); when both run out, the app continues in demo-safe mode. Rehearse in demo-safe mode to save quota. Google also retires models for new keys from time to time; if you see "model not available", set `GEMINI_MODEL` to a current flash model.
@@ -242,7 +271,7 @@ pytest -q                                                           # 103 tests
 | SDG | Target it speaks to | Feature |
 |---|---|---|
 | **8: Decent work** | Youth employment, skill matching | Skill-fit scoring and ranking; For Students page (matches + skills to learn next); map of real Bangalore internships |
-| **10: Reduced inequality** | Equal opportunity regardless of background | Equity Analyst flags concentration; Policy Lab compares Gini, repeat selection and reach, once and over 4 rounds; hybrid policy; ties go to students with fewer past opportunities |
+| **10: Reduced inequality** | Equal opportunity regardless of background | Equity Analyst flags concentration and the outskirts selection gap; Policy Lab compares Gini, repeat selection, reach and commute, once and over 4 rounds; per-policy commute weights; hybrid policy; ties go to students with fewer past opportunities |
 | **16: Accountable institutions** | Transparent, accountable decision-making | Decision log with reasons, including who was skipped and why; human approval; appeals re-evaluated by a rule-based Auditor; live trace of every step, with honest error messages; explanations only from the record |
 
 ## 10. Non-goals

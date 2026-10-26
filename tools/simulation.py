@@ -24,9 +24,10 @@ DEFAULT_ROUNDS = 4
 
 def simulate_rounds(policy: str, rounds: int = DEFAULT_ROUNDS,
                     students: Optional[list[Student]] = None,
-                    opportunities: Optional[list[Opportunity]] = None) -> list[dict]:
+                    opportunities: Optional[list[Opportunity]] = None,
+                    max_km: Optional[float] = None) -> list[dict]:
     """
-    Run `rounds` allocation rounds under `policy`.
+    Run `rounds` allocation rounds under `policy` (optionally with a commute limit).
 
     Returns one dict per round: fairness_metrics(...) for that round, plus
       round                  1, 2, ...
@@ -46,7 +47,7 @@ def simulate_rounds(policy: str, rounds: int = DEFAULT_ROUNDS,
     previous = {s.id for s in pool if s.past_opportunities >= 1}   # "round 0" = real history
     history = []
     for r in range(1, rounds + 1):
-        assignments = allocate(policy, pool, opportunities)
+        assignments = allocate(policy, pool, opportunities, max_km)
         metrics = fairness_metrics(assignments, pool)
         wins = Counter(sid for a in assignments for sid in a["student_ids"])
         slots = sum(wins.values())

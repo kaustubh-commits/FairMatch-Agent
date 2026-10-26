@@ -39,5 +39,25 @@ def test_fairness_metrics_hand_checked():
 
 def test_fairness_metrics_empty():
     m = fairness_metrics([], [make_student("A")])
-    assert m == {"avg_fit": 0.0, "gini": 0.0, "unique_recipients": 0,
-                 "repeat_selection_rate": 0.0, "slots_filled": 0}
+    assert m == {"avg_fit": 0.0, "gini": 0.0, "unique_recipients": 0, "repeat_selection_rate": 0.0,
+                 "avg_commute_km": None, "outskirts_rate": 0.0, "others_rate": 0.0,
+                 "outskirts_gap_pts": 0.0, "slots_filled": 0}
+
+
+def test_avg_commute_and_outskirts_gap_hand_checked():
+    # Yelahanka and Whitefield are > 12 km from MG Road; Koramangala and Indiranagar are not.
+    students = [make_student("A", area="Yelahanka"), make_student("B", area="Whitefield"),
+                make_student("C", area="Koramangala"), make_student("D", area="Indiranagar")]
+    assignments = [{"opportunity_id": "O1", "student_ids": ["A", "C", "D"],
+                    "scores": {"A": 0.5, "C": 0.5, "D": 0.5},
+                    "commutes": {"A": 10.0, "C": 2.0, "D": 3.0}}]
+    m = fairness_metrics(assignments, students)
+    assert m["avg_commute_km"] == 5.0
+    assert m["outskirts_rate"] == 0.5 and m["others_rate"] == 1.0     # 1 of 2 vs 2 of 2
+    assert m["outskirts_gap_pts"] == 50.0
+
+
+def test_avg_fit_uses_skill_fit_when_present():
+    assignments = [{"opportunity_id": "O1", "student_ids": ["A"], "scores": {"A": 0.9},
+                    "skill_fits": {"A": 0.6}}]
+    assert fairness_metrics(assignments, [make_student("A")])["avg_fit"] == 0.6

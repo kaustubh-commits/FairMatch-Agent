@@ -37,21 +37,43 @@ def test_recommend_too_few_hours_means_no_matches():
     assert result["matches"] == [] and not result["hours_ok"]
 
 
+def test_recommend_with_home_area_reports_commute():
+    result = recommend_for_profile({"Python": 3}, home_area="Koramangala", opportunities=opps())
+    assert result["matches"][0]["commute_km"] == 0.0 and result["home_area"] == "Koramangala"
+
+
 def test_recommend_by_student_id():
     students = [make_student("S1", {"Python": 3})]
     result = recommend_for_profile(student_id="S1", students=students, opportunities=opps())
     assert result["student_id"] == "S1" and result["matches"][0]["opportunity_id"] == "O2"
 
 
-def test_skills_to_learn_ranks_by_unlocked_listings():
-    # With only Python: Web dev unlocks O3 and O4 (half of O4's required skills),
-    # Design unlocks O4 and O5, ML unlocks O1. Ties keep SKILLS order (Web dev before Design).
+def test_skills_to_learn_ranks_inside_interests_first():
+    # Interested in Design only. With Python: Design unlocks O4 + O5 (O5 is Design, O4 is Web),
+    # Web dev unlocks O3 + O4 (both Web), ML unlocks O1 (ML).
+    learn = skills_to_learn({"Python": 2}, interests=["Design"], opportunities=opps())
+    assert learn["interests"] == ["Design"]
+    assert [(r["skill"], r["unlocks_in_interests"], r["unlocks_elsewhere"]) for r in learn["next"]] == \
+        [("Design", 1, 1)]
+    # Skills that only open other domains are reported separately, biggest first.
+    assert [(r["skill"], r["unlocks_elsewhere"]) for r in learn["also_opens"]] == [("Web dev", 2), ("ML", 1)]
+    assert learn["next"][0]["examples_in"] == ["Design Intern"]
+
+
+def test_skills_to_learn_infers_interests_from_skills():
+    # No interests given: Python points to the Data domain (SKILL_TO_DOMAIN).
     learn = skills_to_learn({"Python": 2}, opportunities=opps())
-    assert [(r["skill"], r["unlocks"]) for r in learn] == [("Web dev", 2), ("Design", 2), ("ML", 1)]
-    assert learn[0]["examples"] == ["Web Intern", "Web Intern"]
+    assert learn["interests"] == ["Data"]
+    assert learn["next"] == []          # nothing new in Data; everything goes to "also opens"
+    assert {r["skill"] for r in learn["also_opens"]} == {"Web dev", "Design", "ML"}
+
+
+def test_skills_to_learn_goal_leadership_adds_other():
+    learn = skills_to_learn({"Python": 2}, interests=["Web"], goal="leadership", opportunities=opps())
+    assert learn["interests"] == ["Other", "Web"]
 
 
 def test_skills_to_learn_skips_known_and_useless_skills():
-    learn = skills_to_learn({"Python": 2, "Web dev": 1}, opportunities=opps())
-    skills = [r["skill"] for r in learn]
+    learn = skills_to_learn({"Python": 2, "Web dev": 1}, interests=["Web"], opportunities=opps())
+    skills = [r["skill"] for r in learn["next"] + learn["also_opens"]]
     assert "Python" not in skills and "Web dev" not in skills and "Java" not in skills

@@ -6,7 +6,8 @@ Command-line runner for the agents (Phase 2 checkpoint).
     python -m agents.cli "Explain decision D0001"
     python -m agents.cli "Appeal D0001 for S011: I have strong ML project experience"
 
-Trace lines are printed live, one per step, coloured by agent.
+By default the trace shows one plain-language line per agent as it finishes.
+Add --verbose to see every tool call, LLM call and timing (the developer view).
 """
 
 from __future__ import annotations
@@ -26,10 +27,16 @@ def _ansi(hex_color: str) -> str:
     return f"\033[1;38;2;{r};{g};{b}m"
 
 
-def print_event(event: TraceEvent, color: bool = True) -> None:
+def print_event(event: TraceEvent, color: bool = True, verbose: bool = False) -> None:
+    if (event.kind == "headline") == verbose:   # plain view: headlines only; verbose: everything else
+        return
     agent = f"{event.agent:<15}"
     if color:
         agent = _ansi(AGENT_COLORS.get(event.agent, "#000000")) + agent + RESET
+    if event.kind == "headline":
+        print(f"  {agent} {event.result_summary}")
+        sys.stdout.flush()
+        return
     tool = f" [{event.tool}]" if event.tool else ""
     timing = f" ({event.duration_ms} ms)" if event.duration_ms else ""
     print(f"  {agent} {event.action}{tool}{timing}")
@@ -44,11 +51,13 @@ def main() -> None:
     parser.add_argument("--mode", choices=["gemini", "ollama", "demo-safe"], default=None,
                         help="LLM provider (default: LLM_PROVIDER in .env, else gemini)")
     parser.add_argument("--no-color", action="store_true", help="plain text output")
+    parser.add_argument("--verbose", action="store_true",
+                        help="show every tool call, LLM call and timing (developer view)")
     args = parser.parse_args()
 
     print("TRACE")
     result = run(args.request, provider=args.mode,
-                 on_event=lambda e: print_event(e, color=not args.no_color))
+                 on_event=lambda e: print_event(e, color=not args.no_color, verbose=args.verbose))
     print(f"\nANSWER  (intent: {result.intent}; mode: {result.mode_start}"
           + (f" -> {result.mode_end}" if result.mode_end != result.mode_start else "") + ")")
     print(result.answer)

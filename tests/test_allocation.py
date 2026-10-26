@@ -55,3 +55,20 @@ def test_unknown_policy_raises(students, opportunities):
 
 def test_allocation_is_deterministic(students, opportunities):
     assert allocate("hybrid", students, opportunities) == allocate("hybrid", students, opportunities)
+
+
+def test_commute_weight_depends_on_policy():
+    # Same skills; S1 lives far away (Yelahanka), S2 lives next to the listing (Koramangala).
+    # S2 also has more past opportunities, so equal_access (which ignores the commute) picks S1.
+    far = make_student("S1", {"ML": 3}, past=0, area="Yelahanka")
+    near = make_student("S2", {"ML": 3}, past=1, area="Koramangala")
+    opps = [make_opportunity("O1", ["ML"], area="Koramangala")]
+    assert allocate("skill_first", [far, near], opps)[0]["student_ids"] == ["S2"]   # closer wins
+    assert allocate("equal_access", [far, near], opps)[0]["student_ids"] == ["S1"]  # distance ignored
+
+
+def test_max_km_respected_and_commutes_reported():
+    far = make_student("S1", {"ML": 3}, area="Yelahanka")
+    near = make_student("S2", {"ML": 1}, area="Koramangala")
+    a = allocate("skill_first", [far, near], [make_opportunity("O1", ["ML"])], max_km=10)[0]
+    assert a["student_ids"] == ["S2"] and a["commutes"]["S2"] == 0.0

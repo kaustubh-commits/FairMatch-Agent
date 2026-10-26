@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="40" viewBox="0 0 220 40">
+  <circle cx="16" cy="20" r="10" fill="none" stroke="#2dd4bf" stroke-width="3"/>
+  <circle cx="28" cy="20" r="10" fill="none" stroke="#e6e8ef" stroke-width="3" opacity="0.85"/>
+  <text x="46" y="27" font-family="Source Sans Pro, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#e6e8ef">Fair<tspan fill="#2dd4bf">Match</tspan></text>
+</svg>

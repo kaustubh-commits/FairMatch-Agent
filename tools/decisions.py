@@ -23,7 +23,7 @@ from typing import Optional
 from data_pipeline.build import PROCESSED_DIR
 from data_pipeline.schemas import Appeal, DecisionRecord, Opportunity, Student
 from tools.allocation import MAX_PER_STUDENT, rank_for_policy
-from tools.scoring import MIN_HOURS, score_match
+from tools.scoring import MIN_HOURS, POLICY_COMMUTE_WEIGHT, score_match
 from tools.store import get_opportunity, get_student, load_opportunities, load_students
 
 DEFAULT_PATH = PROCESSED_DIR / "decisions.json"
@@ -47,17 +47,31 @@ def _update(record: DecisionRecord, path: Path) -> None:
     _save_all(records, path)
 
 
-def _skill_points(match: dict) -> dict:
-    """Compact per-skill breakdown {skill: points} for the record."""
-    return {skill: b["points"] for skill, b in match["breakdown"].items()}
+# Keys in a record's score_breakdown[sid] that are not skills.
+BREAKDOWN_FIELDS = ("score", "skill_fit", "commute_km")
+
+
+def _breakdown(match: dict) -> dict:
+    """Compact breakdown for the record: match score, skill fit, commute, and {skill: points}."""
+    return {"score": match["score"], "skill_fit": match["skill_fit"], "commute_km": match["commute_km"],
+            **{skill: b["points"] for skill, b in match["breakdown"].items()}}
+
+
+def _past(n: int) -> str:
+    return f"{n} past opportunit{'y' if n == 1 else 'ies'}"
+
+
+def _summary(match: dict) -> str:
+    """'match 0.86 (skill fit 0.92, commute 4.9 km)' from a score_match result."""
+    commute = f", commute {match['commute_km']} km" if match["commute_km"] is not None else ""
+    return f"match {match['score']:.2f} (skill fit {match['skill_fit']:.2f}{commute})"
 
 
 def _reason_line(match: dict, label: str) -> str:
     """One readable sentence built only from tool outputs."""
     skills = ", ".join(f"{s} {b['level']}/3" for s, b in match["breakdown"].items())
-    past = match["past_opportunities"]
-    return (f"{match['student_id']} {label}: fit {match['score']:.2f} ({skills}); "
-            f"{past} past opportunit{'y' if past == 1 else 'ies'}.")
+    return (f"{match['student_label']} {label}: {_summary(match)}; {skills}; "
+            f"{_past(match['past_opportunities'])}.")
 
 
 # ------------------------------------------------------------- tools -------
@@ -65,7 +79,8 @@ def _reason_line(match: dict, label: str) -> str:
 def make_decision(opportunity_id: str, policy: str = "hybrid",
                   students: Optional[list[Student]] = None,
                   opportunities: Optional[list[Opportunity]] = None,
-                  prior_wins: Optional[dict[str, int]] = None) -> DecisionRecord:
+                  prior_wins: Optional[dict[str, int]] = None,
+                  max_km: Optional[float] = None) -> DecisionRecord:
     """
     Build (but don't save) a DecisionRecord for one opportunity: the top
     `slots` candidates under `policy`, plus the runner-up and the reasons.
@@ -74,12 +89,13 @@ def make_decision(opportunity_id: str, policy: str = "hybrid",
     selected for in the same request. Students at MAX_PER_STUDENT are skipped,
     the next candidate takes their place, and the skip is written into the
     record (reasons + constraints["skipped"]) so nobody disappears silently.
+    `max_km` (optional) makes students with a longer commute ineligible.
     """
     students = students if students is not None else load_students()
     opp = get_opportunity(opportunity_id,
                           opportunities if opportunities is not None else load_opportunities())
     prior_wins = prior_wins or {}
-    ranked = rank_for_policy(opp, policy, students)
+    ranked = rank_for_policy(opp, policy, students, max_km)
 
     available, skipped = [], []
     for m in ranked:
@@ -99,7 +115,7 @@ def make_decision(opportunity_id: str, policy: str = "hybrid",
         m["student_id"]: (f"already selected for {prior_wins[m['student_id']]} other opportunities "
                           f"in this request (max {MAX_PER_STUDENT} per student)")
         for m in skipped}
-    reasons += [f"{m['student_id']} skipped: fit {m['score']:.2f}, but "
+    reasons += [f"{m['student_label']} skipped: {_summary(m)}, but "
                 f"{skip_reasons[m['student_id']]}." for m in skipped]
     if not selected:
         reasons.append("No eligible candidates for this opportunity."
@@ -107,7 +123,10 @@ def make_decision(opportunity_id: str, policy: str = "hybrid",
 
     shown = selected + ([runner_up] if runner_up else []) + skipped
     constraints = {"slots": opp.slots, "min_hours": MIN_HOURS,
-                   "max_per_student": MAX_PER_STUDENT, "eligible_candidates": len(ranked)}
+                   "max_per_student": MAX_PER_STUDENT, "eligible_candidates": len(ranked),
+                   "commute_weight": POLICY_COMMUTE_WEIGHT.get(policy, 0.0)}
+    if max_km is not None:
+        constraints["max_km"] = max_km
     if skip_reasons:
         constraints["skipped"] = skip_reasons
     return DecisionRecord(
@@ -115,7 +134,7 @@ def make_decision(opportunity_id: str, policy: str = "hybrid",
         selected=[m["student_id"] for m in selected],
         runner_up=runner_up["student_id"] if runner_up else None,
         policy=policy,
-        score_breakdown={m["student_id"]: {"score": m["score"], **_skill_points(m)} for m in shown},
+        score_breakdown={m["student_id"]: _breakdown(m) for m in shown},
         reasons=reasons,
         constraints=constraints,
     )
@@ -167,11 +186,17 @@ def appeal_decision(decision_id: str, reason: str, student_id: Optional[str] = N
                           opportunities if opportunities is not None else load_opportunities())
     appellant_id = student_id or record.runner_up
 
+    weight = record.constraints.get("commute_weight", POLICY_COMMUTE_WEIGHT.get(record.policy, 0.0))
+    max_km = record.constraints.get("max_km")
+
     def rescore(sid: str) -> dict:
         student = get_student(sid, students)
-        match = score_match(student, opp)
+        match = score_match(student, opp, weight, max_km)
         match["past_opportunities"] = student.past_opportunities
         return match
+
+    def who(m: dict) -> str:
+        return f"{m['student_label']} (match {m['score']:.2f}, {_past(m['past_opportunities'])})"
 
     outcome, explanation = "upheld", ""
     if appellant_id is None:
@@ -186,13 +211,14 @@ def appeal_decision(decision_id: str, reason: str, student_id: Optional[str] = N
         weakest = min(selected, key=lambda m: (m["score"], -m["past_opportunities"]), default=None)
 
         if not appellant["eligible"]:
-            explanation = (f"{appellant_id} is not eligible: "
-                           + " ".join(r for r in appellant["reasons"] if r.startswith("Not eligible")))
+            explanation = (f"{appellant['student_label']} is not eligible: "
+                           + " ".join(r.removeprefix("Not eligible: ") for r in appellant["reasons"]
+                                      if r.startswith("Not eligible")))
         elif ineligible:
             replaced = ineligible[0]
             outcome = "revised"
-            explanation = (f"{replaced['student_id']} no longer meets eligibility; "
-                           f"replaced by eligible appellant {appellant_id} (fit {appellant['score']:.2f}).")
+            explanation = (f"{replaced['student_label']} no longer meets eligibility; "
+                           f"replaced by eligible appellant {who(appellant)}.")
         elif weakest is None:
             replaced = None
             outcome = "revised"
@@ -201,28 +227,29 @@ def appeal_decision(decision_id: str, reason: str, student_id: Optional[str] = N
               and appellant["past_opportunities"] < weakest["past_opportunities"]):
             replaced = weakest
             outcome = "revised"
-            explanation = (f"{appellant_id} (fit {appellant['score']:.2f}, "
-                           f"{appellant['past_opportunities']} past) is within {APPEAL_MARGIN} of "
-                           f"{weakest['student_id']} (fit {weakest['score']:.2f}, "
-                           f"{weakest['past_opportunities']} past) and has had fewer opportunities; "
-                           f"selection revised.")
+            explanation = (f"{who(appellant)} is within {APPEAL_MARGIN} of {who(weakest)} "
+                           f"and has had fewer opportunities; selection revised.")
         else:
             gap = weakest["score"] - appellant["score"]
-            explanation = (f"{appellant_id} (fit {appellant['score']:.2f}, "
-                           f"{appellant['past_opportunities']} past) vs weakest selected "
-                           f"{weakest['student_id']} (fit {weakest['score']:.2f}, "
-                           f"{weakest['past_opportunities']} past): gap {gap:.2f}; "
-                           f"revision needs gap <= {APPEAL_MARGIN} and fewer past opportunities. "
-                           f"Decision upheld.")
+            if gap <= APPEAL_MARGIN:   # close enough on score, so history decided it
+                explanation = (f"{who(appellant)} is within {APPEAL_MARGIN} of the weakest selected "
+                               f"student, {who(weakest)}, but a revision also needs fewer past "
+                               f"opportunities. Decision upheld.")
+            else:
+                explanation = (f"{who(appellant)} scores {gap:.2f} below the weakest selected student, "
+                               f"{who(weakest)}; a revision needs a gap of at most {APPEAL_MARGIN} and fewer "
+                               f"past opportunities. Decision upheld.")
 
         if outcome == "revised":
             if replaced is not None:
                 record.selected = [appellant_id if sid == replaced["student_id"] else sid
                                    for sid in record.selected]
+                # The displaced student is now the runner-up (the appellant can't be both).
+                record.runner_up = replaced["student_id"]
+                record.score_breakdown.setdefault(replaced["student_id"], _breakdown(replaced))
             else:
                 record.selected = [appellant_id]
-            record.score_breakdown[appellant_id] = {"score": appellant["score"],
-                                                    **_skill_points(appellant)}
+            record.score_breakdown[appellant_id] = _breakdown(appellant)
 
     record.status = "revised" if outcome == "revised" else "appealed"
     record.appeal = Appeal(text=reason, student_id=appellant_id,

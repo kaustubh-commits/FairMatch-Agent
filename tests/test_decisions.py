@@ -64,7 +64,7 @@ def test_appeal_upheld_when_gap_is_large(students, opportunities, path):
     assert record.status == "appealed"
     assert record.appeal.outcome == "upheld"
     assert record.selected == ["S1"]
-    assert "Decision upheld" in record.appeal.explanation
+    assert "Decision upheld" in record.appeal.explanation and "below the weakest" in record.appeal.explanation
 
 
 def test_appeal_revised_when_close_and_fewer_past(path):
@@ -84,7 +84,20 @@ def test_appeal_revised_when_close_and_fewer_past(path):
     assert record.appeal.outcome == "revised"
     assert record.status == "revised"
     assert record.selected == ["S2"]
+    assert record.runner_up == "S1"                         # the displaced student, not the appellant
     assert get_decision("D0001", path).selected == ["S2"]   # persisted
+
+
+def test_appeal_upheld_when_close_but_more_past_opportunities(path):
+    # S2 scores higher than the selected S1 but has had more opportunities: upheld, and said plainly.
+    students = [make_student("S1", {"ML": 3}, past=0), make_student("S2", {"ML": 3, "Python": 3}, past=4)]
+    opps = [make_opportunity("O1", ["ML"], ["Python"])]
+    log_decision(make_decision("O1", "equal_access", students, opps), path)
+    record = appeal_decision("D0001", "I am stronger", student_id="S2", path=path,
+                             students=students, opportunities=opps)
+    assert record.appeal.outcome == "upheld"
+    assert "also needs fewer past opportunities" in record.appeal.explanation
+    assert "gap -" not in record.appeal.explanation
 
 
 def test_appeal_by_ineligible_student_is_upheld(students, opportunities, path):
@@ -93,3 +106,4 @@ def test_appeal_by_ineligible_student_is_upheld(students, opportunities, path):
                              students=students, opportunities=opportunities)
     assert record.appeal.outcome == "upheld"
     assert "not eligible" in record.appeal.explanation
+    assert "Not eligible: Not eligible" not in record.appeal.explanation

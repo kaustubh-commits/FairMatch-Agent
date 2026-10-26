@@ -4,12 +4,18 @@ The live agent trace.
 Every step an agent takes (planning, a tool call, an LLM call, a fallback)
 becomes a TraceEvent:
 
-    {agent, action, tool, args, result_summary, duration_ms}
+    {agent, action, tool, args, result_summary, duration_ms, kind}
+
+There are three kinds of event:
+  step      a timed piece of work (a tool or LLM call)          -> developer view
+  note      an instant remark (a verdict, a rejected LLM text)   -> developer view
+  headline  ONE plain-language sentence an agent writes when it  -> default view
+            finishes, e.g. "Ranked 72 eligible students for 2 ML listings."
 
 Events are handed to an `on_event` callback the moment they happen, so a UI
 can draw them step by step while the run is still going (PLAN.md section 5).
 An optional `on_start` callback also receives a StepStarted when a step
-BEGINS, so a UI can show "Matcher is thinking..." during slow steps.
+BEGINS, so a UI can show "Matcher is working..." during slow steps.
 """
 
 from __future__ import annotations
@@ -37,6 +43,15 @@ AGENT_ICONS = {
 PIPELINE = ["Planner", "Matcher", "Equity Analyst", "Auditor", "Explainer"]
 
 
+def shorten(text: str, limit: int = 160) -> str:
+    """Trim to at most `limit` characters at a word boundary, adding '…' if cut."""
+    text = " ".join(str(text).split())
+    if len(text) <= limit:
+        return text
+    cut = text[:limit].rsplit(" ", 1)[0].rstrip(",;:-")
+    return cut + "…"
+
+
 @dataclass
 class TraceEvent:
     agent: str
@@ -45,6 +60,7 @@ class TraceEvent:
     args: dict = field(default_factory=dict)
     result_summary: str = ""
     duration_ms: int = 0
+    kind: str = "step"            # step | note | headline
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -56,6 +72,17 @@ class StepStarted:
     agent: str
     action: str
     tool: Optional[str] = None
+
+
+@dataclass
+class PartialResult:
+    """
+    Sent once the tables are ready but BEFORE the Explainer has written its text,
+    so a UI can show results immediately and the explanation when it arrives.
+    """
+    intent: str
+    data: dict
+    decision_ids: list = field(default_factory=list)
 
 
 class Trace:
@@ -73,8 +100,12 @@ class Trace:
             self.on_event(event)
 
     def note(self, agent: str, action: str, summary: str, **args) -> None:
-        """An instant event with no tool call (a decision, a warning, a fallback)."""
-        self.emit(TraceEvent(agent=agent, action=action, args=args, result_summary=summary))
+        """An instant event with no tool call (a verdict, a warning, a fallback)."""
+        self.emit(TraceEvent(agent=agent, action=action, args=args, result_summary=summary, kind="note"))
+
+    def headline(self, agent: str, text: str) -> None:
+        """The one plain-language sentence an agent shows by default when it finishes."""
+        self.emit(TraceEvent(agent=agent, action="summary", result_summary=text, kind="headline"))
 
     @contextmanager
     def step(self, agent: str, action: str, tool: Optional[str] = None, **args):

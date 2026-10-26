@@ -2,6 +2,8 @@
 Seeded generator for ~150 synthetic Bangalore engineering students (PLAN.md 3b).
 
 No real people: colleges are "College A".."College H", ids are S001, S002, ...
+Names ("Ananya R.") are generated from a list of common Indian first names
+and a last initial, purely so the UI is easier to read. They are synthetic.
 
 The history is deliberately skewed: about 15% of students are
 "well-connected" and hold most past opportunities. They also tend to have
@@ -24,6 +26,19 @@ CONNECTED_SHARE = 0.15
 COLLEGES = [f"College {c}" for c in "ABCDEFGH"]
 BRANCHES = ["CSE", "ISE", "ECE", "EEE", "AIML", "Mechanical", "Civil"]
 INTEREST_OPTIONS = ["ML", "Data", "Web", "App", "Cloud", "Design", "Other"]
+
+# Common Indian first names from across regions, mixed genders. Combined with a
+# random last initial they make readable, obviously synthetic labels.
+FIRST_NAMES = [
+    "Aarav", "Ananya", "Vihaan", "Diya", "Arjun", "Ishita", "Kabir", "Meera", "Rohan", "Saanvi",
+    "Aditya", "Kavya", "Siddharth", "Nisha", "Rahul", "Pooja", "Karthik", "Lakshmi", "Varun", "Sneha",
+    "Nikhil", "Priya", "Harsh", "Divya", "Manish", "Anjali", "Suresh", "Deepa", "Vikram", "Shreya",
+    "Arnav", "Tanvi", "Pranav", "Gauri", "Imran", "Sana", "Joseph", "Mary", "Gurpreet", "Simran",
+    "Tenzin", "Pema", "Abhishek", "Bhavana", "Chetan", "Farah", "Ganesh", "Hema", "Irfan", "Jaya",
+    "Kiran", "Lavanya", "Mohan", "Nandini", "Omkar", "Padma", "Ravi", "Swathi", "Tarun", "Uma",
+]
+LAST_INITIALS = list("ABCDGHIJKMNPRSTVY")
+NAME_SEED = 1234   # separate seed: adding names doesn't change any other generated value
 GOALS = ["internship", "research", "hackathons", "leadership"]
 
 # Which skills a student who is interested in a domain is likely to have.
@@ -90,4 +105,9 @@ def generate_students(n: int = N_STUDENTS, seed: int = SEED) -> list[Student]:
             past_opportunities=past,
             source="synthetic",
         ))
+    # Names use their own random generator, so every other field above stays
+    # exactly as it was before names were added.
+    name_rng = random.Random(NAME_SEED)
+    for student in students:
+        student.name = f"{name_rng.choice(FIRST_NAMES)} {name_rng.choice(LAST_INITIALS)}."
     return students

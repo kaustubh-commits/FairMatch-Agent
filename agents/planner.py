@@ -95,13 +95,16 @@ class Plan:
     appeal_reason: Optional[str] = None
     skills: dict = field(default_factory=dict)   # recommend: {skill: level 1-3}
     hours: Optional[int] = None                  # recommend: hours per week
+    interests: list = field(default_factory=list)  # recommend: domains the student cares about
+    goal: str = "internship"                     # recommend: internship | research | hackathons | leadership
+    max_km: Optional[float] = None               # optional commute limit
     steps: list = field(default_factory=list)
     source: str = "rules"            # "rules", "llm" or "form"
 
     def params(self) -> dict:
         """The non-empty parameters, for the trace."""
         keys = ("domain", "area", "k", "policy", "decision_id", "student_id", "appeal_reason",
-                "skills", "hours")
+                "skills", "hours", "interests", "max_km")
         return {k: getattr(self, k) for k in keys if getattr(self, k) not in (None, "", {})}
 
 
@@ -167,6 +170,9 @@ def parse_rules(request: str) -> Plan:
         match = re.search(r"(?:because|:)\s*(.+)", request, flags=re.IGNORECASE)
         reason = match.group(1).strip() if match else request.strip()
 
+    km = re.search(r"(\d+(?:\.\d+)?)\s*(?:km|kms|kilomet)", text)
+    max_km = float(km.group(1)) if km else None
+
     skills, hours = {}, None
     if intent == "recommend":
         skills = parse_skills(text)
@@ -176,7 +182,7 @@ def parse_rules(request: str) -> Plan:
     return Plan(intent=intent, domain=domain, area=area, k=max(1, min(k, MAX_K)),
                 policy=policy, decision_id=decision.group().upper() if decision else None,
                 student_id=_format_student(student.group()) if student else None,
-                appeal_reason=reason, skills=skills, hours=hours)
+                appeal_reason=reason, skills=skills, hours=hours, max_km=max_km)
 
 
 def _format_student(raw: str) -> str:
@@ -206,6 +212,7 @@ Return exactly one JSON object with these keys:
   "skills":        for recommend: {{skill: level}} using only these skill names {skills},
                    level 1 = beginner, 2 = intermediate (default), 3 = advanced; else {{}}
   "hours":         hours per week if stated, else null
+  "max_km":        a commute / distance limit in km if stated, else null
 
 Request: {request}"""
 
@@ -251,6 +258,8 @@ def _validate_llm(raw: dict, fallback: Plan, request: str = "") -> Plan:
         appeal_reason=pick("appeal_reason", lambda v: isinstance(v, str) and v.strip() != ""),
         skills=skills or fallback.skills,
         hours=pick("hours", lambda v: isinstance(v, int) and 1 <= v <= 60 and in_request(v)),
+        max_km=pick("max_km", lambda v: isinstance(v, (int, float)) and 0 < v <= 50
+                    and (in_request(int(v)) or in_request(v))),
         source="llm",
     )
 
@@ -260,13 +269,15 @@ def _validate_llm(raw: dict, fallback: Plan, request: str = "") -> Plan:
 def plan(request: str, ctx: RunContext, profile: Optional[dict] = None) -> Plan:
     """
     Produce the plan and emit it to the trace.
-    `profile` ({"skills": {...}, "hours": int} or {"student_id": ...}) comes from a
-    structured form; it is already unambiguous, so no parsing (and no LLM call) is needed.
+    `profile` comes from a structured form ({"skills", "hours", "home_area", "interests",
+    "goal"} or {"student_id"}); it is already unambiguous, so no parsing (and no LLM
+    call) is needed.
     """
     if profile is not None:
         result = Plan(intent="recommend", skills=dict(profile.get("skills") or {}),
                       student_id=profile.get("student_id"), hours=profile.get("hours"),
-                      k=profile.get("k", 5), source="form")
+                      area=profile.get("home_area"), interests=list(profile.get("interests") or []),
+                      goal=profile.get("goal") or "internship", k=profile.get("k", 5), source="form")
     else:
         rules = parse_rules(request)
         result = rules
@@ -298,4 +309,27 @@ def plan(request: str, ctx: RunContext, profile: Optional[dict] = None) -> Plan:
         steps = " -> ".join(f"{agent}.{tool}" for agent, tool in result.steps)
         ctx.trace.note(NAME, f"plan ({result.source})",
                        f"intent={result.intent}; steps: {steps}", **result.params())
+    ctx.trace.headline(NAME, describe_plan(result))
     return result
+
+
+def describe_plan(p: Plan) -> str:
+    """The plan in one plain sentence, for the default trace view."""
+    limit = f", with commutes of at most {p.max_km:g} km" if p.max_km else ""
+    if p.intent == "rank":
+        where = f" in {p.area}" if p.area else ""
+        what = f"{p.domain} internships" if p.domain else "internships"
+        return f"Understood: find the best {p.k} candidates for {what}{where}{limit}."
+    if p.intent == "compare":
+        return f"Understood: compare the three allocation policies{limit}."
+    if p.intent == "recommend":
+        if p.student_id:
+            return f"Understood: find internships that suit student {p.student_id}."
+        skills = ", ".join(p.skills) or "no skills yet"
+        return f"Understood: find internships for a student who knows {skills}{limit}."
+    if p.intent == "explain":
+        return f"Understood: explain {p.decision_id or 'the most recent decision'}."
+    if p.intent == "appeal":
+        who = f" for {p.student_id}" if p.student_id else ""
+        return f"Understood: an appeal{who} against {p.decision_id or 'the most recent decision'}."
+    return "I didn't recognise this request, so I'll list what I can do."

@@ -104,3 +104,13 @@ def test_form_import_drops_non_consent_and_maps_levels():
     assert s.home_area == "Koramangala"
     assert s.interests == ["ML", "Web"]
     assert s.past_opportunities == 3 and s.hours_per_week == 12
+
+
+def test_student_names_are_synthetic_deterministic_and_dont_change_other_fields():
+    students = generate_students()
+    assert [s.name for s in students[:3]] == [s.name for s in generate_students()[:3]]
+    s25 = students[24]
+    assert s25.label == f"{s25.name} (S025)" and s25.name.endswith(".")
+    # Snapshot from before names existed: adding names must not change other generated values.
+    assert (s25.home_area, s25.past_opportunities, s25.hours_per_week, s25.skills["ML"]) == \
+        ("Yelahanka", 5, 10, 3)

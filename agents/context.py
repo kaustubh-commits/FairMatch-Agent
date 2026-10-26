@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 from typing import Optional
 
-from agents.trace import Trace
+from agents.trace import Trace, shorten
 from llm import DEMO_SAFE, LLMClient, LLMError
 from llm.client import describe, headline
 
@@ -42,7 +42,10 @@ class RunContext:
                 result = json.loads(text) if json_mode else text
                 used = getattr(self.llm, "last_used", None) or self.llm.name
                 ev.tool = f"llm ({used})"
-                ev.result_summary = (json.dumps(result) if json_mode else text)[:160]
+                raw = json.dumps(result) if json_mode else text
+                ev.result_summary = shorten(raw, 400)
+                if len(raw) > 400:
+                    ev.args["raw_output"] = raw          # full text for the developer view
             except LLMError as e:
                 failure = e
                 ev.result_summary = f"Failed: {describe(e)}"
@@ -58,13 +61,15 @@ class RunContext:
             if earlier:
                 summary = LLMError("", earlier[0].kind, earlier[0].provider)
                 summary.errors = earlier
-                self.trace.note("System", "LLM fallback",
-                                f"{describe(summary)}; answered by {self.llm.last_used.split(':', 1)[-1]}.",
+                backup = self.llm.last_used.split(":", 1)[-1]
+                self.trace.note("System", "LLM fallback", f"{describe(summary)}; answered by {backup}.",
                                 error_detail="; ".join(f"{e.provider}: {e}" for e in earlier)[:2000])
+                self.trace.headline("System", f"{headline(summary)}; switched to {backup}.")
             return result
 
         # Outside the `with`, so this event comes after the failed call in the trace.
         self.llm = None
         self.trace.note("System", "fallback to demo-safe",
                         f"{headline(failure)}, continuing rule-based (demo-safe).")
+        self.trace.headline("System", f"{headline(failure)}, continuing rule-based.")
         return None
