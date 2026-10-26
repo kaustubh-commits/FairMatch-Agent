@@ -12,10 +12,12 @@ Two ways to use it:
         ...
 
 Which agents run depends on the plan's intent:
-  rank     Planner, Matcher, Equity Analyst, Auditor, Explainer
-  compare  Planner, Matcher, Equity Analyst, Auditor, Explainer
-  explain  Planner, Auditor, Explainer
-  appeal   Planner, Auditor, Explainer
+  rank       Planner, Matcher, Equity Analyst, Auditor, Explainer
+  compare    Planner, Matcher, Equity Analyst, Auditor, Explainer
+  recommend  Planner, Matcher, Explainer
+  explain    Planner, Auditor, Explainer
+  appeal     Planner, Auditor, Explainer
+  help       Planner only (the request matched nothing; it lists what it can do)
 """
 
 from __future__ import annotations
@@ -52,11 +54,14 @@ def run(request: str, provider: Optional[str] = None,
         on_event: Optional[Callable[[TraceEvent], None]] = None,
         decisions_path: Path = DEFAULT_PATH,
         client=_UNSET,
-        on_start: Optional[Callable[[StepStarted], None]] = None) -> AgentResult:
+        on_start: Optional[Callable[[StepStarted], None]] = None,
+        profile: Optional[dict] = None) -> AgentResult:
     """
     Handle one request end to end.
       provider        gemini | ollama | demo-safe (default: LLM_PROVIDER or gemini)
       client          pass an LLMClient (or None) directly; used by tests
+      profile         a student profile from a form ({"skills": ..., "hours": ...} or
+                      {"student_id": ...}); skips request parsing and runs "recommend"
     """
     trace = Trace(on_event, on_start)
     if client is _UNSET:
@@ -67,9 +72,9 @@ def run(request: str, provider: Optional[str] = None,
     ctx = RunContext(client, trace)
     mode_start = ctx.mode
 
-    plan = planner.plan(request, ctx)
-    handler = {"rank": _rank, "compare": _compare,
-               "explain": _explain, "appeal": _appeal}[plan.intent]
+    plan = planner.plan(request, ctx, profile)
+    handler = {"rank": _rank, "compare": _compare, "recommend": _recommend,
+               "explain": _explain, "appeal": _appeal, "help": _help}[plan.intent]
     answer, data, ids = handler(plan, ctx, decisions_path)
 
     mode = mode_start if ctx.mode == mode_start else f"{mode_start} -> {ctx.mode}"
@@ -81,7 +86,8 @@ def run(request: str, provider: Optional[str] = None,
 
 def stream(request: str, provider: Optional[str] = None,
            decisions_path: Path = DEFAULT_PATH,
-           client=_UNSET) -> Iterator[Union[StepStarted, TraceEvent, AgentResult]]:
+           client=_UNSET, profile: Optional[dict] = None
+           ) -> Iterator[Union[StepStarted, TraceEvent, AgentResult]]:
     """
     Generator version of run(): yields a StepStarted when each step begins,
     its TraceEvent when it ends, and the AgentResult last. The work runs in a background thread so events
@@ -95,7 +101,7 @@ def stream(request: str, provider: Optional[str] = None,
         try:
             outcome["result"] = run(request, provider, on_event=events.put,
                                     decisions_path=decisions_path, client=client,
-                                    on_start=events.put)
+                                    on_start=events.put, profile=profile)
         except Exception as e:      # re-raised in the caller's thread below
             outcome["error"] = e
         events.put(done)
@@ -143,7 +149,8 @@ def _rank(plan, ctx, path):
 
 def _compare(plan, ctx, path):
     allocations = matcher.allocate_all(ctx)
-    result = equity.compare_policies(allocations, ctx)
+    sims = matcher.simulate_all(ctx)
+    result = equity.compare_policies(allocations, sims, ctx)
     audit = auditor.check_allocations(allocations, ctx)
 
     with ctx.trace.step("Explainer", "format comparison", tool="metrics table") as ev:
@@ -153,12 +160,40 @@ def _compare(plan, ctx, path):
             lines.append(f"{policy:<14}{m['avg_fit']:>9.3f}{m['gini']:>8.3f}{m['unique_recipients']:>9}"
                          f"{m['repeat_selection_rate'] * 100:>9.1f}%{m['slots_filled']:>7}")
         lines.append(f"\nTakeaway ({result['takeaway_source']}): {result['takeaway']}")
+        lines.append(f"Over {len(sims['hybrid'])} rounds ({result['rounds_takeaway_source']}): "
+                     f"{result['rounds_takeaway']}")
         ok = all(not (r["over_cap"] or r["over_slots"]) for r in audit.values())
         lines.append("Auditor: all allocations respect slots and the per-student cap."
                      if ok else f"Auditor found violations: {audit}")
         ev.result_summary = f"table of {len(result['table'])} policies"
     return "\n".join(lines), {"metrics": result["table"], "takeaway": result["takeaway"],
+                              "takeaway_source": result["takeaway_source"],
+                              "simulation": sims, "rounds_takeaway": result["rounds_takeaway"],
+                              "rounds_takeaway_source": result["rounds_takeaway_source"],
                               "audit": audit}, []
+
+
+def _recommend(plan, ctx, path):
+    if not plan.skills and not plan.student_id:
+        ctx.trace.note("Planner", "missing skills", "No skills or student id found in the request.")
+        return ("Tell me which skills you have (for example: \"I know advanced Python and basic SQL\") "
+                "or give a student id, and I'll find matching internships. "
+                "The For Students page lets you pick skills from a list.", {"recommend": None}, [])
+    result = matcher.recommend(plan, ctx)
+    summary = explainer.explain_matches(result, ctx)
+    lines = [summary, ""]
+    for i, m in enumerate(result["matches"], start=1):
+        skills = ", ".join(f"{s} {b['level']}/3" for s, b in m["breakdown"].items())
+        lines.append(f"{i}. {m['opportunity_id']} {m['title']} @ {m['company']} ({m['area']}) "
+                     f"fit {m['score']:.2f} | {skills}")
+    if result["learn"]:
+        lines.append("\nSkills to learn next: " + ", ".join(
+            f"{r['skill']} (+{r['unlocks']} listings)" for r in result["learn"]))
+    return "\n".join(lines), {"recommend": result, "summary": summary}, []
+
+
+def _help(plan, ctx, path):
+    return planner.CAPABILITIES, {}, []
 
 
 def _explain(plan, ctx, path):

@@ -13,7 +13,7 @@ from agents.orchestrator import AgentResult
 from tools.decisions import get_decision
 from tools.store import get_opportunity
 from ui.common import (POLICY_LABELS, appeal_html, decision_body, decision_header, esc,
-                       page_header, run_live, trace_html)
+                       page_header, run_live, show_recommendations, trace_html)
 
 EXAMPLES = [  # the four demo-script requests (PLAN.md section 2)
     ("🎯 Rank ML candidates", "Find the best 3 candidates for the ML internships in Koramangala and explain why."),
@@ -23,9 +23,9 @@ EXAMPLES = [  # the four demo-script requests (PLAN.md section 2)
                              "they have had no internships yet and have more hours available."),
 ]
 
-page_header("Ask FairMatch", "SDG 8",
-            "Match students to real Bangalore internships, and watch every agent step that leads there "
-            "(decent work through better-fitting opportunities).")
+page_header("Ask FairMatch",
+            "Ask the agents to rank candidates, compare policies, explain or appeal a decision, "
+            "and watch every step they take.")
 
 if "chat" not in st.session_state:
     st.session_state.chat = []          # list of {"role": "user"/"assistant", "text" or "result"}
@@ -75,6 +75,7 @@ def show_compare(result: AgentResult) -> None:
              "Repeat selection": f"{m['repeat_selection_rate']:.1%}"} for p, m in metrics.items()]
     st.dataframe(rows, hide_index=True, width="stretch")
     st.html(f'<div class="fm-note" style="--c:#fbbf24">⚖️ {esc(result.data["takeaway"])}</div>')
+    st.html(f'<div class="fm-note" style="--c:#fbbf24">🔁 {esc(result.data["rounds_takeaway"])}</div>')
     st.page_link("views/policy_lab.py", label="See the charts in the Policy Lab", icon=":material/balance:")
 
 
@@ -91,12 +92,21 @@ def show_result(result: AgentResult) -> None:
         show_rank(result)
     elif result.intent == "compare":
         show_compare(result)
+    elif result.intent == "recommend" and result.data.get("recommend"):
+        show_recommendations(result.data["recommend"], result.data["summary"])
+        st.page_link("views/students.py", label="Try different skills on the For Students page",
+                     icon=":material/school:")
     elif result.intent in ("explain", "appeal") and "record" in result.data:
         show_record(result)
     else:
         st.markdown(result.answer)
-    mode = result.mode_start if result.mode_end == result.mode_start else \
-        f"{result.mode_start} → fell back to {result.mode_end}"
+    def pretty(mode: str) -> str:
+        """'gemini:gemini-3.5-flash (fallbacks: ...)' -> 'Gemini (gemini-3.5-flash)'."""
+        if mode.startswith("gemini:"):
+            return f"Gemini ({mode.split(':', 1)[1].split(' ')[0]})"
+        return mode
+    mode = pretty(result.mode_start) if result.mode_end == result.mode_start else \
+        f"{pretty(result.mode_start)} → fell back to {result.mode_end}"
     st.caption(f"Intent: {result.intent} · Mode: {mode}")
 
 
@@ -105,13 +115,15 @@ def show_result(result: AgentResult) -> None:
 left, right = st.columns([1.25, 1], gap="large")
 
 with left:
-    chat_box = st.container(height=520, border=False)
+    chat_box = st.container(height=480, border=False)
     st.html('<div class="fm-muted fm-small">Try a demo request</div>')
     clicked = None
     for row in (EXAMPLES[:2], EXAMPLES[2:]):
         for col, (label, text) in zip(st.columns(2), row):
             if col.button(label, width="stretch"):
                 clicked = text
+    st.page_link("views/students.py", label="Are you a student? See which internships fit your skills",
+                 icon=":material/school:")
     typed = st.chat_input("Ask about candidates, policies or a decision…")
 
 with right:
@@ -129,7 +141,8 @@ with chat_box:
                 'the <b>Matcher</b> scores students with deterministic tools, the <b>Equity Analyst</b> checks '
                 'whether opportunities concentrate on the same students, the <b>Auditor</b> enforces the rules '
                 'and logs a decision for human approval, and the <b>Explainer</b> writes only from that record. '
-                'The LLM never produces a score or a reason.</div></div>')
+                'The LLM never produces a score or a reason.<br><br>Students can also ask, e.g. '
+                '<i>"I know Python and SQL, what can I do?"</i></div></div>')
     for message in st.session_state.chat:
         with st.chat_message(message["role"], avatar="🧑‍🎓" if message["role"] == "user" else "⚖️"):
             if "result" in message:

@@ -86,7 +86,8 @@ def rank_candidates(opportunity_id: str, k: int = 3,
                     opportunities: Optional[list[Opportunity]] = None) -> list[dict]:
     """
     Top-k ELIGIBLE students for an opportunity, best fit first.
-    Ties are broken by student id so the result is always the same.
+    Ties are broken by FEWER past opportunities, then student id, so equal
+    scores never favour students who already had chances.
     Each result is score_match(...) plus `past_opportunities`.
     """
     students = students if students is not None else load_students()
@@ -100,5 +101,5 @@ def rank_candidates(opportunity_id: str, k: int = 3,
             match["past_opportunities"] = student.past_opportunities
             results.append(match)
 
-    results.sort(key=lambda m: (-m["score"], m["student_id"]))
+    results.sort(key=lambda m: (-m["score"], m["past_opportunities"], m["student_id"]))
     return results[:k]

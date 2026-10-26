@@ -49,5 +49,11 @@ def test_rank_candidates_ties_broken_by_id():
     assert [m["student_id"] for m in ranked] == ["S1", "S9"]
 
 
+def test_rank_candidates_ties_prefer_fewer_past_opportunities():
+    students = [make_student("S010", {"ML": 2}, past=5), make_student("S140", {"ML": 2}, past=0)]
+    ranked = rank_candidates("O", k=2, students=students, opportunities=[make_opportunity("O", ["ML"])])
+    assert [m["student_id"] for m in ranked] == ["S140", "S010"]
+
+
 def test_rank_candidates_respects_k(students, opportunities):
     assert len(rank_candidates("O1", k=1, students=students, opportunities=opportunities)) == 1

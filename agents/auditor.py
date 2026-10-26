@@ -46,6 +46,8 @@ def verify_and_log(proposals: dict[str, DecisionRecord], path: Path, ctx: RunCon
             if len(record.selected) > opp.slots:
                 problems.append(f"{len(record.selected)} selected for {opp.slots} slots")
                 record.selected = record.selected[:opp.slots]
+            # Anything removed here is written into the record, so the card can say why.
+            record.reasons += [f"Auditor removed {p}." for p in problems]
             ev.result_summary = ("OK: eligible, within slots and per-student cap" if not problems
                                  else "FIXED: " + "; ".join(problems))
 

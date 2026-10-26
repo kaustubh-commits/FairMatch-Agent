@@ -13,6 +13,7 @@ Shared rules for every policy (so the comparison is fair):
   - each opportunity fills at most `slots` students
   - a student can win at most MAX_PER_STUDENT opportunities in one run
   - opportunities are processed in id order (simple greedy algorithm)
+  - ties go to the student with fewer past opportunities, then lower id
 """
 
 from __future__ import annotations
@@ -62,9 +63,10 @@ def rank_for_policy(opportunity: Opportunity, policy: str,
             match["past_opportunities"] = student.past_opportunities
             match["priority"] = priority(policy, match["score"], student.past_opportunities)
             candidates.append(match)
-    # Sort by id first, then by priority: Python's sort is stable, so equal
-    # priorities stay in id order and the result is deterministic.
-    candidates.sort(key=lambda m: m["student_id"])
+    # Tie-break first (fewer past opportunities, then id), then sort by
+    # priority. Python's sort is stable, so equal priorities keep the
+    # tie-break order: a tie never favours a student who already had chances.
+    candidates.sort(key=lambda m: (m["past_opportunities"], m["student_id"]))
     candidates.sort(key=lambda m: m["priority"], reverse=True)
     return candidates
 

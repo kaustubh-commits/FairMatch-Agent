@@ -9,8 +9,9 @@ import pytest
 
 from agents.grounding import ungrounded
 from agents.orchestrator import AgentResult, run, stream
-from agents.planner import Plan, _validate_llm, parse_rules
+from agents.planner import Plan, _validate_llm, parse_rules, parse_skills
 from llm import LLMClient, LLMError, make_client
+from llm.client import ChainClient, describe, headline
 
 DEMO_QUERY = "Find the best 3 candidates for the ML internships in Koramangala and explain why."
 
@@ -52,6 +53,10 @@ def test_rules_rank_demo_query():
     ("Appeal the latest decision for the runner-up: no internships yet", "appeal"),
     ("Appeal D0001 for S011: I have more experience", "appeal"),
     ("Best 5 web candidates using the hybrid policy", "rank"),
+    ("I know python and sql, what can I do?", "recommend"),
+    ("Recommend internships for S011", "recommend"),
+    ("What's the weather like?", "help"),
+    ("Show me something", "help"),
 ])
 def test_rules_intents(request_text, intent):
     assert parse_rules(request_text).intent == intent
@@ -195,3 +200,104 @@ def test_stream_yields_events_then_result(path):
 def test_make_client_demo_safe():
     client, note = make_client("demo-safe")
     assert client is None and "demo-safe" in note
+
+
+# ---- Recommend + help -----------------------------------------------------------
+
+def test_parse_skills_levels_and_keywords():
+    assert parse_rules("I know python and sql, what can I do?").skills == {"Python": 2, "Data analysis": 2}
+    assert parse_skills("advanced python, basic react and some figma design") == \
+        {"Python": 3, "Web dev": 1, "Design": 1}
+
+
+def test_llm_skills_must_be_mentioned():
+    request = "I know python, what can I do?"
+    plan = _validate_llm({"intent": "recommend", "skills": {"Python": 3, "ML": 3, "Cobol": 2}},
+                         parse_rules(request), request)
+    assert plan.skills == {"Python": 3}
+
+
+def test_recommend_flow_uses_three_agents(path):
+    result = run("I know python and sql, what can I do?", client=None, decisions_path=path)
+    assert result.intent == "recommend"
+    rec = result.data["recommend"]
+    assert len(rec["matches"]) == 5 and rec["learn"]
+    agents = {e.agent for e in result.events}
+    assert {"Planner", "Matcher", "Explainer"} <= agents
+    assert not {"Equity Analyst", "Auditor"} & agents
+    assert result.decision_ids == []          # recommending never logs a decision
+
+
+def test_recommend_without_skills_asks_for_them(path):
+    result = run("What can I do? Recommend something for me", client=None, decisions_path=path)
+    assert result.intent == "recommend" and "Tell me which skills" in result.answer
+
+
+def test_form_profile_skips_parsing_and_llm(path):
+    llm = FakeLLM(["A short summary."])
+    result = run("form", client=llm, decisions_path=path, profile={"skills": {"ML": 3, "Python": 3}, "hours": 12})
+    assert result.intent == "recommend" and result.data["plan"]["hours"] == 12
+    assert len(llm.prompts) == 1               # only the Explainer; the Planner didn't call the LLM
+    assert any(e.action == "plan (form)" for e in result.events)
+
+
+def test_help_lists_capabilities(path):
+    result = run("What's the weather like?", client=None, decisions_path=path)
+    assert result.intent == "help" and "Rank candidates" in result.answer
+    assert {e.agent for e in result.events} == {"System", "Planner"}
+
+
+def test_compare_includes_simulation(path):
+    result = run("Compare the allocation policies", client=None, decisions_path=path)
+    sims = result.data["simulation"]
+    assert set(sims) == {"skill_first", "equal_access", "hybrid"} and len(sims["hybrid"]) == 4
+    assert result.data["rounds_takeaway"].startswith("After 4 rounds")
+
+
+# ---- Friendly LLM errors + model fallback ------------------------------------------
+
+class QuotaLLM(LLMClient):
+    def __init__(self, name):
+        self.name, self.calls = name, 0
+
+    def complete(self, prompt, json_mode=False):
+        self.calls += 1
+        raise LLMError('HTTP 429: {"error": {"code": 429, "message": "quota"}}', "quota", self.name)
+
+
+class OkLLM(LLMClient):
+    def __init__(self, name, reply):
+        self.name, self.reply, self.calls = name, reply, 0
+
+    def complete(self, prompt, json_mode=False):
+        self.calls += 1
+        return self.reply
+
+
+def test_friendly_error_text():
+    err = LLMError("HTTP 429: {...}", "quota", "gemini:gemini-3.5-flash")
+    assert describe(err) == "gemini-3.5-flash: quota reached"
+    assert headline(err) == "Gemini quota reached"
+
+
+def test_quota_falls_back_to_lite_model_then_skips_dead_model(path):
+    flash = QuotaLLM("gemini:gemini-3.5-flash")
+    lite = OkLLM("gemini:gemini-3.5-flash-lite", json.dumps({"intent": "help"}))
+    chain = ChainClient([flash, lite])
+    result = run("hello there", client=chain, decisions_path=path)
+    notes = [e for e in result.events if e.action == "LLM fallback"]
+    assert notes and "quota reached" in notes[0].result_summary and "flash-lite" in notes[0].result_summary
+    assert "429" in notes[0].args["error_detail"]           # raw details kept for the expander
+    chain.complete("again")
+    assert flash.calls == 1 and lite.calls == 2             # flash is not retried after a quota error
+
+
+def test_total_failure_shows_friendly_line_and_details(path):
+    chain = ChainClient([QuotaLLM("gemini:gemini-3.5-flash"), QuotaLLM("gemini:gemini-3.5-flash-lite")])
+    result = run(DEMO_QUERY, client=chain, decisions_path=path)
+    failed = next(e for e in result.events if e.action == "LLM: parse request")
+    assert failed.result_summary == "Failed: gemini-3.5-flash: quota reached · gemini-3.5-flash-lite: quota reached"
+    assert "{" not in failed.result_summary and "429" in failed.args["error_detail"]
+    fallback = next(e for e in result.events if e.action == "fallback to demo-safe")
+    assert fallback.result_summary == "Gemini quota reached, continuing rule-based (demo-safe)."
+    assert result.decision_ids                              # the run still finished

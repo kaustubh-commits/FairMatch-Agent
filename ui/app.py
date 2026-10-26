@@ -24,6 +24,7 @@ from ui.common import setup_page  # noqa: E402
 
 pages = [
     st.Page("views/ask.py", title="Ask", icon=":material/forum:", url_path="ask", default=True),
+    st.Page("views/students.py", title="For Students", icon=":material/school:", url_path="students"),
     st.Page("views/map.py", title="Map", icon=":material/map:", url_path="map"),
     st.Page("views/policy_lab.py", title="Policy Lab", icon=":material/balance:", url_path="policy-lab"),
     st.Page("views/decision_log.py", title="Decision Log", icon=":material/fact_check:",

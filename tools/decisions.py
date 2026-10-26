@@ -55,33 +55,61 @@ def _skill_points(match: dict) -> dict:
 def _reason_line(match: dict, label: str) -> str:
     """One readable sentence built only from tool outputs."""
     skills = ", ".join(f"{s} {b['level']}/3" for s, b in match["breakdown"].items())
+    past = match["past_opportunities"]
     return (f"{match['student_id']} {label}: fit {match['score']:.2f} ({skills}); "
-            f"{match['past_opportunities']} past opportunities.")
+            f"{past} past opportunit{'y' if past == 1 else 'ies'}.")
 
 
 # ------------------------------------------------------------- tools -------
 
 def make_decision(opportunity_id: str, policy: str = "hybrid",
                   students: Optional[list[Student]] = None,
-                  opportunities: Optional[list[Opportunity]] = None) -> DecisionRecord:
+                  opportunities: Optional[list[Opportunity]] = None,
+                  prior_wins: Optional[dict[str, int]] = None) -> DecisionRecord:
     """
     Build (but don't save) a DecisionRecord for one opportunity: the top
     `slots` candidates under `policy`, plus the runner-up and the reasons.
+
+    `prior_wins` counts how many opportunities each student has already been
+    selected for in the same request. Students at MAX_PER_STUDENT are skipped,
+    the next candidate takes their place, and the skip is written into the
+    record (reasons + constraints["skipped"]) so nobody disappears silently.
     """
     students = students if students is not None else load_students()
     opp = get_opportunity(opportunity_id,
                           opportunities if opportunities is not None else load_opportunities())
+    prior_wins = prior_wins or {}
     ranked = rank_for_policy(opp, policy, students)
-    selected = ranked[:opp.slots]
-    runner_up = ranked[opp.slots] if len(ranked) > opp.slots else None
+
+    available, skipped = [], []
+    for m in ranked:
+        if prior_wins.get(m["student_id"], 0) >= MAX_PER_STUDENT:
+            # Only worth reporting if they would otherwise have been picked or runner-up.
+            if len(available) <= opp.slots:
+                skipped.append(m)
+        else:
+            available.append(m)
+    selected = available[:opp.slots]
+    runner_up = available[opp.slots] if len(available) > opp.slots else None
 
     reasons = [_reason_line(m, "selected") for m in selected]
     if runner_up:
         reasons.append(_reason_line(runner_up, "runner-up"))
+    skip_reasons = {
+        m["student_id"]: (f"already selected for {prior_wins[m['student_id']]} other opportunities "
+                          f"in this request (max {MAX_PER_STUDENT} per student)")
+        for m in skipped}
+    reasons += [f"{m['student_id']} skipped: fit {m['score']:.2f}, but "
+                f"{skip_reasons[m['student_id']]}." for m in skipped]
     if not selected:
-        reasons.append("No eligible candidates for this opportunity.")
+        reasons.append("No eligible candidates for this opportunity."
+                       if not ranked else "Every eligible candidate is at the per-student cap.")
 
-    shown = selected + ([runner_up] if runner_up else [])
+    shown = selected + ([runner_up] if runner_up else []) + skipped
+    constraints = {"slots": opp.slots, "min_hours": MIN_HOURS,
+                   "max_per_student": MAX_PER_STUDENT, "eligible_candidates": len(ranked)}
+    if skip_reasons:
+        constraints["skipped"] = skip_reasons
     return DecisionRecord(
         opportunity_id=opp.id,
         selected=[m["student_id"] for m in selected],
@@ -89,8 +117,7 @@ def make_decision(opportunity_id: str, policy: str = "hybrid",
         policy=policy,
         score_breakdown={m["student_id"]: {"score": m["score"], **_skill_points(m)} for m in shown},
         reasons=reasons,
-        constraints={"slots": opp.slots, "min_hours": MIN_HOURS,
-                     "max_per_student": MAX_PER_STUDENT, "eligible_candidates": len(ranked)},
+        constraints=constraints,
     )
 
 

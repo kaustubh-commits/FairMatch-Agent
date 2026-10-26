@@ -2,7 +2,8 @@
 Shared state for one agent run: the trace and the (optional) LLM.
 
 `ask_llm` is the ONLY way agents talk to the LLM. If a call fails, it
-switches the whole run to demo-safe mode, records that in the trace, and
+switches the whole run to demo-safe mode, records that in the trace with a
+friendly line (raw details kept in the event's args for an expander), and
 returns None. The agent then uses its rule-based path instead.
 """
 
@@ -13,6 +14,7 @@ from typing import Optional
 
 from agents.trace import Trace
 from llm import DEMO_SAFE, LLMClient, LLMError
+from llm.client import describe, headline
 
 
 class RunContext:
@@ -22,7 +24,7 @@ class RunContext:
 
     @property
     def mode(self) -> str:
-        """The LLM in use (e.g. 'gemini:gemini-2.5-flash -> ollama:llama3.2') or 'demo-safe'."""
+        """The LLM in use (e.g. 'gemini:gemini-3.5-flash (fallbacks: ...)') or 'demo-safe'."""
         return self.llm.name if self.llm else DEMO_SAFE
 
     def ask_llm(self, agent: str, purpose: str, prompt: str,
@@ -33,19 +35,36 @@ class RunContext:
         """
         if self.llm is None:
             return None
-        with self.trace.step(agent, f"LLM: {purpose}", tool="llm", provider=self.llm.name) as ev:
+        failure: Optional[LLMError] = None
+        with self.trace.step(agent, f"LLM: {purpose}", tool="llm") as ev:
             try:
                 text = self.llm.complete(prompt, json_mode=json_mode)
                 result = json.loads(text) if json_mode else text
                 used = getattr(self.llm, "last_used", None) or self.llm.name
                 ev.tool = f"llm ({used})"
                 ev.result_summary = (json.dumps(result) if json_mode else text)[:160]
-                return result
-            except (LLMError, json.JSONDecodeError) as e:
-                ev.result_summary = f"FAILED: {str(e)[:160]}"
-                failed = self.llm.name
-        # Outside the `with` so this event comes after the failed call in the trace.
+            except LLMError as e:
+                failure = e
+                ev.result_summary = f"Failed: {describe(e)}"
+                ev.args["error_detail"] = str(e)[:2000]
+            except json.JSONDecodeError as e:
+                failure = LLMError(f"reply was not valid JSON: {e}", "bad_reply", self.llm.name)
+                ev.result_summary = "Failed: the LLM's reply was not valid JSON"
+                ev.args["error_detail"] = str(e)
+
+        if failure is None:
+            # A backup model answered after the main one failed: say so, briefly.
+            earlier = getattr(self.llm, "last_errors", [])
+            if earlier:
+                summary = LLMError("", earlier[0].kind, earlier[0].provider)
+                summary.errors = earlier
+                self.trace.note("System", "LLM fallback",
+                                f"{describe(summary)}; answered by {self.llm.last_used.split(':', 1)[-1]}.",
+                                error_detail="; ".join(f"{e.provider}: {e}" for e in earlier)[:2000])
+            return result
+
+        # Outside the `with`, so this event comes after the failed call in the trace.
         self.llm = None
         self.trace.note("System", "fallback to demo-safe",
-                        f"{failed} failed; continuing in demo-safe mode (rule-based, no LLM).")
+                        f"{headline(failure)}, continuing rule-based (demo-safe).")
         return None

@@ -38,6 +38,14 @@ def test_hybrid_balances_fit_and_access():
     assert allocate("hybrid", students, opps)[0]["student_ids"] == ["S2"]
 
 
+@pytest.mark.parametrize("policy", ["skill_first", "equal_access", "hybrid"])
+def test_ties_go_to_fewer_past_opportunities(policy):
+    # Identical skills -> identical fit. S010 has the lower id but 5 past opportunities.
+    students = [make_student("S010", {"ML": 3}, past=5), make_student("S140", {"ML": 3}, past=0)]
+    opps = [make_opportunity("O1", ["ML"])]
+    assert allocate(policy, students, opps)[0]["student_ids"] == ["S140"]
+
+
 def test_unknown_policy_raises(students, opportunities):
     with pytest.raises(ValueError):
         allocate("lottery", students, opportunities)

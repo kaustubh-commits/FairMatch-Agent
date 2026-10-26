@@ -72,32 +72,55 @@ def check_proposals(match: dict, ctx: RunContext) -> dict:
             "alternatives": alternatives, "message": message}
 
 
+LABEL = {"skill_first": "skill-first", "equal_access": "equal access", "hybrid": "hybrid"}
+
+
 def template_takeaway(table: dict) -> str:
     """One-line takeaway built only from the metrics table."""
     sf, ea, hy = table["skill_first"], table["equal_access"], table["hybrid"]
-    return (f"hybrid keeps avg fit at {hy['avg_fit']:.3f} (skill_first {sf['avg_fit']:.3f}) "
+    return (f"Hybrid keeps avg fit at {hy['avg_fit']:.3f} (skill-first {sf['avg_fit']:.3f}) "
             f"while cutting repeat selection from {sf['repeat_selection_rate']:.1%} to "
             f"{hy['repeat_selection_rate']:.1%} and Gini from {sf['gini']:.3f} to {hy['gini']:.3f}; "
-            f"equal_access is the most equal (Gini {ea['gini']:.3f}) but has the lowest fit "
+            f"equal access is the most equal (Gini {ea['gini']:.3f}) but has the lowest fit "
             f"({ea['avg_fit']:.3f}).")
 
 
+def template_rounds_takeaway(sims: dict) -> str:
+    """One-line takeaway for the multi-round simulation, built only from its results."""
+    sf, ea, hy = sims["skill_first"][-1], sims["equal_access"][-1], sims["hybrid"][-1]
+    n = sf["round"]
+    return (f"After {n} rounds, skill-first still gives {sf['repeat_selection_rate']:.0%} of slots to "
+            f"the previous round's winners and reaches only {sf['cumulative_reach']} students "
+            f"(Gini {sf['gini']:.3f}), while hybrid reaches {hy['cumulative_reach']} "
+            f"(Gini {hy['gini']:.3f}) and equal access {ea['cumulative_reach']} (Gini {ea['gini']:.3f}).")
+
+
+def _sim_facts(sims: dict) -> dict:
+    """The simulation numbers the LLM may quote (kept small)."""
+    keys = ("round", "gini", "repeat_selection_rate", "cumulative_reach", "avg_fit")
+    return {p: [{k: r[k] for k in keys} for r in rounds] for p, rounds in sims.items()}
+
+
 TAKEAWAY_PROMPT = """You are the Equity Analyst of an internship allocation system.
-Below are fairness metrics for three allocation policies, computed by deterministic tools.
-avg_fit: mean skill fit (higher = better matches). gini: inequality of total opportunities
-per student (lower = fairer). repeat_selection_rate: share of slots going to students who
-already had an opportunity. unique_recipients: distinct students selected.
+Below are results for three allocation policies, computed by deterministic tools.
 
-Write ONE sentence (max 45 words) for a placement officer comparing the trade-off.
-Use only numbers that appear below (you may round them or write rates as percentages).
-Do not invent any other number. Plain text only.
+"snapshot": one allocation of every opportunity.
+  avg_fit: mean skill fit (higher = better matches). gini: inequality of total opportunities
+  per student (lower = fairer). repeat_selection_rate: share of slots going to students who
+  already had an opportunity. unique_recipients: distinct students selected.
+"rounds": the same allocation repeated; after each round winners gain +1 past opportunity.
+  repeat_selection_rate here = share of the round's slots won by the PREVIOUS round's winners.
+  cumulative_reach = students selected at least once so far.
 
-Metrics:
-{metrics}"""
+Return JSON {{"snapshot": "...", "rounds": "..."}}: one sentence each (max 45 words) for a
+placement officer, on the trade-off and on what repetition does. Use only numbers that appear
+below (you may round them or write rates as percentages). Do not invent any other number.
+
+{facts}"""
 
 
-def compare_policies(allocations: dict, ctx: RunContext) -> dict:
-    """Metrics for each policy plus a one-line takeaway."""
+def compare_policies(allocations: dict, sims: dict, ctx: RunContext) -> dict:
+    """Metrics for each policy, plus one-line takeaways for the snapshot and the rounds."""
     table = {}
     for policy, assignments in allocations.items():
         with ctx.trace.step(NAME, f"metrics ({policy})", tool="fairness_metrics", policy=policy) as ev:
@@ -107,14 +130,24 @@ def compare_policies(allocations: dict, ctx: RunContext) -> dict:
                                  f"unique {m['unique_recipients']}, "
                                  f"repeat {m['repeat_selection_rate']:.1%}")
 
-    takeaway, source = template_takeaway(table), "template"
-    text = ctx.ask_llm(NAME, "write takeaway", TAKEAWAY_PROMPT.format(metrics=json.dumps(table, indent=1)))
-    if text:
-        problems = ungrounded(text, table)
-        if problems:
-            ctx.trace.note(NAME, "LLM takeaway rejected",
-                           f"ungrounded values {problems[:5]}; using template.")
-        else:
-            takeaway, source = text.strip(), "llm"
-    ctx.trace.note(NAME, f"takeaway ({source})", takeaway)
-    return {"table": table, "takeaway": takeaway, "takeaway_source": source}
+    takeaways = {"snapshot": template_takeaway(table), "rounds": template_rounds_takeaway(sims)}
+    sources = {"snapshot": "template", "rounds": "template"}
+    facts = {"snapshot": table, "rounds": _sim_facts(sims)}
+    # One LLM call for both sentences (the free tier allows few calls per day).
+    reply = ctx.ask_llm(NAME, "write takeaways",
+                        TAKEAWAY_PROMPT.format(facts=json.dumps(facts, indent=1)), json_mode=True)
+    if isinstance(reply, dict):
+        for key in ("snapshot", "rounds"):
+            text = reply.get(key)
+            if not isinstance(text, str) or not text.strip():
+                continue
+            problems = ungrounded(text, facts[key])
+            if problems:
+                ctx.trace.note(NAME, f"LLM {key} takeaway rejected",
+                               f"ungrounded values {problems[:5]}; using template.")
+            else:
+                takeaways[key], sources[key] = " ".join(text.split()), "llm"
+    for key in ("snapshot", "rounds"):
+        ctx.trace.note(NAME, f"{key} takeaway ({sources[key]})", takeaways[key])
+    return {"table": table, "takeaway": takeaways["snapshot"], "takeaway_source": sources["snapshot"],
+            "rounds_takeaway": takeaways["rounds"], "rounds_takeaway_source": sources["rounds"]}

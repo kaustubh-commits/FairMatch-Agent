@@ -18,7 +18,7 @@ import streamlit as st
 from agents.orchestrator import AgentResult, stream
 from agents.trace import AGENT_COLORS, AGENT_ICONS, PIPELINE, StepStarted, TraceEvent
 from data_pipeline.build import PROCESSED_DIR
-from llm.client import DEFAULT_GEMINI_MODEL, load_env
+from llm.client import DEFAULT_GEMINI_FALLBACK, DEFAULT_GEMINI_MODEL, load_env
 from tools.allocation import POLICIES
 from tools.store import get_opportunity, load_opportunities, load_students
 
@@ -43,8 +43,6 @@ CSS = """
 h1, h2, h3 {letter-spacing: -0.01em;}
 .fm-title {display:flex; align-items:baseline; gap:.75rem; margin-bottom:.15rem;}
 .fm-title h1 {font-size:1.9rem; font-weight:700; margin:0; padding:0;}
-.fm-sdg {display:inline-block; font-size:.78rem; font-weight:600; color:#0b0f19; background:#2dd4bf;
-         padding:.12rem .55rem; border-radius:999px;}
 .fm-caption {color:#9aa3b5; font-size:.95rem; margin:.1rem 0 1.2rem 0;}
 .fm-card {background:#131a2a; border:1px solid #232b3f; border-radius:.8rem; padding:1rem 1.1rem;}
 .fm-muted {color:#9aa3b5;}
@@ -91,8 +89,15 @@ h1, h2, h3 {letter-spacing: -0.01em;}
 /* --- sidebar --- */
 section[data-testid="stSidebar"] .fm-brand {font-size:1.25rem; font-weight:800; letter-spacing:-.02em;}
 section[data-testid="stSidebar"] .fm-brand span {color:#2dd4bf;}
-.fm-sdg-row {display:flex; gap:.35rem; margin-top:.3rem;}
-.fm-sdg-pill {font-size:.75rem; font-weight:700; padding:.15rem .5rem; border-radius:.35rem; color:white;}
+.fm-details {margin-top:.3rem;}
+.fm-details summary {cursor:pointer; color:#6b7489; font-size:.72rem;}
+.fm-details pre {white-space:pre-wrap; word-break:break-word; font-size:.7rem; color:#9aa3b5;
+                 background:#0b0f19; border:1px solid #232b3f; border-radius:.35rem; padding:.4rem .5rem;
+                 margin:.3rem 0 0 0; max-height:12rem; overflow:auto;}
+.fm-match {display:grid; grid-template-columns: 1fr 7rem; gap:.8rem; align-items:start;}
+.fm-fit {font-size:1.35rem; font-weight:700; text-align:right;}
+.fm-learn {display:grid; grid-template-columns: 8rem 1fr 3.2rem; gap:.6rem; align-items:center;
+           font-size:.85rem; margin:.35rem 0;}
 </style>
 """
 
@@ -110,8 +115,8 @@ def setup_page() -> str:
     return sidebar()
 
 
-def page_header(title: str, sdg: str, caption: str) -> None:
-    st.html(f'<div class="fm-title"><h1>{esc(title)}</h1><span class="fm-sdg">{esc(sdg)}</span></div>'
+def page_header(title: str, caption: str) -> None:
+    st.html(f'<div class="fm-title"><h1>{esc(title)}</h1></div>'
             f'<div class="fm-caption">{esc(caption)}</div>')
 
 
@@ -147,7 +152,8 @@ def sidebar() -> str:
         mode = st.session_state.mode or st.session_state.last_mode
         if mode == "Gemini":
             model = os.environ.get("GEMINI_MODEL") or DEFAULT_GEMINI_MODEL
-            status = (f"Model `{model}`. Falls back to demo-safe automatically if a call fails."
+            backup = os.environ.get("GEMINI_FALLBACK_MODEL", DEFAULT_GEMINI_FALLBACK)
+            status = (f"Model `{model}`; if it fails, `{backup}`, then rule-based demo-safe."
                       if has_key else "No GEMINI_API_KEY in .env, so runs will fall back to demo-safe.")
         else:
             status = "Rule-based planner and template explanations. No API calls."
@@ -156,13 +162,6 @@ def sidebar() -> str:
         st.divider()
         st.html(f'<div class="fm-muted fm-small" style="margin-bottom:.35rem">Data</div>'
                 f'<span class="fm-badge" style="--c:{ACCENT}">● {esc(data_badge())}</span>')
-        st.html('<div class="fm-muted fm-small" style="margin:.9rem 0 .1rem">UN Sustainable Development Goals</div>'
-                '<div class="fm-sdg-row">'
-                '<span class="fm-sdg-pill" style="background:#a21942">SDG 8</span>'
-                '<span class="fm-sdg-pill" style="background:#dd1367">SDG 10</span>'
-                '<span class="fm-sdg-pill" style="background:#00689d">SDG 16</span></div>'
-                '<div class="fm-muted fm-small" style="margin-top:.35rem">Decent work · Reduced inequality · '
-                'Accountable institutions</div>')
         st.caption("A human approves every decision.")
     return MODES[mode]
 
@@ -183,15 +182,18 @@ def event_html(ev: TraceEvent) -> str:
     color = AGENT_COLORS.get(ev.agent, "#9ca3af")
     is_llm = bool(ev.tool and ev.tool.startswith("llm"))
     tool = "LLM · " + ev.tool[5:-1] if is_llm and "(" in (ev.tool or "") else ev.tool
-    warn = ("fallback" in ev.action or "rejected" in ev.action
-            or "FLAG" in ev.result_summary or ev.result_summary.startswith("FAILED"))
+    warn = ("fallback" in ev.action or "rejected" in ev.action or "ignored" in ev.action
+            or "FLAG" in ev.result_summary or ev.result_summary.startswith(("Failed", "FAILED")))
     ms = f'<span class="fm-ev-ms">{ev.duration_ms:,} ms</span>' if ev.duration_ms else ""
     body = f'<div class="fm-ev-body">{esc(ev.result_summary)}</div>' if ev.result_summary else ""
     tool_html = f'<span class="fm-ev-tool">{esc(tool)}</span>' if tool else ""
+    detail = ev.args.get("error_detail")
+    details = (f'<details class="fm-details"><summary>Technical details</summary>'
+               f'<pre>{esc(detail)}</pre></details>') if detail else ""
     return (f'<div class="fm-ev{" warn" if warn else ""}" style="--c:{color}">'
             f'<div class="fm-ev-head"><span>{AGENT_ICONS.get(ev.agent, "•")}</span>'
             f'<span class="fm-ev-agent">{esc(ev.agent)}</span>'
-            f'<span class="fm-ev-action">{esc(ev.action)}</span>{tool_html}{ms}</div>{body}</div>')
+            f'<span class="fm-ev-action">{esc(ev.action)}</span>{tool_html}{ms}</div>{body}{details}</div>')
 
 
 def active_html(step: StepStarted) -> str:
@@ -214,10 +216,10 @@ def trace_html(events: list[TraceEvent], active: Optional[StepStarted] = None) -
     return "".join(parts)
 
 
-def run_live(request: str, provider: str, slot) -> AgentResult:
+def run_live(request: str, provider: str, slot, profile: Optional[dict] = None) -> AgentResult:
     """Run the agents and redraw the trace in `slot` after every step."""
     events: list[TraceEvent] = []
-    for item in stream(request, provider=provider):
+    for item in stream(request, provider=provider, profile=profile):
         if isinstance(item, StepStarted):
             slot.html(trace_html(events, active=item))
         elif isinstance(item, TraceEvent):
@@ -261,9 +263,10 @@ def candidate_block(sid: str, record: dict, opp, role: str) -> str:
     score = data.get("score")
     past = next((s.past_opportunities for s in load_students() if s.id == sid), None)
     fit = f"fit {score:.2f}" if score is not None else ""
+    plural = "y" if past == 1 else "ies"
     return (f'<div style="margin-bottom:.6rem"><div style="display:flex;gap:.5rem;align-items:baseline">'
             f'<b>{esc(sid)}</b><span class="fm-muted fm-small">{esc(role)} · {fit} · '
-            f'{past} past opportunities</span></div>{skill_bars(data, opp)}</div>')
+            f'{past} past opportunit{plural}</span></div>{skill_bars(data, opp)}</div>')
 
 
 def decision_header(record: dict) -> str:
@@ -280,13 +283,23 @@ def decision_header(record: dict) -> str:
 def decision_body(record: dict) -> str:
     opp = get_opportunity(record["opportunity_id"])
     selected = "".join(candidate_block(sid, record, opp, "selected") for sid in record["selected"])
+    if not selected:
+        why = ("every eligible candidate is at the per-student cap"
+               if record["constraints"].get("eligible_candidates") else "no eligible candidates")
+        selected = f'<div class="fm-muted fm-small">Nobody selected: {esc(why)}.</div>'
     runner = (candidate_block(record["runner_up"], record, opp, "runner-up")
               if record.get("runner_up") and record["runner_up"] not in record["selected"] else
               '<div class="fm-muted fm-small">No runner-up.</div>')
+    skipped = record["constraints"].get("skipped", {})
+    skipped_html = "".join(
+        f'<div class="fm-note" style="--c:#fab219;margin-top:.2rem"><b>{esc(sid)} skipped</b> '
+        f'<span class="fm-muted">(fit {record["score_breakdown"].get(sid, {}).get("score", 0):.2f})</span>: '
+        f'{esc(why)}.</div>' for sid, why in skipped.items())
     return (f'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;'
             f'margin-top:.8rem"><div><div class="fm-muted fm-small" style="margin-bottom:.3rem">SELECTED</div>'
-            f'{selected or "<span class=fm-muted>Nobody</span>"}</div>'
-            f'<div><div class="fm-muted fm-small" style="margin-bottom:.3rem">RUNNER-UP</div>{runner}</div></div>')
+            f'{selected}</div>'
+            f'<div><div class="fm-muted fm-small" style="margin-bottom:.3rem">RUNNER-UP</div>{runner}</div></div>'
+            f'{skipped_html}')
 
 
 def appeal_html(record: dict) -> str:
@@ -297,3 +310,37 @@ def appeal_html(record: dict) -> str:
     return (f'<div class="fm-note" style="--c:{color}"><b>Appeal by {esc(appeal["student_id"])}</b> '
             f'<span class="fm-muted">"{esc(appeal["text"])}"</span><br>'
             f'<b>Auditor: {esc(appeal["outcome"])}.</b> {esc(appeal["explanation"])}</div>')
+
+
+# ------------------------------------------------------- recommendations ----
+
+def show_recommendations(rec: dict, summary: str) -> None:
+    """Top matches (with per-skill bars) and the skills-to-learn list."""
+    st.html(f'<div class="fm-note" style="--c:{ACCENT}">💬 {esc(summary)}</div>')
+    if rec["matches"]:
+        st.html(f'<div class="fm-muted fm-small" style="margin:.6rem 0 .2rem">TOP {len(rec["matches"])} '
+                f'MATCHING LISTINGS · eligible for {rec["eligible_count"]} of {len(load_opportunities())}</div>')
+    for m in rec["matches"]:
+        bars = "".join(
+            f'<div class="fm-skill"><span>{esc(s)} <span class="fm-kind">{b["kind"]}</span></span>'
+            f'<div class="fm-bar"><span style="width:{b["level"] / 3 * 100:.0f}%"></span></div>'
+            f'<span class="fm-muted">{b["level"]}/3</span></div>' for s, b in m["breakdown"].items())
+        stipend = f"₹{m['stipend']:,}/month" if m["stipend"] else "stipend not stated"
+        color = DOMAIN_COLORS.get(m["domain"], ACCENT)
+        st.html(f'<div class="fm-card" style="margin-bottom:.55rem"><div class="fm-match"><div>'
+                f'<div style="font-weight:700">{esc(m["title"])}</div>'
+                f'<div class="fm-muted fm-small" style="margin-bottom:.35rem">{esc(m["company"])} · '
+                f'{esc(m["area"])} · <span style="color:{color}">●</span> {esc(m["domain"])} · {esc(stipend)}'
+                f'</div>{bars}</div><div><div class="fm-fit">{m["score"]:.2f}</div>'
+                f'<div class="fm-muted fm-small" style="text-align:right">skill fit</div></div></div></div>')
+    if rec["learn"]:
+        top = max(r["unlocks"] for r in rec["learn"])
+        rows = "".join(
+            f'<div class="fm-learn"><b>{esc(r["skill"])}</b>'
+            f'<div><div class="fm-bar" style="height:.55rem"><span style="width:{r["unlocks"] / top * 100:.0f}%">'
+            f'</span></div><div class="fm-muted" style="font-size:.72rem;margin-top:.15rem">e.g. '
+            f'{esc(", ".join(dict.fromkeys(r["examples"])))}</div></div>'
+            f'<span style="text-align:right">+{r["unlocks"]}</span></div>' for r in rec["learn"])
+        st.html(f'<div class="fm-card" style="margin-top:.4rem"><div class="fm-muted fm-small" '
+                f'style="margin-bottom:.3rem">SKILLS TO LEARN NEXT · extra listings you\'d qualify for '
+                f'at beginner level</div>{rows}</div>')

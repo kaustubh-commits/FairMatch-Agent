@@ -21,6 +21,15 @@ def test_make_decision_fields(students, opportunities):
     assert any(r.startswith("S1 selected") for r in record.reasons)
 
 
+def test_capped_student_is_skipped_with_reason_and_replaced(students, opportunities):
+    # S1 is the best fit for O1 but already won 2 opportunities in this request.
+    record = make_decision("O1", "skill_first", students, opportunities, prior_wins={"S1": 2})
+    assert record.selected == ["S2"]                 # next candidate takes the slot
+    assert record.runner_up == "S3"
+    assert "S1" in record.constraints["skipped"]
+    assert any(r.startswith("S1 skipped") and "max 2 per student" in r for r in record.reasons)
+
+
 def test_log_and_get_round_trip(students, opportunities, path):
     saved = log_decision(make_decision("O1", "hybrid", students, opportunities), path)
     assert saved.id == "D0001" and saved.timestamp and saved.status == "proposed"

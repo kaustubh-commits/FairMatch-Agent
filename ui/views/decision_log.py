@@ -15,9 +15,8 @@ from ui.common import (STATUS_STYLES, appeal_html, decision_body, decision_heade
 
 DEMO_QUERY = "Find the best 3 candidates for the ML internships in Koramangala and explain why."
 
-page_header("Decision log", "SDG 16",
-            "Every proposal is recorded with its reasons, approved by a human and open to appeal "
-            "(accountable, transparent institutions).")
+page_header("Decision log",
+            "Every proposed decision with its reasons. Approve it, or appeal it and let the Auditor re-check.")
 
 provider = st.session_state.provider
 
