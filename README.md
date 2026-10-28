@@ -277,3 +277,23 @@ pytest -q                                                           # 125 tests
 ## 10. Non-goals
 
 No authentication, no database (JSON files only), no deployment, no web scraping. FairMatch is a teaching prototype, and real allocation decisions need real data, consent and oversight.
+
+## 11. Screenshots
+
+**Home:** the two starting paths, one for students and one for coordinators.
+![Home page with the student and coordinator paths](docs/screenshots/home_student_and_coordinator_paths.jpg)
+
+**Find internships:** a student's top matches and the skills that would open up more listings.
+![Find internships: matches and skills to learn](docs/screenshots/students_matches_and_skills_to_learn.jpg)
+
+**Ask the agents:** a rank request with each agent's step shown in the trace.
+![Ask the agents: ranking with the agent trace](docs/screenshots/ask_rank_with_agent_trace.jpg)
+
+**Policy Lab:** all listings allocated under the three policies, side by side.
+![Policy Lab comparing the three policies](docs/screenshots/policy_lab_three_policies.jpg)
+
+**Policy Lab simulation:** how each policy plays out over four rounds.
+![Policy Lab four-round simulation](docs/screenshots/policy_lab_four_round_simulation.jpg)
+
+**Decision Log:** an appealed proposal after the Auditor revised it.
+![Decision log with a revised appeal](docs/screenshots/decision_log_appeal_revised.jpg)
