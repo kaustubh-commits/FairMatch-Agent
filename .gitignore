@@ -18,6 +18,8 @@ data/raw/
 
 # Generated decision log (runtime state)
 data/processed/decisions.json
+data/processed/checkpoints.sqlite*
+data/processed/pending_approvals.json
 
 # OS / editor
 .DS_Store

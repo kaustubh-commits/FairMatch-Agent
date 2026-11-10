@@ -334,7 +334,7 @@ def test_stream_yields_partial_result_before_the_explainer(path):
 def test_each_agent_writes_exactly_one_headline(path, request_text):
     result = run(request_text, client=None, decisions_path=path)
     headlines = [e for e in result.events if e.kind == "headline"]
-    agents = [e.agent for e in headlines]
+    agents = [e.agent for e in headlines if e.agent != "System"]   # System also names the orchestrator
     assert len(agents) == len(set(agents))            # one per agent
     assert {e.agent for e in result.events if e.agent != "System"} == set(agents)
     assert all(h.result_summary.endswith((".", "…")) for h in headlines)

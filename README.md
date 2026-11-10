@@ -52,7 +52,7 @@ The key design idea is a strict split. **Deterministic tools** make every decisi
 ```mermaid
 flowchart LR
     U([User]) --> UI[Streamlit UI<br/>ui/]
-    UI -->|request| ORCH[Orchestrator<br/>agents/orchestrator.py]
+    UI -->|request| ORCH[Orchestrator<br/>agents/graph.py · LangGraph<br/>classic fallback: agents/orchestrator.py]
     ORCH -->|live TraceEvents| UI
 
     subgraph Agents [agents/]
@@ -81,6 +81,7 @@ flowchart LR
         D1[(opportunities.json<br/>69 Internshala listings)]
         D2[(students.json<br/>150 synthetic)]
         D3[(decisions.json<br/>decision log)]
+        D4[(checkpoints.sqlite<br/>paused runs awaiting approval)]
     end
     Tools --> Data
 ```
@@ -90,11 +91,11 @@ flowchart LR
 ```
 data_pipeline/   load_kaggle.py, generate_students.py, import_form.py, build.py, schemas.py
 tools/           search, scoring, allocation, fairness, decisions, recommend, simulation  (no LLM, unit-tested)
-agents/          planner, matcher, equity, auditor, explainer, orchestrator, trace, grounding, cli
+agents/          planner, matcher, equity, auditor, explainer, graph (LangGraph), orchestrator, trace, grounding, cli
 llm/             client.py: Gemini / Ollama / demo-safe wrapper (standard library only)
 ui/              app.py + views/ (home, students, ask, policy_lab, decision_log, map) + common.py
-tests/           125 unit tests (pytest)
-docs/            screenshots/ and ui-critique.md
+tests/           140 unit tests (pytest), run under both orchestrators
+docs/            graph.md (the agent graph), screenshots/ and ui-critique.md
 ```
 
 ## 4. How the agents work together
@@ -223,7 +224,25 @@ Every number in that sentence is real. The **reasoning is false**: under `skill_
 
 The lesson for agentic systems: **put the LLM where being wrong is cheap and checkable, never where being wrong changes an outcome.**
 
-## 7. Data sources and their limits
+## 7. Why LangGraph (and what it doesn't do)
+
+The agents are wired together as a **LangGraph `StateGraph`** (`agents/graph.py`). Each agent is a node that calls the *same* agent function as before. The diagram below is exported from the compiled graph ([docs/graph.md](docs/graph.md)):
+
+![The FairMatch agent graph](docs/screenshots/langgraph.png)
+
+**What LangGraph is used for:**
+
+1. **Routing.** Conditional edges send each intent down its fixed path (rank and compare go through all five agents, recommend skips the Equity Analyst and Auditor, explain and appeal start at the Auditor, help just answers). The router reads `plan.intent`, which the Planner has already validated, so the routes are exactly the fixed `STEPS` in `agents/planner.py`.
+2. **A real pause for human approval.** After a rank run, the `human_approval` node calls LangGraph's `interrupt()`. The run **stops** with its decisions marked *proposed*. When you press **Approve** in the Decision Log, the paused run is resumed, approves that decision with the normal tool, and pauses again until every decision from that run is approved. "A human approves" is now part of the workflow itself, not just a button beside it.
+3. **Checkpointing.** The shared state (plan, proposals, DecisionRecords, equity flags, trace events) is saved after every step in SQLite (`data/processed/checkpoints.sqlite`). A paused run survives an app restart, and there is a test for that.
+
+The live trace is unchanged: each agent still writes to the trace, which feeds LangGraph's custom stream, and the Ask page turns the stream back into the same step-by-step lines. The first line now names the orchestrator: *"Orchestrator: LangGraph."*
+
+**What LangGraph does *not* do: decide anything.** It doesn't score, rank, select, check rules or approve. Scores and selections still come from `tools/`, rules are checked by the Auditor, approval comes from a person, and the LLM still only reads the request and rephrases checked facts. Swapping the orchestrator changes *how the steps are wired*, never *what they decide*. `tests/test_graph.py` proves it: for all six intents, the classic and LangGraph orchestrators produce identical decisions, scores, selections, answers and trace lines.
+
+**Classic fallback.** Set `ORCHESTRATOR=classic` in `.env` to use the original plain-Python orchestrator (`agents/orchestrator.py`). If LangGraph or its SQLite checkpointer can't be imported, FairMatch falls back to classic by itself and says so in the trace.
+
+## 8. Data sources and their limits
 
 | Data | Source | Limits |
 |---|---|---|
@@ -235,7 +254,7 @@ The lesson for agentic systems: **put the LLM where being wrong is cheap and che
 
 If the Kaggle CSV is missing, a bundled synthetic opportunity set is used so the app always runs.
 
-## 8. How to run
+## 9. How to run
 
 ```bash
 # 1. Setup (once)
@@ -248,6 +267,7 @@ python -m data_pipeline.build
 
 # 3. Optional: Gemini. Copy .env.example to .env and add your key
 #    (free key: https://aistudio.google.com/apikey). Without one, demo-safe mode is used.
+#    ORCHESTRATOR=langgraph (default) or classic picks the orchestrator.
 
 # 4. Run the app
 streamlit run ui/app.py
@@ -261,12 +281,14 @@ python -m agents.cli "Find the best 3 candidates for ML internships in Koramanga
 python -m agents.cli --mode demo-safe "Compare the allocation policies"
 python -m agents.cli "I know python and sql, what can I do?"
 python -m agents.cli --verbose "Compare the allocation policies within 10 km"   # developer view
-pytest -q                                                           # 125 tests
+ORCHESTRATOR=langgraph pytest -q                                    # 140 tests (the default)
+ORCHESTRATOR=classic pytest -q                                      # same tests, classic orchestrator
+python -m agents.graph                                              # re-export docs/graph.md + langgraph.png
 ```
 
 **About the Gemini free tier.** It allows about **20 requests per model per day**, and one "rank" request uses 3 calls. When `gemini-3.5-flash` runs out, `gemini-3.5-flash-lite` takes over (set `GEMINI_FALLBACK_MODEL` to change it); when both run out, the app continues in demo-safe mode. Rehearse in demo-safe mode to save quota. Google also retires models for new keys from time to time; if you see "model not available", set `GEMINI_MODEL` to a current flash model.
 
-## 9. SDG → feature map
+## 10. SDG → feature map
 
 | SDG | Target it speaks to | Feature |
 |---|---|---|
@@ -274,11 +296,11 @@ pytest -q                                                           # 125 tests
 | **10: Reduced inequality** | Equal opportunity regardless of background | Equity Analyst flags concentration and the outskirts selection gap; Policy Lab compares Gini, repeat selection, reach and commute, once and over 4 rounds; per-policy commute weights; hybrid policy; ties go to students with fewer past opportunities |
 | **16: Accountable institutions** | Transparent, accountable decision-making | Decision log with reasons, including who was skipped and why; human approval; appeals re-evaluated by a rule-based Auditor; live trace of every step, with honest error messages; explanations only from the record |
 
-## 10. Non-goals
+## 11. Non-goals
 
-No authentication, no database (JSON files only), no deployment, no web scraping. FairMatch is a teaching prototype, and real allocation decisions need real data, consent and oversight.
+No authentication, no database (decisions live in JSON files; the only SQLite file is LangGraph's checkpoint of paused runs), no deployment, no web scraping. FairMatch is a teaching prototype, and real allocation decisions need real data, consent and oversight.
 
-## 11. Screenshots
+## 12. Screenshots
 
 **Home:** the two starting paths, one for students and one for coordinators.
 ![Home page with the student and coordinator paths](docs/screenshots/home_student_and_coordinator_paths.jpg)
@@ -294,6 +316,9 @@ No authentication, no database (JSON files only), no deployment, no web scraping
 
 **Policy Lab simulation:** how each policy plays out over four rounds.
 ![Policy Lab four-round simulation](docs/screenshots/policy_lab_four_round_simulation.jpg)
+
+**Agent graph:** the LangGraph routes, including the pause for human approval.
+![The LangGraph agent graph](docs/screenshots/langgraph.png)
 
 **Decision Log:** an appealed proposal after the Auditor revised it.
 ![Decision log with a revised appeal](docs/screenshots/decision_log_appeal_revised.jpg)

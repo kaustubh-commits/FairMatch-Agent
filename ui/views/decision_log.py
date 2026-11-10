@@ -1,13 +1,17 @@
 """
 Decision Log: every decision the agents proposed, with Approve and Appeal.
 
-Approve is a plain human action (tools.decisions.approve_decision).
+Approve is a plain human action. With the LangGraph orchestrator, a rank run is
+PAUSED waiting for this click (an interrupt), so Approve resumes that paused run,
+which then approves the decision. Older decisions, or ones from the classic
+orchestrator, have no paused run and are approved directly (tools.decisions.approve_decision).
 Appeal goes through the agents, so the Auditor re-evaluates the decision
 deterministically and the Explainer reports the outcome, with a live trace.
 """
 
 import streamlit as st
 
+from agents.orchestrator import pick_orchestrator
 from tools.decisions import approve_decision, list_decisions
 from tools.store import load_students
 from ui.common import (STATUS_STYLES, appeal_html, decision_body, decision_header, esc, label,
@@ -87,7 +91,9 @@ for record in records:
         a, b, _ = st.columns([1, 1, 3])
         if a.button("Approve", key=f"approve-{record.id}", icon=":material/check:",
                     type="primary", disabled=record.status == "approved", width="stretch"):
-            approve_decision(record.id)
+            graph, _ = pick_orchestrator(None)       # agents.graph, or None if classic / unavailable
+            if not (graph and graph.resume_approval(record.id)):
+                approve_decision(record.id)
             st.toast(f"{record.id} approved", icon="✅")
             st.rerun()
         if b.button("Appeal", key=f"appeal-{record.id}", icon=":material/gavel:",

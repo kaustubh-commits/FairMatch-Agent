@@ -234,7 +234,9 @@ def pipeline_html(done: set, active: Optional[str]) -> str:
 
 def line_html(ev: TraceEvent, new: bool) -> str:
     """One plain-language line (a headline) for the default view."""
-    warn = ev.agent == "System" or ev.result_summary.startswith("Flagged")
+    # System lines are warnings (LLM fallbacks), except the plain "Orchestrator: ..." line.
+    plain = ev.action == "orchestrator" and "fallback" not in ev.result_summary
+    warn = (ev.agent == "System" and not plain) or ev.result_summary.startswith("Flagged")
     return (f'<div class="fm-line{" warn" if warn else ""}{" fm-new" if new else ""}" '
             f'style="--c:{AGENT_COLORS.get(ev.agent, "#9ca3af")}"><span>{AGENT_ICONS.get(ev.agent, "•")}</span>'
             f'<div><b>{esc(ev.agent)}</b> {esc(ev.result_summary)}</div></div>')
